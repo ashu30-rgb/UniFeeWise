@@ -7,12 +7,15 @@ export const runtime = "nodejs";
 
 const DISCOUNT_CODE = "LPU20NEST";
 const WHATSAPP_TEMPLATE_NAME = "registration_reminder";
+const BATCH_SIZE = 50;
 
 interface ReminderProcessResult {
   leadId: string;
   email: string;
-  status: "success" | "failed";
+  status: "success" | "failed" | "partial";
   error?: string;
+  emailStatus?: "fulfilled" | "rejected" | "skipped";
+  whatsappStatus?: "fulfilled" | "rejected" | "skipped";
 }
 
 interface WhatsAppMessageResponse {
@@ -42,7 +45,8 @@ async function sendReminderEmail(params: {
   fullName: string;
   registrationDeadline: Date | null;
 }): Promise<void> {
-  const from = process.env.RESEND_FROM_EMAIL ?? "UniFeeWise <onboarding@resend.dev>";
+  const from =
+    process.env.RESEND_FROM_EMAIL ?? "UniFeeWise <onboarding@resend.dev>";
   const deadlineText = params.registrationDeadline
     ? params.registrationDeadline.toLocaleString("en-IN", {
         dateStyle: "medium",
@@ -123,9 +127,20 @@ async function sendWhatsAppReminder(params: {
 
   if (!response.ok || payload.error) {
     throw new Error(
-      payload.error?.message ?? `WhatsApp API returned status ${response.status}`
+      payload.error?.message ??
+        `WhatsApp API returned status ${response.status}`
     );
   }
+}
+
+function getRejectedReason(result: PromiseSettledResult<unknown>): string {
+  if (result.status !== "rejected") {
+    return "";
+  }
+
+  return result.reason instanceof Error
+    ? result.reason.message
+    : String(result.reason);
 }
 
 export async function GET(request: Request): Promise<NextResponse> {
@@ -134,14 +149,17 @@ export async function GET(request: Request): Promise<NextResponse> {
   }
 
   try {
-    const reminderWindowEnd = new Date();
+    const now = new Date();
+    const reminderWindowEnd = new Date(now);
     reminderWindowEnd.setHours(reminderWindowEnd.getHours() + 48);
 
+    // 24h daily batch: deadlines still in the future, but within the next 48h
     const leads = await prisma.leadHistory.findMany({
       where: {
         funnelStatus: "CALCULATOR_COMPLETED",
         lastReminderSentAt: null,
         registrationDeadline: {
+          gt: now,
           lte: reminderWindowEnd,
         },
       },
@@ -152,24 +170,58 @@ export async function GET(request: Request): Promise<NextResponse> {
         whatsappNumber: true,
         registrationDeadline: true,
       },
+      take: BATCH_SIZE,
+      orderBy: {
+        registrationDeadline: "asc",
+      },
     });
 
-    const results: ReminderProcessResult[] = [];
-    let successCount = 0;
-
-    for (const lead of leads) {
-      try {
-        await sendReminderEmail({
-          to: lead.email,
-          fullName: lead.fullName,
-          registrationDeadline: lead.registrationDeadline,
-        });
-
-        if (lead.whatsappNumber) {
-          await sendWhatsAppReminder({
-            whatsappNumber: lead.whatsappNumber,
+    const settledLeads = await Promise.allSettled(
+      leads.map(async (lead): Promise<ReminderProcessResult> => {
+        const deliveryTasks: Array<Promise<void>> = [
+          sendReminderEmail({
+            to: lead.email,
             fullName: lead.fullName,
-          });
+            registrationDeadline: lead.registrationDeadline,
+          }),
+        ];
+
+        const hasWhatsApp = Boolean(lead.whatsappNumber);
+        if (lead.whatsappNumber) {
+          deliveryTasks.push(
+            sendWhatsAppReminder({
+              whatsappNumber: lead.whatsappNumber,
+              fullName: lead.fullName,
+            })
+          );
+        }
+
+        // Isolate channel failures so one bad number doesn't abort the lead
+        const [emailResult, whatsappResult] = await Promise.allSettled(
+          deliveryTasks
+        );
+
+        const emailStatus = emailResult.status;
+        const whatsappStatus: ReminderProcessResult["whatsappStatus"] =
+          hasWhatsApp
+            ? (whatsappResult?.status ?? "rejected")
+            : "skipped";
+
+        const errors: string[] = [];
+        if (emailStatus === "rejected") {
+          errors.push(`email: ${getRejectedReason(emailResult)}`);
+        }
+        if (hasWhatsApp && whatsappResult?.status === "rejected") {
+          errors.push(`whatsapp: ${getRejectedReason(whatsappResult)}`);
+        }
+
+        // Advance funnel if at least one channel delivered successfully
+        const emailOk = emailStatus === "fulfilled";
+        const whatsappOk =
+          !hasWhatsApp || whatsappResult?.status === "fulfilled";
+
+        if (!emailOk && !(hasWhatsApp && whatsappResult?.status === "fulfilled")) {
+          throw new Error(errors.join("; ") || "All reminder channels failed");
         }
 
         await prisma.leadHistory.update({
@@ -180,31 +232,51 @@ export async function GET(request: Request): Promise<NextResponse> {
           },
         });
 
-        successCount += 1;
-        results.push({
-          leadId: lead.id,
-          email: lead.email,
-          status: "success",
-        });
-      } catch (error) {
-        const message =
-          error instanceof Error ? error.message : "Unknown reminder failure";
+        const fullySuccessful = emailOk && whatsappOk;
 
-        console.error(`Failed to send reminder for lead ${lead.id}:`, error);
-        results.push({
+        return {
           leadId: lead.id,
           email: lead.email,
-          status: "failed",
-          error: message,
-        });
+          status: fullySuccessful ? "success" : "partial",
+          error: errors.length > 0 ? errors.join("; ") : undefined,
+          emailStatus,
+          whatsappStatus,
+        };
+      })
+    );
+
+    const results: ReminderProcessResult[] = settledLeads.map((result, index) => {
+      if (result.status === "fulfilled") {
+        return result.value;
       }
-    }
+
+      const lead = leads[index];
+      const message =
+        result.reason instanceof Error
+          ? result.reason.message
+          : "Unknown reminder failure";
+
+      console.error(`Failed to send reminder for lead ${lead.id}:`, result.reason);
+
+      return {
+        leadId: lead.id,
+        email: lead.email,
+        status: "failed",
+        error: message,
+      };
+    });
+
+    const succeeded = results.filter((r) => r.status === "success").length;
+    const partial = results.filter((r) => r.status === "partial").length;
+    const failed = results.filter((r) => r.status === "failed").length;
 
     return NextResponse.json({
       success: true,
       processed: leads.length,
-      succeeded: successCount,
-      failed: leads.length - successCount,
+      batchSize: BATCH_SIZE,
+      succeeded,
+      partial,
+      failed,
       results,
     });
   } catch (error) {
