@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum FunnelStage {
+  CALCULATOR_COMPLETED
+  WHATSAPP_NURTURE
+  EMAIL_REMINDER_SENT
+  DISCOUNT_CODE_CLICKED
+  APPLICATION_SUBMITTED
+}
+
+enum ScholarshipTier {
+  CATEGORY_A
+  CATEGORY_B
+  CATEGORY_C
+  NONE
+}
+
+model LeadHistory {
+  id                            String           @id @default(uuid())
+
+  // Lead Identity
+  fullName                      String
+  email                         String           @unique
+  whatsappNumber                String?          @unique
+
+  // Calculator Inputs & Logic Engine Outputs
+  targetBranch                  String           @default("B.Tech CSE")
+  expectedScore                 Decimal?         @db.Decimal(5, 2)
+  assignedTier                  ScholarshipTier?
+  baseTuitionPerSem             Int              @default(160000)
+  calculatedScholarshipAmount   Int?
+
+  // Marketing & Automation Tracking
+  funnelStatus                  FunnelStage      @default(CALCULATOR_COMPLETED)
+  discountCodeUsed              Boolean          @default(false)
+  registrationDeadline          DateTime?
+  lastReminderSentAt            DateTime?
+
+  // Meta Lead Ads & SEO Attribution
+  utmSource                     String?
+  utmMedium                     String?
+  utmCampaign                   String?
+
+  // Timestamps
+  createdAt                     DateTime         @default(now())
+  updatedAt                     DateTime         @updatedAt
+
+  @@index([registrationDeadline])
+}
