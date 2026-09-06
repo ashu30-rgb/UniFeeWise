@@ -5,7 +5,8 @@
 :root {
   --background: #0d1117;
   --foreground: #e6edf3;
-  --accent: #58a6ff;
+  --accent: #ff6b00;
+  --accent-soft: #f97316;
 }
 
 body {

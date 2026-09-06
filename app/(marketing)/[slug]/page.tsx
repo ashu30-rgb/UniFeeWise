@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import CalculatorForm from "@/components/calculator/CalculatorForm";
+
+const CAMPUS_IMAGE =
+  "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=80";
 
 const programData = {
   cse: {
@@ -91,32 +95,48 @@ export default function ProgramSeoPage({ params }: ProgramSeoPageProps) {
   const program = programData[programKey];
 
   return (
-    <main className="min-h-screen bg-[#0d1117] text-[#e6edf3]">
-      <div className="mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-4 text-4xl font-bold text-white">
-          LPU {program.shortName} Fees & Scholarship Calculator (2026)
-        </h1>
+    <main className="min-h-screen bg-lpu-dark text-foreground">
+      <section className="relative isolate min-h-[55vh] w-full overflow-hidden">
+        <Image
+          src={CAMPUS_IMAGE}
+          alt={`Lovely Professional University campus — ${program.shortName}`}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-hero-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-t from-lpu-dark via-lpu-dark/75 to-lpu-dark/45" />
 
-        <p className="mb-8 max-w-3xl text-base leading-relaxed text-gray-400 sm:text-lg">
-          Looking up{" "}
-          <strong className="font-semibold text-[#e6edf3]">
-            LPU {program.shortName} fees
-          </strong>
-          ? The base tuition fee for {program.fullName} is{" "}
-          <strong className="font-semibold text-[#e6edf3]">
-            {formatINR(program.baseFee)}
-          </strong>{" "}
-          per semester. However, depending on your LPUNEST score (out of{" "}
-          {program.maxScore}), you can secure up to a{" "}
-          <strong className="font-semibold text-emerald-400">60% waiver</strong>
-          —plus estimate your scholarship bracket and ROI with the calculator
-          below.
-        </p>
-
-        <div className="mx-auto w-full max-w-xl">
-          <CalculatorForm />
+        <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-4xl flex-col justify-end px-4 pb-12 pt-20">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">
+            LPU {program.shortName} · Fees & Scholarships
+          </p>
+          <h1 className="max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+            LPU {program.shortName} Fees & Scholarship Calculator (
+            <span className="text-orange-500">LPUNEST 2026</span>)
+          </h1>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-300 sm:text-lg">
+            Looking up{" "}
+            <strong className="font-semibold text-white">
+              LPU {program.shortName} fees
+            </strong>
+            ? The base tuition fee for {program.fullName} is{" "}
+            <strong className="font-semibold text-orange-400">
+              {formatINR(program.baseFee)}
+            </strong>{" "}
+            per semester. However, depending on your LPUNEST score (out of{" "}
+            {program.maxScore}), you can secure up to a{" "}
+            <strong className="font-semibold text-emerald-400">60% waiver</strong>
+            —plus estimate your scholarship bracket and ROI with the calculator
+            below.
+          </p>
         </div>
-      </div>
+      </section>
+
+      <section className="relative z-10 mx-auto -mt-8 w-full max-w-xl px-4 pb-16">
+        <CalculatorForm />
+      </section>
     </main>
   );
 }

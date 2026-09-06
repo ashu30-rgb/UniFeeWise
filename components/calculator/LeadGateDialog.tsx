@@ -113,7 +113,7 @@ export default function LeadGateDialog({
               disabled={isSubmitting}
               value={fullName}
               onChange={(event) => setFullName(event.target.value)}
-              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#58a6ff] focus:ring-1 focus:ring-[#58a6ff] disabled:opacity-60"
+              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] disabled:opacity-60"
               placeholder="Your full name"
             />
           </div>
@@ -134,7 +134,7 @@ export default function LeadGateDialog({
               disabled={isSubmitting}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#58a6ff] focus:ring-1 focus:ring-[#58a6ff] disabled:opacity-60"
+              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] disabled:opacity-60"
               placeholder="you@example.com"
             />
           </div>
@@ -155,7 +155,7 @@ export default function LeadGateDialog({
               disabled={isSubmitting}
               value={whatsappNumber}
               onChange={(event) => setWhatsappNumber(event.target.value)}
-              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#58a6ff] focus:ring-1 focus:ring-[#58a6ff] disabled:opacity-60"
+              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] disabled:opacity-60"
               placeholder="+91 98765 43210"
             />
           </div>

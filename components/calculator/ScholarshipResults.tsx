@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
 
 export interface ScholarshipResultData {
@@ -14,7 +15,8 @@ interface ScholarshipResultsProps {
   data: ScholarshipResultData;
 }
 
-const DISCOUNT_CODE = "LPU20NEST";
+const DISCOUNT_CODE = "LPUMZW722";
+const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -25,10 +27,22 @@ function formatINR(amount: number): string {
 }
 
 export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(DISCOUNT_CODE);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section className="w-full rounded-xl border border-gray-800 bg-[#161b22]/90 p-6 font-sans shadow-xl backdrop-blur-md">
       <div className="mb-6 text-center">
-        <p className="text-sm font-medium uppercase tracking-wide text-[#58a6ff]">
+        <p className="text-sm font-medium uppercase tracking-wide text-orange-400">
           Your Scholarship Result
         </p>
         <h2 className="mt-2 text-2xl font-bold text-[#e6edf3]">
@@ -63,15 +77,22 @@ export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
         </div>
       </dl>
 
-      <div className="mt-6 rounded-xl border border-[#58a6ff]/40 bg-[#58a6ff]/10 p-5 text-center">
-        <p className="text-sm font-medium text-[#58a6ff]">
+      <div className="mt-6 rounded-xl border border-dashed border-[#30363d] bg-[#1e2329] p-5 text-center">
+        <p className="text-sm font-medium uppercase tracking-wide text-[#8b949e]">
           Exclusive 20% LPUNEST Application Discount Code
         </p>
-        <p className="mt-3 font-mono text-2xl font-bold tracking-widest text-[#e6edf3]">
+        <button
+          type="button"
+          onClick={handleCopyCode}
+          className="mt-3 w-full rounded-lg border border-dashed border-orange-500/50 bg-[#0d1117] px-4 py-3 font-mono text-2xl font-bold tracking-widest text-orange-400 transition hover:border-orange-500 hover:bg-[#161b22]"
+          aria-label={`Copy discount code ${DISCOUNT_CODE}`}
+        >
           {DISCOUNT_CODE}
-        </p>
+        </button>
         <p className="mt-2 text-xs text-gray-400">
-          Apply this code during your LPUNEST application to save an extra 20%.
+          {copied
+            ? "Copied to clipboard!"
+            : "Click the code to copy, then apply it on the LPUNEST portal."}
         </p>
       </div>
 
@@ -80,9 +101,7 @@ export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
         text="Apply Now with Discount"
         className="mt-6 w-full"
         onClick={() => {
-          alert(
-            `Use discount code ${DISCOUNT_CODE} on the LPUNEST application portal. Affiliate link coming soon.`
-          );
+          window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
         }}
       />
     </section>

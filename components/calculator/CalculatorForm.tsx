@@ -178,7 +178,7 @@ export default function CalculatorForm() {
               onChange={(event) =>
                 setTargetBranch(event.target.value as TargetBranch)
               }
-              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] outline-none transition focus:border-[#58a6ff] focus:ring-1 focus:ring-[#58a6ff]"
+              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] outline-none transition focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00]"
             >
               {BRANCH_OPTIONS.map((branch) => (
                 <option key={branch} value={branch}>
@@ -206,7 +206,7 @@ export default function CalculatorForm() {
               placeholder="0 – 400"
               value={expectedScore ?? ""}
               onChange={handleScoreChange}
-              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#58a6ff] focus:ring-1 focus:ring-[#58a6ff]"
+              className="w-full rounded-lg border border-gray-700 bg-[#0d1117] px-3 py-2.5 text-[#e6edf3] placeholder:text-gray-500 outline-none transition focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00]"
             />
             {error ? (
               <p className="text-sm text-red-400" role="alert">

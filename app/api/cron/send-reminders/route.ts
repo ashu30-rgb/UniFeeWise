@@ -5,7 +5,8 @@ import { getResend } from "@/lib/resend";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const DISCOUNT_CODE = "LPU20NEST";
+const DISCOUNT_CODE = "LPUMZW722";
+const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 const WHATSAPP_TEMPLATE_NAME = "registration_reminder";
 const BATCH_SIZE = 50;
 
@@ -43,38 +44,37 @@ function isAuthorized(request: Request): boolean {
 async function sendReminderEmail(params: {
   to: string;
   fullName: string;
-  registrationDeadline: Date | null;
+  targetBranch: string;
 }): Promise<void> {
   const from =
     process.env.RESEND_FROM_EMAIL ?? "UniFeeWise <onboarding@resend.dev>";
-  const deadlineText = params.registrationDeadline
-    ? params.registrationDeadline.toLocaleString("en-IN", {
-        dateStyle: "medium",
-        timeStyle: "short",
-      })
-    : "soon";
 
   const { error } = await getResend().emails.send({
     from,
     to: params.to,
-    subject: "Reminder: Register for LPUNEST before your deadline",
+    subject: "Your LPUNEST 2026 deadline is approaching — 20% discount inside",
     html: `
-      <div style="font-family: sans-serif; line-height: 1.6; color: #0d1117;">
-        <h2>Hi ${params.fullName},</h2>
-        <p>
-          Your LPUNEST registration window is closing. Please complete your
-          application before <strong>${deadlineText}</strong>.
-        </p>
-        <p>
-          Use your exclusive <strong>20% application discount code</strong>:
-          <code style="font-size: 18px; letter-spacing: 2px;">${DISCOUNT_CODE}</code>
-        </p>
-        <p>
-          Don’t miss out on your calculated scholarship bracket — register now
-          and apply the discount at checkout.
-        </p>
-        <p>— Team UniFeeWise</p>
-      </div>
+<div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid #1f2937; background-color: #0d1117;">
+  <div style="background-color: #161b22; padding: 32px 24px; text-align: center; border-bottom: 1px solid #1f2937;">
+    <h2 style="color: #e6edf3; margin: 0; font-size: 24px; font-weight: 600;">LPUNEST 2026 Application</h2>
+  </div>
+  <div style="padding: 32px 24px; color: #c9d1d9;">
+    <p style="font-size: 16px; line-height: 1.5; margin-top: 0;">Hi ${params.fullName},</p>
+    <p style="font-size: 16px; line-height: 1.5;">Your registration deadline for LPUNEST is approaching in less than 48 hours. Complete your application now to lock in your calculated scholarship for <strong>${params.targetBranch}</strong>.</p>
+    
+    <div style="background-color: #161b22; border: 1px dashed #30363d; padding: 24px; border-radius: 8px; text-align: center; margin: 32px 0;">
+      <p style="margin: 0; font-size: 14px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Your Flat 20% Discount Code</p>
+      <p style="margin: 12px 0 0 0; font-size: 32px; font-weight: 800; letter-spacing: 2px; color: #58a6ff;">${DISCOUNT_CODE}</p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 32px; margin-bottom: 16px;">
+      <a href="${AFFILIATE_URL}" style="background-color: #58a6ff; color: #0d1117; padding: 16px 32px; text-decoration: none; font-size: 16px; font-weight: 700; border-radius: 6px; display: inline-block;">Apply Now With Discount</a>
+    </div>
+  </div>
+  <div style="padding: 24px; text-align: center; background-color: #010409; color: #484f58; font-size: 12px;">
+    <p style="margin: 0;">You are receiving this because you calculated your fees on our portal.</p>
+  </div>
+</div>
     `,
   });
 
@@ -168,6 +168,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         fullName: true,
         email: true,
         whatsappNumber: true,
+        targetBranch: true,
         registrationDeadline: true,
       },
       take: BATCH_SIZE,
@@ -182,7 +183,7 @@ export async function GET(request: Request): Promise<NextResponse> {
           sendReminderEmail({
             to: lead.email,
             fullName: lead.fullName,
-            registrationDeadline: lead.registrationDeadline,
+            targetBranch: lead.targetBranch,
           }),
         ];
 
