@@ -1,0 +1,224 @@
+{
+  "physics": {
+    "title": "LPUNEST Physics Mock Test",
+    "subjectName": "Physics",
+    "timeLimitMinutes": 10,
+    "questions": [
+      {
+        "id": "p1",
+        "text": "An electron moving towards the east enters a magnetic field directed towards the north. The force on the electron will be directed:",
+        "options": ["Vertically upward", "Vertically downward", "Towards the west", "Towards the south"],
+        "correctAnswer": 1
+      },
+      {
+        "id": "p2",
+        "text": "In a LCR series circuit, at resonant frequency:",
+        "options": ["The impedance and current are maximum", "The impedance is maximum", "Current and voltage are out of phase", "The current is maximum"],
+        "correctAnswer": 3
+      },
+      {
+        "id": "p3",
+        "text": "The saturation current I of a photocell varies with distance from the source (d) as:",
+        "options": ["I ∞ d", "I ∞ d^2", "I ∞ 1/d", "I ∞ 1/d^2"],
+        "correctAnswer": 3
+      },
+      {
+        "id": "p4",
+        "text": "A radioactive element X with half life 2 hrs decays giving a stable element Y. After a time t, the ratio of X to Y atoms is 1:16. Time t is:",
+        "options": ["4 hrs", "6 hrs", "8 hrs", "16 hrs"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "p5",
+        "text": "If the kinetic energy of a body becomes four times its initial value, the new momentum will be:",
+        "options": ["Same", "Twice", "Thrice", "Four times"],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "chemistry": {
+    "title": "LPUNEST Chemistry Mock Test",
+    "subjectName": "Chemistry",
+    "timeLimitMinutes": 10,
+    "questions": [
+      {
+        "id": "c1",
+        "text": "In the reaction, 3Cl2 + 6NaOH → NaClO3 + 5NaCl + 3H2O, the element which loses as well as gains electrons is:",
+        "options": ["Cl", "Na", "O", "H"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "c2",
+        "text": "The addition of arsenic to germanium makes the latter a:",
+        "options": ["p-type semiconductor", "Intrinsic semiconductor", "n-type semiconductor", "Insulator"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "c3",
+        "text": "What is the degree of hardness of a sample of water containing 24mg of MgSO4 (molecular mass 120) per kg of water?",
+        "options": ["10 ppm", "15 ppm", "25 ppm", "20 ppm"],
+        "correctAnswer": 3
+      },
+      {
+        "id": "c4",
+        "text": "Which one of the following molecules has the smallest bond angle?",
+        "options": ["NH3", "H2O", "H2S", "CH4"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "c5",
+        "text": "Equivalent conductance of 1M CH3COOH is 10 ohm-1 cm2 equiv-1 and that at infinite dilution is 200 ohm-1 cm2 equiv-1. Hence the % ionization of CH3COOH is:",
+        "options": ["1%", "5%", "10%", "20%"],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "mathematics": {
+    "title": "LPUNEST Mathematics Mock Test",
+    "subjectName": "Mathematics",
+    "timeLimitMinutes": 15,
+    "questions": [
+      {
+        "id": "m1",
+        "text": "The algebraic expression x^2 + √5x + 9 is a:",
+        "options": ["Polynomial", "Not a Polynomial", "Integer", "None of these"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "m2",
+        "text": "The shadow of a tree 6m high is 2√3m. The angle of elevation of the sun will be:",
+        "options": ["60 degrees", "30 degrees", "75 degrees", "None of these"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "m3",
+        "text": "The distance of the point (x, y) from the x-axis is:",
+        "options": ["|x|", "|y|", "x^2", "y^2"],
+        "correctAnswer": 1
+      },
+      {
+        "id": "m4",
+        "text": "A coin is tossed once. What is the probability of getting a tail?",
+        "options": ["1/2", "1", "2", "None of these"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "m5",
+        "text": "The sum of three consecutive terms in a geometric progression is 14. If 1 is added to the first and the second terms and 1 is subtracted from the third, the resulting new terms are in arithmetic progression. Then the lowest of the original terms is:",
+        "options": ["1", "2", "4", "8"],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "biology": {
+    "title": "LPUNEST Biology Mock Test",
+    "subjectName": "Biology",
+    "timeLimitMinutes": 10,
+    "questions": [
+      {
+        "id": "b1",
+        "text": "Conversion of glucose to lactate takes place in:",
+        "options": ["Aerobic condition", "Anaerobic condition", "Both aerobic and anaerobic", "None of these"],
+        "correctAnswer": 1
+      },
+      {
+        "id": "b2",
+        "text": "The only movable bone in the skull is the:",
+        "options": ["Maxilla", "Frontoparietal", "Mandible", "Nasal"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "b3",
+        "text": "The maximum life span of a dog is approximately:",
+        "options": ["5 years", "10 years", "15 years", "20 years"],
+        "correctAnswer": 3
+      },
+      {
+        "id": "b4",
+        "text": "The most abundant element present in plants is:",
+        "options": ["Manganese", "Iron", "Carbon", "Nitrogen"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "b5",
+        "text": "The hunger center in humans is present in the:",
+        "options": ["Medulla oblongata", "Hypothalamus", "Pons varolii", "Mitochondria"],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "english": {
+    "title": "LPUNEST English Mock Test",
+    "subjectName": "English",
+    "timeLimitMinutes": 10,
+    "questions": [
+      {
+        "id": "e1",
+        "text": "Choose the correct synonym for 'MITIGATE':",
+        "options": ["Aggravate", "Alleviate", "Instigate", "Allocate"],
+        "correctAnswer": 1
+      },
+      {
+        "id": "e2",
+        "text": "By the end of the year, she _______ with a degree in business.",
+        "options": ["already graduates", "already graduated", "will have already graduated", "has already graduated"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "e3",
+        "text": "Choose the synonym for the following word: Hallowed.",
+        "options": ["Sacred", "Old", "Inactive", "Effective"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "e4",
+        "text": "As _______ cuts it as well as he does, I always have my hair cut at Johnson's.",
+        "options": ["anyone", "someone else's", "no one else", "everyone"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "e5",
+        "text": "Identify the correct spelling:",
+        "options": ["Pugnacios", "Pugnacious", "Pagnacous", "Pugnashous"],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "computer-science": {
+    "title": "LPUNEST Computer Science Mock Test",
+    "subjectName": "Computer Science",
+    "timeLimitMinutes": 10,
+    "questions": [
+      {
+        "id": "cs1",
+        "text": "Which of these are the 5 generic software engineering framework activities?",
+        "options": ["Communication, planning, modeling, construction, deployment", "Analysis, designing, programming, debugging, maintenance", "Analysis, planning, designing, programming, testing", "Communication, risk management, measurement, production, reviewing"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "cs2",
+        "text": "In Boolean algebra, A + AB equals:",
+        "options": ["A(BC)C", "AB + AC", "A", "1"],
+        "correctAnswer": 2
+      },
+      {
+        "id": "cs3",
+        "text": "In C++, how do you read and write data to files?",
+        "options": ["Use classes derived from ios", "Use C language library functions", "Open and close files as in procedural language", "None of these"],
+        "correctAnswer": 0
+      },
+      {
+        "id": "cs4",
+        "text": "Which of the following is not an objective of management?",
+        "options": ["Earning Profits", "Policy making", "Providing employment", "Growth of the organisation"],
+        "correctAnswer": 1
+      },
+      {
+        "id": "cs5",
+        "text": "Which data structure operates on a Last-In, First-Out (LIFO) principle?",
+        "options": ["Queue", "Stack", "Tree", "Graph"],
+        "correctAnswer": 1
+      }
+    ]
+  }
+}

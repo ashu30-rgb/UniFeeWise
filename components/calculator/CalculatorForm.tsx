@@ -33,6 +33,8 @@ interface LeadsApiResponse {
   error?: string;
 }
 
+const isDev = process.env.NODE_ENV === "development";
+
 export default function CalculatorForm() {
   const [targetBranch, setTargetBranch] = useState<TargetBranch>("B.Tech CSE");
   const [expectedScore, setExpectedScore] = useState<number | null>(null);
@@ -67,7 +69,34 @@ export default function CalculatorForm() {
     setError(null);
   };
 
-  const handleOpenLeadGate = (event: FormEvent) => {
+  const fetchScholarshipResults = async (): Promise<ScholarshipResultData> => {
+    const calculateResponse = await fetch("/api/calculate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        targetBranch,
+        expectedScore,
+      }),
+    });
+
+    const calculatePayload =
+      (await calculateResponse.json()) as CalculateApiResponse;
+
+    if (
+      !calculateResponse.ok ||
+      !calculatePayload.success ||
+      !calculatePayload.data
+    ) {
+      throw new Error(
+        calculatePayload.error ??
+          "Unable to calculate your scholarship. Please try again."
+      );
+    }
+
+    return calculatePayload.data;
+  };
+
+  const handleCalculate = async (event: FormEvent) => {
     event.preventDefault();
 
     if (expectedScore === null) {
@@ -81,6 +110,26 @@ export default function CalculatorForm() {
     }
 
     setError(null);
+
+    // Skip the contact/lead gate modal in development.
+    if (isDev) {
+      setIsLoading(true);
+      try {
+        const data = await fetchScholarshipResults();
+        setResults(data);
+      } catch (err) {
+        const message =
+          err instanceof Error
+            ? err.message
+            : "Something went wrong. Please try again.";
+        alert(message);
+        console.error("Dev calculate flow failed:", err);
+      } finally {
+        setIsLoading(false);
+      }
+      return;
+    }
+
     setIsModalOpen(true);
   };
 
@@ -115,30 +164,8 @@ export default function CalculatorForm() {
         );
       }
 
-      const calculateResponse = await fetch("/api/calculate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          targetBranch,
-          expectedScore,
-        }),
-      });
-
-      const calculatePayload =
-        (await calculateResponse.json()) as CalculateApiResponse;
-
-      if (
-        !calculateResponse.ok ||
-        !calculatePayload.success ||
-        !calculatePayload.data
-      ) {
-        throw new Error(
-          calculatePayload.error ??
-            "Unable to calculate your scholarship. Please try again."
-        );
-      }
-
-      setResults(calculatePayload.data);
+      const data = await fetchScholarshipResults();
+      setResults(data);
       setIsModalOpen(false);
     } catch (err) {
       const message =
@@ -160,7 +187,7 @@ export default function CalculatorForm() {
   return (
     <>
       <form
-        onSubmit={handleOpenLeadGate}
+        onSubmit={handleCalculate}
         className="w-full rounded-xl border border-gray-800 bg-[#161b22]/90 p-6 font-sans shadow-xl backdrop-blur-md"
       >
         <div className="flex flex-col gap-5">
@@ -221,22 +248,29 @@ export default function CalculatorForm() {
 
           <GlowingCtaButton
             type="submit"
-            text="Calculate Scholarship & Fees"
+            text={
+              isLoading
+                ? "Calculating..."
+                : "Calculate Scholarship & Fees"
+            }
             className="mt-2 w-full"
+            disabled={isLoading}
           />
         </div>
       </form>
 
-      <LeadGateDialog
-        isOpen={isModalOpen}
-        isSubmitting={isLoading}
-        onClose={() => {
-          if (!isLoading) {
-            setIsModalOpen(false);
-          }
-        }}
-        onSubmit={handleLeadSubmit}
-      />
+      {!isDev ? (
+        <LeadGateDialog
+          isOpen={isModalOpen}
+          isSubmitting={isLoading}
+          onClose={() => {
+            if (!isLoading) {
+              setIsModalOpen(false);
+            }
+          }}
+          onSubmit={handleLeadSubmit}
+        />
+      ) : null}
     </>
   );
 }
