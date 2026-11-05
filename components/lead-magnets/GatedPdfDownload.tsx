@@ -1,164 +1,104 @@
 "use client";
 
 import { useState } from "react";
-import LeadGateDialog, {
-  type LeadFormData,
-} from "@/components/calculator/LeadGateDialog";
-import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
+import { Download, Copy, Check, ExternalLink, FileText } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
+import { DISCOUNT_CODE, AFFILIATE_URL } from "@/lib/constants";
 
 const PDF_HREF = "/assets/lpunest-btech-previous-year.pdf";
 const PDF_DOWNLOAD_NAME = "LPUNEST_BTech_Paper.pdf";
-const DISCOUNT_CODE = "LPUMZW722";
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
-
-interface LeadsApiResponse {
-  success?: boolean;
-  data?: { id: string };
-  error?: string;
-}
-
-function DocumentIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="h-10 w-10 text-orange-400"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="8" x2="16" y1="13" y2="13" />
-      <line x1="8" x2="16" y1="17" y2="17" />
-      <line x1="8" x2="12" y1="9" y2="9" />
-    </svg>
-  );
-}
 
 export default function GatedPdfDownload() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
 
-  const handleLeadSubmit = async (leadData: LeadFormData) => {
-    setIsLoading(true);
-
+  const handleCopyCode = async () => {
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName: leadData.fullName,
-          email: leadData.email,
-          whatsappNumber: leadData.whatsappNumber,
-          targetBranch: "B.Tech CSE",
-          expectedScore: 0,
-        }),
-      });
-
-      const payload = (await response.json()) as LeadsApiResponse;
-
-      if (!response.ok || !payload.success) {
-        throw new Error(
-          payload.error ?? "Unable to unlock the paper. Please try again."
-        );
+      await navigator.clipboard.writeText(DISCOUNT_CODE);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = DISCOUNT_CODE;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        // ignore
       }
-
-      setIsUnlocked(true);
-      setIsModalOpen(false);
-      trackLeadConversion(1.0, "INR");
-    } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Something went wrong. Please try again.";
-      alert(message);
-      console.error("Gated PDF unlock failed:", error);
-    } finally {
-      setIsLoading(false);
+      document.body.removeChild(textarea);
     }
+    setCopiedCode(true);
+    trackLeadConversion(20.0, "INR");
+    setTimeout(() => setCopiedCode(false), 2500);
   };
 
-  if (isUnlocked) {
-    return (
-      <section className="w-full rounded-xl border border-gray-800 bg-[#161b22] p-6 text-center shadow-xl">
-        <p className="text-sm font-semibold uppercase tracking-wide text-emerald-400">
-          Unlocked
-        </p>
-        <h2 className="mt-2 text-2xl font-bold text-[#e6edf3]">
-          Your LPUNEST B.Tech Paper is Ready
+  const handleDownloadClick = () => {
+    trackLeadConversion(10.0, "INR");
+  };
+
+  const handleApplyClick = () => {
+    trackLeadConversion(50.0, "INR");
+    window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <section className="w-full rounded-2xl border border-slate-800 bg-slate-900/90 p-6 sm:p-8 text-center shadow-xl space-y-6">
+      <div className="flex flex-col items-center">
+        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-500/30 bg-orange-500/10 text-orange-400">
+          <FileText className="h-8 w-8" />
+        </div>
+        <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+          Instant Free Download • Zero Signup Required
+        </span>
+        <h2 className="mt-2 text-2xl font-black text-white sm:text-3xl">
+          LPUNEST B.Tech Previous Year Paper
         </h2>
-        <p className="mt-2 text-sm text-gray-400">
-          Download the PDF below and use your exclusive application discount
-          when you register.
+        <p className="mt-2 max-w-md text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Practice authentic exam questions with detailed explanations. No email,
+          phone number, or registration gate needed.
         </p>
 
+        {/* Direct Download Button */}
         <a
           href={PDF_HREF}
           download={PDF_DOWNLOAD_NAME}
-          className="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-3 font-bold text-white shadow-[0_0_15px_rgba(249,115,22,0.4)] transition hover:from-orange-600 hover:to-amber-600 hover:shadow-[0_0_20px_rgba(255,107,0,0.4)]"
+          onClick={handleDownloadClick}
+          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:from-orange-600 hover:to-amber-600 cursor-pointer"
         >
-          Download PDF Now
+          <Download className="h-4 w-4" />
+          <span>Download Question Paper (PDF)</span>
         </a>
+      </div>
 
-        <div className="mt-6 rounded-xl border border-dashed border-orange-500/60 bg-[#1e2329] p-5">
-          <p className="text-sm font-medium uppercase tracking-wide text-[#8b949e]">
-            Official 20% Application Form Discount
-          </p>
-          <p className="mt-3 font-mono text-3xl font-extrabold tracking-widest text-orange-400">
+      {/* Official 20% Form Discount Box */}
+      <div className="rounded-xl border border-dashed border-orange-500/50 bg-slate-950/80 p-5 space-y-3">
+        <span className="text-xs font-bold uppercase tracking-wider text-orange-400">
+          Official 20% LPUNEST Form Discount
+        </span>
+        <div className="flex items-center justify-center gap-2">
+          <span className="font-mono text-2xl sm:text-3xl font-black tracking-widest text-white bg-slate-900 px-4 py-1 rounded-xl border border-slate-700">
             {DISCOUNT_CODE}
-          </p>
-          <a
-            href={AFFILIATE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackLeadConversion(2.0, "INR")}
-            className="mt-4 inline-flex text-sm font-semibold text-orange-300 underline-offset-4 transition hover:text-orange-200 hover:underline"
-          >
-            Apply on Official LPU Portal (Code LPUMZW722) →
-          </a>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <>
-      <section className="w-full rounded-xl border border-gray-800 bg-[#161b22] p-6 shadow-xl">
-        <div className="flex flex-col items-center text-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-500/30 bg-orange-500/10">
-            <DocumentIcon />
-          </div>
-          <h2 className="text-xl font-bold text-[#e6edf3] sm:text-2xl">
-            LPUNEST B.Tech Previous Year Paper
-          </h2>
-          <p className="mt-2 max-w-md text-sm text-gray-400">
-            Unlock the free PDF instantly. Enter your details once to download
-            and claim your 20% LPUNEST application discount.
-          </p>
-          <GlowingCtaButton
+          </span>
+          <button
             type="button"
-            text="Unlock & Download Free"
-            className="mt-6 w-full"
-            onClick={() => setIsModalOpen(true)}
-          />
+            onClick={handleCopyCode}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-orange-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-orange-500 transition shadow-sm cursor-pointer whitespace-nowrap"
+          >
+            {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />}
+            <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
+          </button>
         </div>
-      </section>
-
-      <LeadGateDialog
-        isOpen={isModalOpen}
-        isSubmitting={isLoading}
-        onClose={() => {
-          if (!isLoading) {
-            setIsModalOpen(false);
-          }
-        }}
-        onSubmit={handleLeadSubmit}
-      />
-    </>
+        <p className="text-xs text-slate-300">
+          Reduces official application form kit from ₹1,000 to <strong className="text-white">₹800</strong> (girls: <strong className="text-white">₹400</strong>).
+        </p>
+        <button
+          type="button"
+          onClick={handleApplyClick}
+          className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-orange-400 hover:text-orange-300 transition underline underline-offset-4 cursor-pointer"
+        >
+          <span>Apply on Official LPU Portal (Code {DISCOUNT_CODE})</span>
+          <ExternalLink className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </section>
   );
 }

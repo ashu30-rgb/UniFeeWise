@@ -1,13 +1,10 @@
 "use client";
 
-import { useState, useId, type FormEvent, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import Link from "next/link";
 import {
-  Lock,
-  Unlock,
   Copy,
   Check,
-  ExternalLink,
   BookOpen,
   CheckCircle2,
   Tag,
@@ -15,7 +12,14 @@ import {
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
+import {
+  DISCOUNT_CODE,
+  AFFILIATE_URL,
+  WHATSAPP_COMMUNITY_URL as SHARED_WHATSAPP_URL,
+} from "@/lib/constants";
+
+const WHATSAPP_COMMUNITY_URL =
+  process.env.NEXT_PUBLIC_WHATSAPP_COMMUNITY_URL || SHARED_WHATSAPP_URL;
 
 const STANDARD_WAIVERS: Record<ScholarshipTierKey, number> = {
   CATEGORY_A: 0.5,
@@ -79,7 +83,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "B.Tech ECE": {
-    name: "B.Tech Electronics & Communication Engineering",
+    name: "B.Tech Electronics & Communication",
     short: "B.Tech ECE",
     category: "B.Tech",
     baseFee: 140000,
@@ -88,7 +92,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "B.Tech Mechanical": {
-    name: "B.Tech Mechanical Engineering (ME)",
+    name: "B.Tech Mechanical Engineering",
     short: "B.Tech Mechanical",
     category: "B.Tech",
     baseFee: 140000,
@@ -97,7 +101,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "B.Tech Civil": {
-    name: "B.Tech Civil Engineering (CE)",
+    name: "B.Tech Civil Engineering",
     short: "B.Tech Civil",
     category: "B.Tech",
     baseFee: 140000,
@@ -106,7 +110,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "B.Tech Electrical": {
-    name: "B.Tech Electrical Engineering (EE)",
+    name: "B.Tech Electrical Engineering",
     short: "B.Tech Electrical",
     category: "B.Tech",
     baseFee: 140000,
@@ -124,7 +128,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "B.Tech Biotechnology": {
-    name: "B.Tech Biotechnology (BT)",
+    name: "B.Tech Biotechnology",
     short: "B.Tech Biotech",
     category: "B.Tech",
     baseFee: 140000,
@@ -133,7 +137,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "B.Tech Robotics & Automation": {
-    name: "B.Tech Robotics and Automation",
+    name: "B.Tech Robotics & Automation",
     short: "B.Tech Robotics",
     category: "B.Tech",
     baseFee: 140000,
@@ -142,7 +146,7 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
   "Integrated B.Tech CSE + MBA": {
-    name: "Integrated B.Tech (CSE) – MBA (Dual Degree)",
+    name: "Integrated B.Tech CSE + MBA (5 Years Dual Degree)",
     short: "B.Tech + MBA",
     category: "B.Tech",
     baseFee: 160000,
@@ -151,116 +155,274 @@ export const BRANCH_CONFIG = {
     waivers: STANDARD_WAIVERS,
   },
 
-  // Under-Graduate (UG) Top Programmes
+  // Famous Under-Graduate Programmes
   BCA: {
     name: "Bachelor of Computer Applications (BCA)",
     short: "BCA",
-    category: "UG",
+    category: "Under-Graduate",
     baseFee: 80000,
     durationYears: 3,
     semesters: 6,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "BCA (Hons)": {
+    name: "BCA (Honours) / Specializations in Cloud & AI",
+    short: "BCA (Hons)",
+    category: "Under-Graduate",
+    baseFee: 120000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: {
+      CATEGORY_A: 0.4,
+      CATEGORY_B: 0.3,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
   BBA: {
     name: "Bachelor of Business Administration (BBA)",
     short: "BBA",
-    category: "UG",
+    category: "Under-Graduate",
     baseFee: 80000,
     durationYears: 3,
     semesters: 6,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "BBA (Hons)": {
+    name: "BBA (Honours) / Financial Markets",
+    short: "BBA (Hons)",
+    category: "Under-Graduate",
+    baseFee: 120000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: {
+      CATEGORY_A: 0.4,
+      CATEGORY_B: 0.3,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
   "B.Com": {
-    name: "Bachelor of Commerce (B.Com / B.Com Hons)",
+    name: "Bachelor of Commerce (B.Com)",
     short: "B.Com",
-    category: "UG",
-    baseFee: 90000,
-    durationYears: 3,
-    semesters: 6,
-    waivers: STANDARD_WAIVERS,
-  },
-  "B.Sc IT": {
-    name: "B.Sc Information Technology (IT)",
-    short: "B.Sc IT",
-    category: "UG",
+    category: "Under-Graduate",
     baseFee: 80000,
     durationYears: 3,
     semesters: 6,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
   },
-  "B.Pharm": {
-    name: "Bachelor of Pharmacy (B.Pharm)",
-    short: "B.Pharm",
-    category: "UG",
+  "B.Sc (Hons) Agriculture": {
+    name: "B.Sc (Honours) Agriculture (ICAR Accredited)",
+    short: "B.Sc Agriculture",
+    category: "Under-Graduate",
     baseFee: 120000,
     durationYears: 4,
     semesters: 8,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
   },
-  "B.Des": {
-    name: "Bachelor of Design (B.Design Fashion/Product/Interior)",
-    short: "B.Des",
-    category: "UG",
-    baseFee: 140000,
+  "B.Pharm": {
+    name: "Bachelor of Pharmacy (B.Pharm - PCI Approved)",
+    short: "B.Pharm",
+    category: "Under-Graduate",
+    baseFee: 120000,
     durationYears: 4,
     semesters: 8,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
   },
-  "BA LLB": {
-    name: "B.A., LL.B. (Hons.) 5-Year Integrated Law",
+  "B.Sc Biotechnology": {
+    name: "B.Sc (Hons) Biotechnology",
+    short: "B.Sc Biotech",
+    category: "Under-Graduate",
+    baseFee: 80000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "BA LLB (Hons)": {
+    name: "BA LLB (Honours) 5-Year Integrated Law",
     short: "BA LLB",
-    category: "UG",
-    baseFee: 140000,
+    category: "Under-Graduate",
+    baseFee: 120000,
     durationYears: 5,
     semesters: 10,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "B.Design": {
+    name: "Bachelor of Design (Fashion / Interior / Product)",
+    short: "B.Design",
+    category: "Under-Graduate",
+    baseFee: 120000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "B.Arch": {
+    name: "Bachelor of Architecture (COA Approved)",
+    short: "B.Arch",
+    category: "Under-Graduate",
+    baseFee: 120000,
+    durationYears: 5,
+    semesters: 10,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "B.Physiotherapy": {
+    name: "Bachelor of Physiotherapy (BPT)",
+    short: "BPT",
+    category: "Under-Graduate",
+    baseFee: 80000,
+    durationYears: 4.5,
+    semesters: 8,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
+  },
+  "BHMCT (Hotel Management)": {
+    name: "Bachelor of Hotel Management & Catering Tech",
+    short: "BHMCT",
+    category: "Under-Graduate",
+    baseFee: 80000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: {
+      CATEGORY_A: 0.5,
+      CATEGORY_B: 0.4,
+      CATEGORY_C: 0.3,
+      NONE: 0.0,
+    },
   },
 
-  // Post-Graduate (PG) Top Programmes
+  // Famous Post-Graduate Programmes
   MBA: {
     name: "Master of Business Administration (MBA)",
     short: "MBA",
-    category: "PG",
-    baseFee: 220000,
+    category: "Post-Graduate",
+    baseFee: 200000,
     durationYears: 2,
     semesters: 4,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.3,
+      CATEGORY_B: 0.25,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
+  },
+  "MBA (Specialized)": {
+    name: "MBA (Hospital & Healthcare / Supply Chain / FinTech)",
+    short: "MBA Specialized",
+    category: "Post-Graduate",
+    baseFee: 250000,
+    durationYears: 2,
+    semesters: 4,
+    waivers: {
+      CATEGORY_A: 0.3,
+      CATEGORY_B: 0.25,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
   MCA: {
     name: "Master of Computer Applications (MCA)",
     short: "MCA",
-    category: "PG",
+    category: "Post-Graduate",
     baseFee: 100000,
     durationYears: 2,
     semesters: 4,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.4,
+      CATEGORY_B: 0.3,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
   "M.Tech CSE": {
-    name: "M.Tech Computer Science & Engineering",
+    name: "Master of Technology in Computer Science",
     short: "M.Tech CSE",
-    category: "PG",
+    category: "Post-Graduate",
     baseFee: 100000,
     durationYears: 2,
     semesters: 4,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.4,
+      CATEGORY_B: 0.3,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
-  "M.Com": {
-    name: "Master of Commerce (M.Com)",
-    short: "M.Com",
-    category: "PG",
-    baseFee: 60000,
+  "M.Pharm": {
+    name: "Master of Pharmacy (Pharmaceutics / Pharmacology)",
+    short: "M.Pharm",
+    category: "Post-Graduate",
+    baseFee: 120000,
     durationYears: 2,
     semesters: 4,
-    waivers: STANDARD_WAIVERS,
+    waivers: {
+      CATEGORY_A: 0.4,
+      CATEGORY_B: 0.3,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
-  "LL.B.": {
-    name: "Bachelor of Laws (LL.B. 3-Year Graduate Route)",
-    short: "LL.B.",
-    category: "PG",
-    baseFee: 90000,
-    durationYears: 3,
-    semesters: 6,
-    waivers: STANDARD_WAIVERS,
+  "M.Sc Biotechnology": {
+    name: "Master of Science in Biotechnology",
+    short: "M.Sc Biotech",
+    category: "Post-Graduate",
+    baseFee: 80000,
+    durationYears: 2,
+    semesters: 4,
+    waivers: {
+      CATEGORY_A: 0.4,
+      CATEGORY_B: 0.3,
+      CATEGORY_C: 0.2,
+      NONE: 0.0,
+    },
   },
 } as const;
 
@@ -269,15 +431,15 @@ export type TargetBranch = keyof typeof BRANCH_CONFIG;
 export const QUICK_POPULAR_BRANCHES: TargetBranch[] = [
   "B.Tech CSE",
   "B.Tech CSE (AI & ML)",
+  "B.Tech ECE",
+  "BCA",
   "BBA",
   "MBA",
-  "BCA",
-  "B.Tech ECE",
 ];
 
 export const COURSE_GROUPS: { group: string; branches: TargetBranch[] }[] = [
   {
-    group: "B.Tech Engineering Programmes (Official 2027)",
+    group: "B.Tech Engineering (4–5 Years)",
     branches: [
       "B.Tech CSE",
       "B.Tech CSE (AI & ML)",
@@ -295,25 +457,32 @@ export const COURSE_GROUPS: { group: string; branches: TargetBranch[] }[] = [
     ],
   },
   {
-    group: "Top Under-Graduate (UG) Programmes",
+    group: "Undergraduate Programmes (3–5 Years)",
     branches: [
       "BCA",
+      "BCA (Hons)",
       "BBA",
+      "BBA (Hons)",
       "B.Com",
-      "B.Sc IT",
+      "B.Sc (Hons) Agriculture",
       "B.Pharm",
-      "B.Des",
-      "BA LLB",
+      "B.Sc Biotechnology",
+      "BA LLB (Hons)",
+      "B.Design",
+      "B.Arch",
+      "B.Physiotherapy",
+      "BHMCT (Hotel Management)",
     ],
   },
   {
-    group: "Top Post-Graduate (PG) Programmes",
+    group: "Postgraduate Programmes (2 Years)",
     branches: [
       "MBA",
+      "MBA (Specialized)",
       "MCA",
       "M.Tech CSE",
-      "M.Com",
-      "LL.B.",
+      "M.Pharm",
+      "M.Sc Biotechnology",
     ],
   },
 ];
@@ -339,8 +508,8 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
     defaultWaiver: 0.5,
     percentile: "Top 10%",
     lpunestScore: "300 – 400",
-    jeeMain: "90%+ %ile",
-    boardMarks: "90%+ in 12th",
+    jeeMain: "≥ 90% %ile",
+    boardMarks: "≥ 90% in 12th",
   },
   CATEGORY_B: {
     key: "CATEGORY_B",
@@ -374,12 +543,35 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
   },
 };
 
+export const HOSTEL_OPTIONS = [
+  { id: "day_scholar", label: "Day Scholar (No Hostel)", feePerSem: 0, electricityUnits: 0 },
+  { id: "4_seater_ac", label: "4-Seater AC Standard (500 free units)", feePerSem: 46350, electricityUnits: 500 },
+  { id: "4_seater_non_ac", label: "4-Seater Air Cooled (300 free units)", feePerSem: 41850, electricityUnits: 300 },
+  { id: "3_seater_ac", label: "3-Seater AC Standard (550 free units)", feePerSem: 50850, electricityUnits: 550 },
+  { id: "3_seater_non_ac", label: "3-Seater Air Cooled (350 free units)", feePerSem: 48600, electricityUnits: 350 },
+  { id: "2_seater_ac", label: "2-Seater AC Standard (750 free units)", feePerSem: 64350, electricityUnits: 750 },
+  { id: "2_seater_non_ac", label: "2-Seater Air Cooled (400 free units)", feePerSem: 55350, electricityUnits: 400 },
+  { id: "1_seater_ac", label: "1-Seater AC Single Room (1000 free units)", feePerSem: 73350, electricityUnits: 1000 },
+  { id: "dorm_ac", label: "6/7/8-Seater AC Dormitory (350 free units)", feePerSem: 40500, electricityUnits: 350 },
+] as const;
+
+export type HostelOptionId = (typeof HOSTEL_OPTIONS)[number]["id"];
+
+export const MESS_OPTIONS = [
+  { id: "none", label: "None / Day Scholar", feePerSem: 0 },
+  { id: "standard_veg_4", label: "Standard Veg Mess - 4 Meals (Breakfast, Lunch, Snacks, Dinner)", feePerSem: 22500 },
+  { id: "standard_veg_3", label: "Standard Veg Mess - 3 Meals (Breakfast, Lunch, Dinner)", feePerSem: 20700 },
+  { id: "standard_veg_2", label: "Standard Veg Mess - 2 Meals (Breakfast & Dinner)", feePerSem: 18900 },
+  { id: "ala_carte_4", label: "A La Carte Multi-Cuisine Mess - 4 Meals", feePerSem: 26100 },
+  { id: "non_veg_3", label: "Non-Vegetarian Mess - 3 Meals", feePerSem: 38500 },
+] as const;
+
+export type MessOptionId = (typeof MESS_OPTIONS)[number]["id"];
+
 type BasisMode = "lpunest" | "jee" | "boards";
 
-const DISCOUNT_CODE = "LPUMZW722";
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
-
 const EXAM_FEE_PER_SEM = 4500;
+const LAUNDRY_FEE_PER_SEM_HOSTEL = 2430; // Official Session Rate: Rs. 4,860 / session (per residence.php)
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -404,19 +596,9 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const [basisMode, setBasisMode] = useState<BasisMode>("lpunest");
   const [selectedTier, setSelectedTier] = useState<ScholarshipTierKey>("CATEGORY_A");
   const [expectedScore, setExpectedScore] = useState<number | "">(340);
-
-  // Lead Gate Form states
-  const [leadName, setLeadName] = useState("");
-  const [leadWhatsapp, setLeadWhatsapp] = useState("");
-  const [leadEmail, setLeadEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [hostelId, setHostelId] = useState<HostelOptionId>("day_scholar");
+  const [messId, setMessId] = useState<MessOptionId>("none");
   const [copiedCode, setCopiedCode] = useState(false);
-
-  const nameInputId = useId();
-  const whatsappInputId = useId();
-  const emailInputId = useId();
 
   // Calculated values
   const branchInfo = BRANCH_CONFIG[targetBranch];
@@ -425,7 +607,19 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const baseTuition = branchInfo.baseFee;
   const scholarshipAmount = Math.round(baseTuition * activeWaiver);
   const netTuitionPerSem = baseTuition - scholarshipAmount;
-  const totalPerSemester = netTuitionPerSem + EXAM_FEE_PER_SEM;
+
+  // Hostel & Mess additions
+  const selectedHostel = HOSTEL_OPTIONS.find((h) => h.id === hostelId) ?? HOSTEL_OPTIONS[0];
+  const selectedMess = MESS_OPTIONS.find((m) => m.id === messId) ?? MESS_OPTIONS[0];
+  const isHosteller = selectedHostel.feePerSem > 0;
+  const hostelFee = selectedHostel.feePerSem;
+  const messFee = selectedMess.feePerSem;
+  const laundryFee = isHosteller ? LAUNDRY_FEE_PER_SEM_HOSTEL : 0;
+
+  const totalPerSemester =
+    netTuitionPerSem + hostelFee + messFee + EXAM_FEE_PER_SEM + laundryFee;
+  const totalDegreeCost = totalPerSemester * branchInfo.semesters;
+  const totalScholarshipSavings = scholarshipAmount * branchInfo.semesters;
 
   // Handle Score Input change
   const handleScoreChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -450,73 +644,6 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
     else if (tierKey === "CATEGORY_B") setExpectedScore(250);
     else if (tierKey === "CATEGORY_C") setExpectedScore(180);
     else setExpectedScore(120);
-  };
-
-  // Form submission
-  const handleLeadSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setFormError(null);
-
-    const cleanName = leadName.trim();
-    const cleanEmail = leadEmail.trim();
-    let cleanPhone = leadWhatsapp.trim().replace(/\D/g, "");
-    if (cleanPhone.length === 12 && cleanPhone.startsWith("91")) {
-      cleanPhone = cleanPhone.slice(2);
-    }
-
-    if (!cleanName) {
-      setFormError("Please enter your full name.");
-      return;
-    }
-
-    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
-      setFormError(
-        "Please enter a valid 10-digit Indian WhatsApp mobile number (e.g. 9876543210)."
-      );
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
-      setFormError("Please enter a valid email address.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: cleanName,
-          whatsapp: cleanPhone,
-          email: cleanEmail,
-          course: targetBranch,
-          calculatedFee: totalPerSemester,
-          expectedScore: typeof expectedScore === "number" ? expectedScore : null,
-          assignedTier: selectedTier,
-          baseTuitionPerSem: baseTuition,
-          calculatedScholarshipAmount: scholarshipAmount,
-        }),
-      });
-
-      const json = await res.json();
-      if (!res.ok && !json.success) {
-        throw new Error(json.error || "Failed to save details. Please try again.");
-      }
-
-      trackLeadConversion(50.0, "INR");
-      setIsUnlocked(true);
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Submission error.";
-      setFormError(msg);
-      if (process.env.NODE_ENV === "development") {
-        trackLeadConversion(50.0, "INR");
-        setIsUnlocked(true);
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const handleCopyCode = async () => {
@@ -546,7 +673,11 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
 
   const handleWhatsAppCommunityClick = () => {
     trackLeadConversion(30.0, "INR");
-    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
+    if (WHATSAPP_COMMUNITY_URL.startsWith("http")) {
+      window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
+    } else {
+      window.location.href = WHATSAPP_COMMUNITY_URL;
+    }
   };
 
   return (
@@ -571,7 +702,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={handleCopyCode}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-orange-300 bg-white px-3 py-1 font-mono font-black text-orange-600 hover:bg-orange-50 transition shadow-sm whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-orange-300 bg-white px-3 py-1 font-mono font-black text-orange-600 hover:bg-orange-50 transition shadow-sm whitespace-nowrap cursor-pointer"
                 aria-label="Copy coupon code LPUMZW722"
               >
                 <span>{DISCOUNT_CODE}</span>
@@ -580,15 +711,15 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={handleApplyPortalClick}
-                className="hidden sm:inline-flex items-center gap-1 rounded-xl bg-orange-600 px-3 py-1 font-bold text-white hover:bg-orange-500 transition shadow-sm whitespace-nowrap"
+                className="hidden sm:inline-flex items-center gap-1 rounded-xl bg-orange-600 px-3 py-1 font-bold text-white hover:bg-orange-500 transition shadow-sm whitespace-nowrap cursor-pointer"
               >
                 <span>Apply (20% Off)</span>
-                <ExternalLink className="h-3 w-3" />
+                <span aria-hidden="true">↗</span>
               </button>
             </div>
             {copiedCode && (
               <p className="w-full text-[11px] font-bold text-emerald-700 animate-fadeIn">
-                ✓ Copied! Paste at admission.lpu.in checkout to save 20%.
+                ✓ Copied! Paste at checkout on admission.lpu.in to save 20%.
               </p>
             )}
           </div>
@@ -618,7 +749,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     key={branch}
                     type="button"
                     onClick={() => setTargetBranch(branch)}
-                    className={`rounded-xl border px-3 py-2 text-xs font-bold transition-all text-center ${
+                    className={`rounded-xl border px-3 py-2 text-xs font-bold transition-all text-center cursor-pointer ${
                       isSelected
                         ? "border-orange-600 bg-orange-50 text-orange-900 shadow-sm ring-1 ring-orange-500"
                         : "border-slate-200 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
@@ -677,7 +808,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={() => setBasisMode("lpunest")}
-                className={`flex-1 rounded-lg py-1.5 transition text-center ${
+                className={`flex-1 rounded-lg py-1.5 transition text-center cursor-pointer ${
                   basisMode === "lpunest"
                     ? "bg-white font-bold text-slate-950 shadow-sm"
                     : "hover:text-slate-900"
@@ -688,7 +819,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={() => setBasisMode("jee")}
-                className={`flex-1 rounded-lg py-1.5 transition text-center ${
+                className={`flex-1 rounded-lg py-1.5 transition text-center cursor-pointer ${
                   basisMode === "jee"
                     ? "bg-white font-bold text-slate-950 shadow-sm"
                     : "hover:text-slate-900"
@@ -699,7 +830,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={() => setBasisMode("boards")}
-                className={`flex-1 rounded-lg py-1.5 transition text-center ${
+                className={`flex-1 rounded-lg py-1.5 transition text-center cursor-pointer ${
                   basisMode === "boards"
                     ? "bg-white font-bold text-slate-950 shadow-sm"
                     : "hover:text-slate-900"
@@ -719,7 +850,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     key={key}
                     type="button"
                     onClick={() => handleTierSelect(key)}
-                    className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all ${
+                    className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all cursor-pointer ${
                       isSelected
                         ? "border-orange-600 bg-orange-50/70 shadow-sm ring-1 ring-orange-500"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60"
@@ -783,10 +914,77 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               </div>
             )}
           </div>
+
+          {/* STEP 3: Residence & Dining Options (Optional) */}
+          <div className="border-t border-slate-100 pt-7">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white shadow-sm">
+                  3
+                </span>
+                <div>
+                  <h3 className="text-base font-extrabold tracking-tight text-slate-900 sm:text-lg">
+                    Hostel &amp; Mess Package (Optional)
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Estimate accommodation, electricity quota, and dining mess packages.
+                  </p>
+                </div>
+              </div>
+              <span className="hidden rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700 sm:inline-block">
+                {isHosteller ? "Hosteller" : "Day Scholar"}
+              </span>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {/* Hostel Select */}
+              <div className="space-y-1.5">
+                <label htmlFor="calc-hostel" className="block text-xs font-bold text-slate-700">
+                  Room Seater &amp; AC Option:
+                </label>
+                <select
+                  id="calc-hostel"
+                  value={hostelId}
+                  onChange={(e) => setHostelId(e.target.value as HostelOptionId)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
+                >
+                  {HOSTEL_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label} {opt.feePerSem > 0 ? `(${formatINR(opt.feePerSem)}/sem)` : ""}
+                    </option>
+                  ))}
+                </select>
+                {isHosteller && (
+                  <p className="text-[10px] text-slate-500">
+                    Includes {selectedHostel.electricityUnits} free units/session + standard laundry ({formatINR(LAUNDRY_FEE_PER_SEM_HOSTEL)}/sem).
+                  </p>
+                )}
+              </div>
+
+              {/* Mess Select */}
+              <div className="space-y-1.5">
+                <label htmlFor="calc-mess" className="block text-xs font-bold text-slate-700">
+                  Mess Dining Package:
+                </label>
+                <select
+                  id="calc-mess"
+                  value={messId}
+                  onChange={(e) => setMessId(e.target.value as MessOptionId)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
+                >
+                  {MESS_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.label} {opt.feePerSem > 0 ? `(${formatINR(opt.feePerSem)}/sem)` : ""}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* =====================================================================
-            RIGHT COLUMN (5 cols, sticky): Live Summary & Soft-Gate Card
+            RIGHT COLUMN (5 cols, sticky): Live Summary & Instant Action Card
             ===================================================================== */}
         <div className="lg:col-span-5 lg:sticky lg:top-24 rounded-3xl bg-slate-900 p-6 sm:p-7 text-white shadow-2xl space-y-6 border border-slate-800">
           {/* Top Live Readout (Always Visible — Zero Gate) */}
@@ -817,14 +1015,32 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 <span>Net Tuition / Semester</span>
                 <span className="font-bold text-white text-sm">{formatINR(netTuitionPerSem)}</span>
               </div>
+              {isHosteller && (
+                <div className="flex items-center justify-between text-slate-400">
+                  <span>Hostel Accommodation / Sem</span>
+                  <span className="font-semibold text-slate-200">{formatINR(hostelFee)}</span>
+                </div>
+              )}
+              {messFee > 0 && (
+                <div className="flex items-center justify-between text-slate-400">
+                  <span>Dining Mess Package / Sem</span>
+                  <span className="font-semibold text-slate-200">{formatINR(messFee)}</span>
+                </div>
+              )}
               <div className="flex items-center justify-between text-slate-400">
-                <span>Semester Examination Fee</span>
-                <span className="font-semibold text-slate-200">{formatINR(EXAM_FEE_PER_SEM)}</span>
+                <span>
+                  Semester Examination Fee {isHosteller && "+ Laundry"}
+                </span>
+                <span className="font-semibold text-slate-200">
+                  {formatINR(EXAM_FEE_PER_SEM + laundryFee)}
+                </span>
               </div>
               <div className="border-t border-slate-800 pt-3 flex items-baseline justify-between">
                 <div>
                   <span className="text-xs font-bold text-slate-300">Total Net / Semester</span>
-                  <p className="text-[10px] text-slate-500">Includes official ₹4,500/sem examination fee</p>
+                  <p className="text-[10px] text-slate-500">
+                    Includes official ₹4,500/sem exam fee {isHosteller && "+ laundry"}
+                  </p>
                 </div>
                 <span className="text-xl font-black text-orange-400 sm:text-2xl">
                   {formatINR(totalPerSemester)}
@@ -833,223 +1049,139 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             </div>
           </div>
 
-          {/* Open Coupon Card (Always Open & Visible for Instant Conversions) */}
-          <div className="rounded-2xl border border-orange-500/40 bg-gradient-to-b from-orange-950/40 to-slate-950/70 p-4 text-center space-y-2.5">
-            <div className="flex items-center justify-between text-[11px] font-bold">
-              <span className="text-orange-400 uppercase tracking-wider flex items-center gap-1">
-                <Tag className="h-3 w-3" />
-                Official 20% Form Discount
-              </span>
-              <span className="text-emerald-400 font-mono text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                Active Code
-              </span>
+          {/* ===================================================================
+              COMPLETE 4-YEAR / DEGREE NET PAYABLE BREAKDOWN (Always Open — Zero Gate)
+              =================================================================== */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 shadow-inner space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div>
+                <h3 className="text-xs sm:text-sm font-extrabold text-white">
+                  Complete {branchInfo.durationYears}-Year ({branchInfo.semesters} Semesters) Net Breakdown
+                </h3>
+                <p className="text-[10px] text-slate-400">
+                  All-inclusive degree forecast based on your selected tier &amp; residence
+                </p>
+              </div>
+              {scholarshipAmount > 0 && (
+                <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold text-emerald-400 whitespace-nowrap">
+                  Save {formatINR(totalScholarshipSavings)} Total
+                </span>
+              )}
             </div>
 
-            <div className="flex items-center justify-center gap-2">
-              <span className="font-mono text-xl sm:text-2xl font-black tracking-widest text-white bg-slate-900/90 px-3.5 py-1 rounded-xl border border-slate-700">
-                {DISCOUNT_CODE}
-              </span>
-              <button
-                type="button"
-                onClick={handleCopyCode}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-orange-600 px-3 py-2 text-xs font-bold text-white hover:bg-orange-500 transition shadow-sm whitespace-nowrap"
-                aria-label="Copy coupon code LPUMZW722"
-              >
-                {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />}
-                <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
-              </button>
-            </div>
-
-            <p className="text-[11px] text-slate-300 leading-tight">
-              Reduces application fee from ₹1,000 to <strong className="text-white">₹800</strong> (for girls: <strong className="text-white">₹400</strong>).
-            </p>
-
-            {copiedCode && (
-              <p className="text-[11px] font-bold text-emerald-400 animate-fadeIn">
-                ✓ Copied! Paste at admission.lpu.in checkout.
-              </p>
-            )}
-
-            <button
-              type="button"
-              onClick={handleApplyPortalClick}
-              className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-orange-600/20 transition hover:from-orange-600 hover:to-amber-600 whitespace-nowrap"
-            >
-              <span>Apply on Official LPU Portal (20% Off)</span>
-              <ExternalLink className="h-3.5 w-3.5" />
-            </button>
-
-            {/* WhatsApp Community Desk CTA */}
-            <div className="pt-2 border-t border-slate-800">
-              <button
-                type="button"
-                onClick={handleWhatsAppCommunityClick}
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition leading-snug text-center cursor-pointer"
-              >
-                <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
-                <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk (Free Mock PDFs &amp; Slot Alerts)</span>
-              </button>
+            <div className="space-y-2 text-xs">
+              <div className="flex items-center justify-between text-slate-400">
+                <span>Total Net Tuition ({branchInfo.semesters} Sems):</span>
+                <span className="font-semibold text-slate-200">{formatINR(netTuitionPerSem * branchInfo.semesters)}</span>
+              </div>
+              {isHosteller && (
+                <div className="flex items-center justify-between text-slate-400">
+                  <span>Total Hostel &amp; Laundry ({branchInfo.semesters} Sems):</span>
+                  <span className="font-semibold text-slate-200">{formatINR((hostelFee + laundryFee) * branchInfo.semesters)}</span>
+                </div>
+              )}
+              {messFee > 0 && (
+                <div className="flex items-center justify-between text-slate-400">
+                  <span>Total Dining Mess ({branchInfo.semesters} Sems):</span>
+                  <span className="font-semibold text-slate-200">{formatINR(messFee * branchInfo.semesters)}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between text-slate-400">
+                <span>Total Examination Fees ({branchInfo.semesters} Sems):</span>
+                <span className="font-semibold text-slate-200">{formatINR(EXAM_FEE_PER_SEM * branchInfo.semesters)}</span>
+              </div>
+              <div className="border-t border-slate-800 pt-2.5 flex items-baseline justify-between text-white">
+                <div>
+                  <span className="text-xs font-bold text-slate-300">Grand Total Net Payable:</span>
+                  <p className="text-[10px] text-slate-500">Official indicative {branchInfo.durationYears}-year total</p>
+                </div>
+                <span className="text-xl sm:text-2xl font-black text-orange-400">
+                  {formatINR(totalDegreeCost)}
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Bottom "Soft Gate" Unlock Box (For 4-Year Schedule + Free Mock Pack) */}
-          <div className="rounded-2xl border border-slate-700/80 bg-slate-800/80 p-5 shadow-inner">
-            {!isUnlocked ? (
-              /* PRE-UNLOCK STATE: Ultra-Compact Lead Form */
-              <div className="space-y-4">
-                <div className="flex items-start gap-2.5">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-orange-500/20 text-orange-400">
-                    <Lock className="h-4 w-4" />
+          {/* ===================================================================
+              HIGH-CONVERSION INSTANT ACTION BOX (Replacing Old Form)
+              =================================================================== */}
+          <div className="rounded-2xl border border-orange-500/40 bg-gradient-to-b from-orange-950/40 via-slate-900/90 to-slate-950 p-5 shadow-xl space-y-4">
+            {/* Interactive One-Click Coupon Box */}
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={handleCopyCode}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleCopyCode();
+                }
+              }}
+              className="group relative cursor-pointer rounded-2xl border-2 border-dashed border-orange-500/60 bg-slate-950/80 p-4 text-center transition hover:border-orange-400 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              aria-label="Click to copy coupon code LPUMZW722"
+            >
+              <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-orange-400 uppercase tracking-wider">
+                <Tag className="h-3.5 w-3.5" />
+                <span>Official 20% Form Discount (Boys: ₹800 | Girls: ₹400)</span>
+              </div>
+
+              <div className="mt-2.5 flex items-center justify-center gap-3">
+                <span className="font-mono text-2xl font-black tracking-widest text-white">
+                  {DISCOUNT_CODE}
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-lg bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition group-hover:bg-orange-500">
+                  {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />}
+                  <span>{copiedCode ? "Copied!" : "Click to Copy"}</span>
+                </span>
+              </div>
+
+              <p className="mt-2 text-[11px] text-slate-300">
+                {copiedCode ? (
+                  <span className="font-bold text-emerald-400 animate-fadeIn">
+                    ✓ Copied! Paste at checkout on admission.lpu.in
                   </span>
-                  <div>
-                    <h4 className="text-xs font-extrabold text-white sm:text-sm">
-                      Unlock Full 4-Year Breakdown &amp; Free Mock Pack
-                    </h4>
-                    <p className="mt-0.5 text-[11px] text-slate-400 leading-tight">
-                      Get semester-by-semester forecast &amp; printable LPUNEST study resources.
-                    </p>
-                  </div>
-                </div>
+                ) : (
+                  <span>Reduces official application form kit from ₹1,000 to ₹800 (for girls: ₹400).</span>
+                )}
+              </p>
+            </div>
 
-                <form onSubmit={handleLeadSubmit} className="space-y-3">
-                  <div>
-                    <input
-                      id={nameInputId}
-                      name="name"
-                      type="text"
-                      required
-                      disabled={isSubmitting}
-                      value={leadName}
-                      onChange={(e) => setLeadName(e.target.value)}
-                      placeholder="Your Full Name"
-                      className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none transition focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
-                    />
-                  </div>
+            {/* Primary CTA Button */}
+            <button
+              type="button"
+              onClick={handleApplyPortalClick}
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-3 text-sm font-black text-white shadow-lg shadow-orange-600/25 transition hover:from-orange-600 hover:to-amber-600 hover:shadow-orange-600/40 cursor-pointer"
+            >
+              <span>Apply on Official LPU Portal (20% Off) ↗</span>
+            </button>
 
-                  <div className="flex">
-                    <span className="inline-flex items-center rounded-l-xl border border-r-0 border-slate-700 bg-slate-950 px-2.5 text-xs font-bold text-slate-400">
-                      +91
-                    </span>
-                    <input
-                      id={whatsappInputId}
-                      name="whatsapp"
-                      type="tel"
-                      required
-                      inputMode="numeric"
-                      maxLength={10}
-                      disabled={isSubmitting}
-                      value={leadWhatsapp}
-                      onChange={(e) => setLeadWhatsapp(e.target.value)}
-                      placeholder="10-digit WhatsApp Number"
-                      className="w-full rounded-r-xl border border-slate-700 bg-slate-900/90 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none transition focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
-                    />
-                  </div>
+            {/* Secondary WhatsApp Community CTA Button */}
+            <button
+              type="button"
+              onClick={handleWhatsAppCommunityClick}
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition text-center cursor-pointer"
+            >
+              <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
+              <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk</span>
+            </button>
 
-                  <div>
-                    <input
-                      id={emailInputId}
-                      name="email"
-                      type="email"
-                      required
-                      disabled={isSubmitting}
-                      value={leadEmail}
-                      onChange={(e) => setLeadEmail(e.target.value)}
-                      placeholder="Email Address"
-                      className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none transition focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
-                    />
-                  </div>
-
-                  {formError && (
-                    <p className="text-[11px] font-semibold text-rose-400">
-                      ⚠️ {formError}
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full rounded-xl bg-orange-600 px-4 py-2.5 text-xs font-bold text-white shadow-md transition hover:bg-orange-500 disabled:opacity-60 flex items-center justify-center gap-1.5 whitespace-nowrap"
-                  >
-                    <span>{isSubmitting ? "Unlocking Breakdown..." : "Get Full 4-Year Breakdown →"}</span>
-                  </button>
-
-                  <p className="text-[10px] text-slate-400 text-center">
-                    🔒 Zero spam. We never share your number.
-                  </p>
-                </form>
-
-                {/* WhatsApp Community Desk Alternative Button */}
-                <div className="pt-2 border-t border-slate-700/60">
-                  <button
-                    type="button"
-                    onClick={handleWhatsAppCommunityClick}
-                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition leading-snug text-center cursor-pointer"
-                  >
-                    <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
-                    <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk (Free Mock PDFs &amp; Slot Alerts)</span>
-                  </button>
-                </div>
-              </div>
-            ) : (
-              /* POST-UNLOCK STATE: Detailed Schedule & Study Pack */
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
-                  <Unlock className="h-4 w-4" />
-                  <span>4-Year Breakdown &amp; Study Pack Unlocked</span>
-                </div>
-
-                {/* Degree Cost Summary Table */}
-                <div className="rounded-xl border border-slate-700 bg-slate-900 p-3.5 text-xs space-y-2">
-                  <div className="font-bold text-slate-200 border-b border-slate-800 pb-1.5 flex justify-between">
-                    <span>{branchInfo.durationYears}-Year Total Forecast</span>
-                    <span className="text-emerald-400">Save {formatINR(scholarshipAmount * branchInfo.semesters)}</span>
-                  </div>
-                  <div className="space-y-1.5 text-[11px] text-slate-400">
-                    <div className="flex justify-between">
-                      <span>Total Net Tuition ({branchInfo.semesters} Sems):</span>
-                      <span className="text-white font-medium">{formatINR(netTuitionPerSem * branchInfo.semesters)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Total Exam Fees ({branchInfo.semesters} Sems):</span>
-                      <span className="text-white font-medium">{formatINR(EXAM_FEE_PER_SEM * branchInfo.semesters)}</span>
-                    </div>
-                    <div className="border-t border-slate-800 pt-1.5 flex justify-between text-xs font-bold text-white">
-                      <span>Grand Total Net Payable:</span>
-                      <span className="text-orange-400 font-black">{formatINR(totalPerSemester * branchInfo.semesters)}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Study Resources download links */}
-                <div className="space-y-2 pt-1 text-center">
-                  <Link
-                    href="/btech-previous-year-paper"
-                    className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold text-orange-400 hover:text-orange-300 w-full"
-                  >
-                    <BookOpen className="h-3 w-3" />
-                    <span>Download LPUNEST Previous Year Paper (PDF) →</span>
-                  </Link>
-                  <a
-                    href="#mock-test"
-                    className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 w-full"
-                  >
-                    <Sparkles className="h-3 w-3" />
-                    <span>Attempt Free Online Practice Mock Tests →</span>
-                  </a>
-
-                  <div className="pt-2 border-t border-slate-800">
-                    <button
-                      type="button"
-                      onClick={handleWhatsAppCommunityClick}
-                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition leading-snug text-center cursor-pointer"
-                    >
-                      <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
-                      <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk (Free Mock PDFs &amp; Slot Alerts)</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Quick Helpful Links */}
+            <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800">
+              <a
+                href="#mock-test"
+                className="inline-flex items-center gap-1 font-semibold text-emerald-400 hover:text-emerald-300 transition"
+              >
+                <Sparkles className="h-3 w-3" />
+                <span>Attempt Free Mock Tests →</span>
+              </a>
+              <Link
+                href="/btech-previous-year-paper"
+                className="inline-flex items-center gap-1 font-semibold text-orange-400 hover:text-orange-300 transition"
+              >
+                <BookOpen className="h-3 w-3" />
+                <span>Download Sample PDF →</span>
+              </Link>
+            </div>
           </div>
 
           {/* Diplomatic Fee Accuracy Disclaimer Note */}
