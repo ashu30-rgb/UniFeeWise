@@ -881,23 +881,23 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
         {/* =====================================================================
             RIGHT COLUMN (5 cols, sticky): Live Summary & Instant Action Card
             ===================================================================== */}
-        <div className="lg:col-span-5 lg:sticky lg:top-24 rounded-3xl bg-slate-900 p-6 sm:p-7 text-white shadow-2xl space-y-6 border border-slate-800">
+        <div className="lg:col-span-5 lg:sticky lg:top-20 rounded-2xl bg-slate-900 p-4 sm:p-5 text-white shadow-xl space-y-3 border border-slate-800">
           {/* Top Live Readout (Always Visible — Zero Gate) */}
           <div>
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-slate-800 pb-2">
+              <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-300 whitespace-nowrap">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 whitespace-nowrap">
                   Live Fee Projection
                 </span>
               </div>
-              <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 border border-emerald-500/30 whitespace-nowrap">
+              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400 border border-emerald-500/30 whitespace-nowrap">
                 {tierInfo.label} ({Math.round(activeWaiver * 100)}% Waiver)
               </span>
             </div>
 
             {/* Readout Numbers */}
-            <div className="mt-4 space-y-2.5 text-xs">
+            <div className="mt-2.5 space-y-1.5 text-xs">
               <div className="flex items-center justify-between text-slate-400">
                 <span>Base Tuition ({targetBranch})</span>
                 <span className="font-semibold text-slate-200">{formatINR(baseTuition)}</span>
@@ -908,7 +908,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               </div>
               <div className="flex items-center justify-between text-slate-400">
                 <span>Net Tuition / Semester</span>
-                <span className="font-bold text-white text-sm">{formatINR(netTuitionPerSem)}</span>
+                <span className="font-bold text-white">{formatINR(netTuitionPerSem)}</span>
               </div>
               <div className="flex items-center justify-between text-slate-400">
                 <span>Semester Examination Fee</span>
@@ -916,14 +916,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   {formatINR(EXAM_FEE_PER_SEM)}
                 </span>
               </div>
-              <div className="border-t border-slate-800 pt-3 flex items-baseline justify-between">
+              <div className="border-t border-slate-800/80 pt-2 flex items-baseline justify-between">
                 <div>
                   <span className="text-xs font-bold text-slate-300">Total Net / Semester</span>
                   <p className="text-[10px] text-slate-500">
-                    Includes official ₹4,500/sem examination fee
+                    Includes ₹4,500/sem exam fee
                   </p>
                 </div>
-                <span className="text-xl font-black text-orange-400 sm:text-2xl">
+                <span className="text-lg font-black text-orange-400 sm:text-xl">
                   {formatINR(totalPerSemester)}
                 </span>
               </div>
@@ -933,38 +933,35 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
           {/* ===================================================================
               COMPLETE 4-YEAR / DEGREE NET PAYABLE BREAKDOWN (Always Open — Zero Gate)
               =================================================================== */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 shadow-inner space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+          <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3 shadow-inner space-y-1.5">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
               <div>
-                <h3 className="text-xs sm:text-sm font-extrabold text-white">
-                  Complete {branchInfo.durationYears}-Year ({branchInfo.semesters} Semesters) Net Breakdown
+                <h3 className="text-xs font-bold text-white">
+                  {branchInfo.durationYears}-Year ({branchInfo.semesters} Sems) Net Breakdown
                 </h3>
-                <p className="text-[10px] text-slate-400">
-                  Degree tuition forecast based on your selected scholarship bracket
-                </p>
               </div>
               {scholarshipAmount > 0 && (
                 <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold text-emerald-400 whitespace-nowrap">
-                  Save {formatINR(totalScholarshipSavings)} Total
+                  Save {formatINR(totalScholarshipSavings)}
                 </span>
               )}
             </div>
 
-            <div className="space-y-2 text-xs">
-              <div className="flex items-center justify-between text-slate-400">
+            <div className="space-y-1 text-xs">
+              <div className="flex items-center justify-between text-slate-400 text-[11px]">
                 <span>Total Net Tuition ({branchInfo.semesters} Sems):</span>
                 <span className="font-semibold text-slate-200">{formatINR(netTuitionPerSem * branchInfo.semesters)}</span>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
-                <span>Total Examination Fees ({branchInfo.semesters} Sems):</span>
+              <div className="flex items-center justify-between text-slate-400 text-[11px]">
+                <span>Total Exam Fees ({branchInfo.semesters} Sems):</span>
                 <span className="font-semibold text-slate-200">{formatINR(EXAM_FEE_PER_SEM * branchInfo.semesters)}</span>
               </div>
-              <div className="border-t border-slate-800 pt-2.5 flex items-baseline justify-between text-white">
+              <div className="border-t border-slate-800/80 pt-1.5 flex items-baseline justify-between text-white">
                 <div>
-                  <span className="text-xs font-bold text-slate-300">Grand Total Net Payable:</span>
-                  <p className="text-[10px] text-slate-500">Official indicative {branchInfo.durationYears}-year total</p>
+                  <span className="text-xs font-bold text-slate-300">Grand Total Net:</span>
+                  <span className="text-[10px] text-slate-500 ml-1.5">({branchInfo.durationYears}-Year Indicative)</span>
                 </div>
-                <span className="text-xl sm:text-2xl font-black text-orange-400">
+                <span className="text-lg sm:text-xl font-black text-orange-400">
                   {formatINR(totalDegreeCost)}
                 </span>
               </div>
@@ -974,7 +971,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
           {/* ===================================================================
               HIGH-CONVERSION INSTANT ACTION BOX (Replacing Old Form)
               =================================================================== */}
-          <div className="rounded-2xl border border-orange-500/40 bg-gradient-to-b from-orange-950/40 via-slate-900/90 to-slate-950 p-5 shadow-xl space-y-4">
+          <div className="rounded-xl border border-orange-500/40 bg-gradient-to-b from-orange-950/30 via-slate-900/90 to-slate-950 p-3 sm:p-3.5 shadow-lg space-y-2.5">
             {/* Interactive One-Click Coupon Box */}
             <div
               role="button"
@@ -986,25 +983,25 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   handleCopyCode();
                 }
               }}
-              className="group relative cursor-pointer rounded-2xl border-2 border-dashed border-orange-500/60 bg-slate-950/80 p-4 text-center transition hover:border-orange-400 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="group relative cursor-pointer rounded-xl border-2 border-dashed border-orange-500/50 bg-slate-950/80 p-2.5 text-center transition hover:border-orange-400 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
               aria-label="Click to copy coupon code LPUMZW722"
             >
-              <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-orange-400 uppercase tracking-wider">
-                <Tag className="h-3.5 w-3.5" />
-                <span>Official 20% Form Discount (Boys: ₹800 | Girls: ₹400)</span>
+              <div className="flex items-center justify-center gap-1.5 text-[10px] font-bold text-orange-400 uppercase tracking-wider">
+                <Tag className="h-3 w-3" />
+                <span>Official 20% Discount (Boys: ₹800 | Girls: ₹400)</span>
               </div>
 
-              <div className="mt-2.5 flex items-center justify-center gap-3">
-                <span className="font-mono text-2xl font-black tracking-widest text-white">
+              <div className="mt-1.5 flex items-center justify-center gap-2.5">
+                <span className="font-mono text-xl font-black tracking-wider text-white">
                   {DISCOUNT_CODE}
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-lg bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition group-hover:bg-orange-500">
-                  {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />}
+                <span className="inline-flex items-center gap-1 rounded-md bg-orange-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm transition group-hover:bg-orange-500">
+                  {copiedCode ? <Check className="h-3 w-3 text-emerald-300" /> : <Copy className="h-3 w-3" />}
                   <span>{copiedCode ? "Copied!" : "Click to Copy"}</span>
                 </span>
               </div>
 
-              <p className="mt-2 text-[11px] text-slate-300">
+              <p className="mt-1 text-[10px] text-slate-300">
                 {copiedCode ? (
                   <span className="font-bold text-emerald-400 animate-fadeIn">
                     ✓ Copied! Paste at checkout on admission.lpu.in
@@ -1019,7 +1016,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             <button
               type="button"
               onClick={handleApplyPortalClick}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-3 text-sm font-black text-white shadow-lg shadow-orange-600/25 transition hover:from-orange-600 hover:to-amber-600 hover:shadow-orange-600/40 cursor-pointer"
+              className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2.5 text-xs font-black text-white shadow-md shadow-orange-600/20 transition hover:from-orange-600 hover:to-amber-600 cursor-pointer"
             >
               <span>Apply on Official LPU Portal (20% Off) ↗</span>
             </button>
@@ -1028,38 +1025,38 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             <button
               type="button"
               onClick={handleWhatsAppCommunityClick}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition text-center cursor-pointer"
+              className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 text-[11px] font-bold shadow-sm transition text-center cursor-pointer"
             >
-              <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
-              <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk</span>
+              <WhatsAppIcon className="h-3.5 w-3.5 shrink-0 fill-current text-white" />
+              <span>Join LPUNEST 2027 WhatsApp Prep Desk</span>
             </button>
 
             {/* Quick Helpful Links */}
-            <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800">
+            <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-800/80">
               <a
                 href="#mock-test"
                 className="inline-flex items-center gap-1 font-semibold text-emerald-400 hover:text-emerald-300 transition"
               >
-                <Sparkles className="h-3 w-3" />
-                <span>Attempt Free Mock Tests →</span>
+                <Sparkles className="h-2.5 w-2.5" />
+                <span>Attempt Free Mocks →</span>
               </a>
               <Link
                 href="/btech-previous-year-paper"
                 className="inline-flex items-center gap-1 font-semibold text-orange-400 hover:text-orange-300 transition"
               >
-                <BookOpen className="h-3 w-3" />
-                <span>Download Sample PDF →</span>
+                <BookOpen className="h-2.5 w-2.5" />
+                <span>Sample PDF →</span>
               </Link>
             </div>
           </div>
 
           {/* Diplomatic Fee Accuracy Disclaimer Note */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-[11px] leading-relaxed text-slate-400 space-y-1">
-            <span className="font-bold text-slate-300 block">
+          <div className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-2.5 text-[10px] leading-tight text-slate-400 space-y-0.5">
+            <span className="font-semibold text-slate-300 block">
               Note on Fee Estimates:
             </span>
-            <p>
-              All tuition, scholarship brackets, and semester examination fee figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
+            <p className="text-[10px] leading-relaxed text-slate-400">
+              All tuition and examination fee figures calculated above are indicative estimates based on publicly released university reference brochures. Seat quotas and phase cutoffs may vary; please verify final fees on the official LPU portal (<a href="https://admission.lpu.in" target="_blank" rel="noopener noreferrer" className="text-orange-400 underline">admission.lpu.in</a>).
             </p>
           </div>
         </div>
