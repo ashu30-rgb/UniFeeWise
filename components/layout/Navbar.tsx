@@ -57,7 +57,7 @@ export default function Navbar() {
               Uni<span className="text-orange-600">Fee</span>Wise
             </span>
           </Link>
-          <span className="hidden items-center gap-1 rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 text-[11px] font-semibold text-orange-700 whitespace-nowrap lg:inline-flex">
+          <span className="hidden items-center gap-1 rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 text-[11px] font-semibold text-orange-700 whitespace-nowrap xl:inline-flex">
             <Sparkles className="h-3 w-3 text-orange-500" />
             2027 Admission Edition
           </span>
@@ -65,14 +65,14 @@ export default function Navbar() {
 
         {/* Center: Desktop Navigation Links */}
         <nav
-          className="hidden items-center gap-5 md:flex"
+          className="hidden items-center gap-4 xl:gap-6 lg:flex"
           aria-label="Main Navigation"
         >
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 transition hover:text-orange-600 whitespace-nowrap"
+              className="inline-flex items-center gap-1 text-xs xl:text-sm font-semibold tracking-tight text-slate-600 transition hover:text-orange-600 whitespace-nowrap"
             >
               <span>{link.label}</span>
               {link.badge && (
@@ -85,22 +85,33 @@ export default function Navbar() {
         </nav>
 
         {/* Right: Actions & Mobile Toggle */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          {/* WhatsApp Subtle Desk Link (Desktop) */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* WhatsApp Subtle Desk Link (Full pill on XL+) */}
           <button
             type="button"
             onClick={handleWhatsAppClick}
-            className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 whitespace-nowrap md:inline-flex cursor-pointer shadow-xs"
+            className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 whitespace-nowrap xl:inline-flex cursor-pointer shadow-xs"
             title="Join LPUNEST 2027 WhatsApp Prep & Cutoff Desk"
           >
             <WhatsAppIcon className="h-3.5 w-3.5 fill-current text-emerald-600" />
             <span>Join WhatsApp Desk</span>
           </button>
 
+          {/* WhatsApp Compact Icon (on LG screens to save space) */}
+          <button
+            type="button"
+            onClick={handleWhatsAppClick}
+            className="hidden items-center justify-center h-8 w-8 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100 cursor-pointer shadow-xs lg:inline-flex xl:hidden"
+            title="Join LPUNEST 2027 WhatsApp Prep & Cutoff Desk"
+            aria-label="Join WhatsApp Desk"
+          >
+            <WhatsAppIcon className="h-4 w-4 fill-current text-emerald-600" />
+          </button>
+
           {/* Form Discount CTA */}
           <a
             href="/#calculator"
-            className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-orange-600 hover:shadow-orange-500/20 whitespace-nowrap sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-orange-600 hover:shadow-orange-500/20 whitespace-nowrap sm:inline-flex"
           >
             <span>Get 20% Form Discount</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -118,7 +129,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-lg p-1.5 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 md:hidden"
+            className="rounded-lg p-1.5 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 lg:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -133,7 +144,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="border-b border-slate-200 bg-white px-4 py-4 shadow-lg md:hidden">
+        <div className="border-b border-slate-200 bg-white px-4 py-4 shadow-lg lg:hidden">
           <nav className="flex flex-col space-y-3">
             {/* Mobile WhatsApp Button */}
             <button
