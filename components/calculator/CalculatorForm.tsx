@@ -105,21 +105,34 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
 };
 
 export const HOSTEL_OPTIONS = [
-  { id: "day_scholar", label: "Day Scholar (No Hostel)", feePerSem: 0 },
-  { id: "4_seater_non_ac", label: "4-Seater Non-AC", feePerSem: 40000 },
-  { id: "4_seater_ac", label: "4-Seater AC", feePerSem: 50000 },
-  { id: "3_seater_non_ac", label: "3-Seater Non-AC", feePerSem: 45000 },
-  { id: "3_seater_ac", label: "3-Seater AC", feePerSem: 57500 },
-  { id: "2_seater_ac", label: "2-Seater AC", feePerSem: 70000 },
-  { id: "1_seater_ac", label: "1-Seater AC (Single)", feePerSem: 90000 },
+  { id: "day_scholar", label: "Day Scholar (No Hostel)", feePerSem: 0, annualFee: 0, electricityUnits: 0 },
+  { id: "4_seater_ac", label: "4-Seater AC Standard (500 free units)", feePerSem: 46350, annualFee: 92700, electricityUnits: 500 },
+  { id: "4_seater_non_ac", label: "4-Seater Air Cooled (300 free units)", feePerSem: 41850, annualFee: 83700, electricityUnits: 300 },
+  { id: "3_seater_ac", label: "3-Seater AC Standard (550 free units)", feePerSem: 50850, annualFee: 101700, electricityUnits: 550 },
+  { id: "3_seater_non_ac", label: "3-Seater Air Cooled (350 free units)", feePerSem: 48600, annualFee: 97200, electricityUnits: 350 },
+  { id: "2_seater_ac", label: "2-Seater AC Standard (750 free units)", feePerSem: 64350, annualFee: 128700, electricityUnits: 750 },
+  { id: "2_seater_non_ac", label: "2-Seater Air Cooled (400 free units)", feePerSem: 55350, annualFee: 110700, electricityUnits: 400 },
+  { id: "1_seater_ac", label: "1-Seater AC Single Room (1000 free units)", feePerSem: 73350, annualFee: 146700, electricityUnits: 1000 },
+  { id: "4_seater_apt", label: "4-Seater Studio Apartment AC (500 units)", feePerSem: 49500, annualFee: 99000, electricityUnits: 500 },
+  { id: "3_seater_apt", label: "3-Seater Studio Apartment AC (550 units)", feePerSem: 58500, annualFee: 117000, electricityUnits: 550 },
+  { id: "2_seater_apt", label: "2-Seater Studio Apartment AC (750 units)", feePerSem: 67500, annualFee: 135000, electricityUnits: 750 },
+  { id: "1_seater_apt", label: "1-Seater Studio Apartment AC (1000 units)", feePerSem: 90000, annualFee: 180000, electricityUnits: 1000 },
+  { id: "5_seater_ac", label: "5-Seater AC Standard (400 free units)", feePerSem: 40500, annualFee: 81000, electricityUnits: 400 },
+  { id: "5_seater_non_ac", label: "5-Seater Air Cooled (300 free units)", feePerSem: 36000, annualFee: 72000, electricityUnits: 300 },
+  { id: "dorm_ac", label: "6/7/8-Seater AC Dormitory (350 units)", feePerSem: 40500, annualFee: 81000, electricityUnits: 350 },
+  { id: "dorm_non_ac", label: "6/7/8-Seater Air Cooled Dormitory (250 units)", feePerSem: 36000, annualFee: 72000, electricityUnits: 250 },
 ] as const;
 
 export type HostelOptionId = (typeof HOSTEL_OPTIONS)[number]["id"];
 
 export const MESS_OPTIONS = [
-  { id: "none", label: "None / Day Scholar", feePerSem: 0 },
-  { id: "standard_veg", label: "Standard Mess (Vegetarian)", feePerSem: 22500 },
-  { id: "special_non_veg", label: "Special Mess (Veg + Non-Veg)", feePerSem: 27500 },
+  { id: "none", label: "None / Day Scholar", feePerSem: 0, annualFee: 0 },
+  { id: "standard_veg_4", label: "Standard Veg Mess - 4 Meals (Breakfast, Lunch, Snacks, Dinner)", feePerSem: 22500, annualFee: 45000 },
+  { id: "standard_veg_3", label: "Standard Veg Mess - 3 Meals (Breakfast, Lunch, Dinner)", feePerSem: 20700, annualFee: 41400 },
+  { id: "standard_veg_2", label: "Standard Veg Mess - 2 Meals (Breakfast & Dinner)", feePerSem: 18900, annualFee: 37800 },
+  { id: "ala_carte_4", label: "A La Carte Multi-Cuisine Mess - 4 Meals (Choice of Regional Delicacies)", feePerSem: 26100, annualFee: 52200 },
+  { id: "non_veg_3", label: "Non-Vegetarian Mess - 3 Meals (Per Semester)", feePerSem: 38500, annualFee: 75000 },
+  { id: "non_veg_2", label: "Non-Vegetarian Mess - 2 Meals (Per Semester)", feePerSem: 33500, annualFee: 65000 },
 ] as const;
 
 export type MessOptionId = (typeof MESS_OPTIONS)[number]["id"];
@@ -130,7 +143,7 @@ const DISCOUNT_CODE = "LPUMZW722";
 const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 
 const EXAM_FEE_PER_SEM = 4500;
-const LAUNDRY_FEE_PER_SEM_HOSTEL = 2500;
+const LAUNDRY_FEE_PER_SEM_HOSTEL = 2430; // Official Session Rate: Rs. 4,860 / session (per residence.php)
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -156,7 +169,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const [selectedTier, setSelectedTier] = useState<ScholarshipTierKey>("CATEGORY_A");
   const [expectedScore, setExpectedScore] = useState<number | "">(340);
   const [hostelId, setHostelId] = useState<HostelOptionId>("4_seater_ac");
-  const [messId, setMessId] = useState<MessOptionId>("standard_veg");
+  const [messId, setMessId] = useState<MessOptionId>("standard_veg_4");
 
   // Lead Gate Form states
   const [leadName, setLeadName] = useState("");
@@ -179,7 +192,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const netTuitionPerSem = baseTuition - scholarshipAmount;
 
   const selectedHostel = useMemo(
-    () => HOSTEL_OPTIONS.find((h) => h.id === hostelId) ?? HOSTEL_OPTIONS[2],
+    () => HOSTEL_OPTIONS.find((h) => h.id === hostelId) ?? HOSTEL_OPTIONS[1],
     [hostelId]
   );
   const selectedMess = useMemo(
@@ -531,7 +544,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               >
                 {HOSTEL_OPTIONS.map((hostel) => (
                   <option key={hostel.id} value={hostel.id}>
-                    {hostel.label} {hostel.feePerSem > 0 ? `(${formatINR(hostel.feePerSem)}/sem)` : "(₹0)"}
+                    {hostel.label} {hostel.feePerSem > 0 ? `· ${formatINR(hostel.feePerSem)}/sem (${formatINR(hostel.annualFee)}/yr)` : "(₹0)"}
                   </option>
                 ))}
               </select>
@@ -554,7 +567,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               >
                 {MESS_OPTIONS.map((mess) => (
                   <option key={mess.id} value={mess.id}>
-                    {mess.label} {mess.feePerSem > 0 ? `(${formatINR(mess.feePerSem)}/sem)` : "(₹0)"}
+                    {mess.label} {mess.feePerSem > 0 ? `· ${formatINR(mess.feePerSem)}/sem (${formatINR(mess.annualFee)}/yr)` : "(₹0)"}
                   </option>
                 ))}
               </select>
@@ -596,20 +609,20 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               </div>
               {selectedHostel.feePerSem > 0 && (
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>Hostel ({selectedHostel.label.split("(")[0]})</span>
+                  <span>Hostel ({selectedHostel.label.split("(")[0].trim()})</span>
                   <span className="font-semibold text-slate-200">{formatINR(selectedHostel.feePerSem)}</span>
                 </div>
               )}
               {selectedMess.feePerSem > 0 && (
                 <div className="flex items-center justify-between text-slate-400">
-                  <span>Mess ({selectedMess.label.split("(")[0]})</span>
+                  <span>Mess ({selectedMess.label.split("-")[0].trim()})</span>
                   <span className="font-semibold text-slate-200">{formatINR(selectedMess.feePerSem)}</span>
                 </div>
               )}
               <div className="border-t border-slate-800 pt-3 flex items-baseline justify-between">
                 <div>
                   <span className="text-xs font-bold text-slate-300">Total Net / Semester</span>
-                  <p className="text-[10px] text-slate-500">Includes exam & laundry fee</p>
+                  <p className="text-[10px] text-slate-500">Includes exam &amp; official laundry fee</p>
                 </div>
                 <span className="text-xl font-black text-orange-400 sm:text-2xl">
                   {formatINR(totalPerSemester)}
