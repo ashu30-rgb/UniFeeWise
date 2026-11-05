@@ -40,10 +40,36 @@ function isNonEmptyString(value: unknown): value is string {
 }
 
 const BASE_FEES: Record<string, number> = {
+  // B.Tech Branches (Official 2027 Brochure)
   "B.Tech CSE": 160000,
-  "B.Tech ECE": 160000,
-  BBA: 120000,
-  MBA: 190000,
+  "B.Tech CSE (AI & ML)": 180000,
+  "B.Tech CSE (Data Science)": 180000,
+  "B.Tech CSE (Cyber Security)": 180000,
+  "B.Tech IT": 160000,
+  "B.Tech ECE": 140000,
+  "B.Tech Mechanical": 140000,
+  "B.Tech Civil": 140000,
+  "B.Tech Electrical": 140000,
+  "B.Tech Aerospace": 140000,
+  "B.Tech Biotechnology": 140000,
+  "B.Tech Robotics & Automation": 140000,
+  "Integrated B.Tech CSE + MBA": 160000,
+
+  // Top Under-Graduate Programmes
+  BCA: 80000,
+  BBA: 80000,
+  "B.Com": 90000,
+  "B.Sc IT": 80000,
+  "B.Pharm": 120000,
+  "B.Des": 140000,
+  "BA LLB": 140000,
+
+  // Top Post-Graduate Programmes
+  MBA: 220000,
+  MCA: 100000,
+  "M.Tech CSE": 100000,
+  "M.Com": 60000,
+  "LL.B.": 90000,
 };
 
 export async function POST(

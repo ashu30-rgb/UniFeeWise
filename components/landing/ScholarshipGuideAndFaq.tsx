@@ -93,17 +93,17 @@ export default function ScholarshipGuideAndFaq() {
 
             <div className="my-5 rounded-xl bg-white p-4 border border-orange-100 shadow-inner">
               <div className="text-3xl font-black text-slate-900">
-                60% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
+                50%–70% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
               <div className="mt-1 text-xs font-medium text-emerald-600">
-                Saves up to ₹3,84,000 on 4-Yr B.Tech
+                Saves up to ₹4,48,000 on 4-Yr B.Tech
               </div>
             </div>
 
             <ul className="space-y-2.5 text-xs text-slate-600">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-                <span><strong>LPUNEST Score:</strong> 320 – 400 marks</span>
+                <span><strong>LPUNEST Score:</strong> 300 – 400 marks</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
@@ -111,7 +111,7 @@ export default function ScholarshipGuideAndFaq() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-                <span><strong>12th Board:</strong> 95%+ Aggregate Marks</span>
+                <span><strong>12th Board:</strong> 90%+ (95%+ for 70%)</span>
               </li>
             </ul>
           </div>
@@ -134,7 +134,7 @@ export default function ScholarshipGuideAndFaq() {
 
             <div className="my-5 rounded-xl bg-slate-50 p-4 border border-slate-100">
               <div className="text-3xl font-black text-slate-900">
-                50% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
+                40%–50% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
               <div className="mt-1 text-xs font-medium text-emerald-600">
                 Saves up to ₹3,20,000 on 4-Yr B.Tech
@@ -144,7 +144,7 @@ export default function ScholarshipGuideAndFaq() {
             <ul className="space-y-2.5 text-xs text-slate-600">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>LPUNEST Score:</strong> 240 – 319 marks</span>
+                <span><strong>LPUNEST Score:</strong> 212 – 299 marks</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
@@ -152,7 +152,7 @@ export default function ScholarshipGuideAndFaq() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>12th Board:</strong> 90% – 94.9% Aggregate</span>
+                <span><strong>12th Board:</strong> 85% – 89.9% Aggregate</span>
               </li>
             </ul>
           </div>
@@ -175,7 +175,7 @@ export default function ScholarshipGuideAndFaq() {
 
             <div className="my-5 rounded-xl bg-slate-50 p-4 border border-slate-100">
               <div className="text-3xl font-black text-slate-900">
-                40% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
+                30%–40% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
               <div className="mt-1 text-xs font-medium text-emerald-600">
                 Saves up to ₹2,56,000 on 4-Yr B.Tech
@@ -185,7 +185,7 @@ export default function ScholarshipGuideAndFaq() {
             <ul className="space-y-2.5 text-xs text-slate-600">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>LPUNEST Score:</strong> 150 – 239 marks</span>
+                <span><strong>LPUNEST Score:</strong> 150 – 211 marks</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
@@ -193,7 +193,7 @@ export default function ScholarshipGuideAndFaq() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>12th Board:</strong> 80% – 89.9% Aggregate</span>
+                <span><strong>12th Board:</strong> 75% – 84.9% Aggregate</span>
               </li>
             </ul>
           </div>

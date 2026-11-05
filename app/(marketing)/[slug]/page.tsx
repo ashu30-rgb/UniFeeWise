@@ -16,19 +16,31 @@ const programData = {
   ece: {
     fullName: "B.Tech Electronics and Communication (ECE)",
     shortName: "B.Tech ECE",
-    baseFee: 160000,
+    baseFee: 140000,
+    maxScore: 400,
+  },
+  aiml: {
+    fullName: "B.Tech CSE (Artificial Intelligence and Machine Learning)",
+    shortName: "B.Tech CSE (AI & ML)",
+    baseFee: 180000,
     maxScore: 400,
   },
   bba: {
     fullName: "Bachelor of Business Administration (BBA)",
     shortName: "BBA",
-    baseFee: 120000,
+    baseFee: 80000,
+    maxScore: 400,
+  },
+  bca: {
+    fullName: "Bachelor of Computer Applications (BCA)",
+    shortName: "BCA",
+    baseFee: 80000,
     maxScore: 400,
   },
   mba: {
     fullName: "Master of Business Administration (MBA)",
     shortName: "MBA",
-    baseFee: 190000,
+    baseFee: 220000,
     maxScore: 400,
   },
 };
@@ -39,7 +51,9 @@ type ProgramSlug = keyof typeof programData;
 const PROGRAM_PAGE_SLUGS: Record<string, ProgramSlug> = {
   "lpu-cse-fees": "cse",
   "lpu-ece-fees": "ece",
+  "lpu-btech-aiml-fees": "aiml",
   "lpu-bba-fees": "bba",
+  "lpu-bca-fees": "bca",
   "lpu-mba-fees": "mba",
 };
 

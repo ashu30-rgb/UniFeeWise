@@ -15,38 +15,306 @@ import {
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
 
+const STANDARD_WAIVERS: Record<ScholarshipTierKey, number> = {
+  CATEGORY_A: 0.5,
+  CATEGORY_B: 0.4,
+  CATEGORY_C: 0.3,
+  NONE: 0.0,
+};
+
+const SPECIALIZED_WAIVERS: Record<ScholarshipTierKey, number> = {
+  CATEGORY_A: 0.3,
+  CATEGORY_B: 0.25,
+  CATEGORY_C: 0.2,
+  NONE: 0.0,
+};
+
 export const BRANCH_CONFIG = {
+  // B.Tech Engineering Programmes (Official 2027)
   "B.Tech CSE": {
     name: "B.Tech Computer Science & Engineering",
     short: "B.Tech CSE",
+    category: "B.Tech",
     baseFee: 160000,
     durationYears: 4,
     semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Tech CSE (AI & ML)": {
+    name: "B.Tech CSE (Artificial Intelligence & Machine Learning)",
+    short: "B.Tech AI/ML",
+    category: "B.Tech",
+    baseFee: 180000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: SPECIALIZED_WAIVERS,
+  },
+  "B.Tech CSE (Data Science)": {
+    name: "B.Tech CSE (Data Science with ML)",
+    short: "B.Tech Data Science",
+    category: "B.Tech",
+    baseFee: 180000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: SPECIALIZED_WAIVERS,
+  },
+  "B.Tech CSE (Cyber Security)": {
+    name: "B.Tech CSE (Cyber Security & Block Chain)",
+    short: "B.Tech Cyber Security",
+    category: "B.Tech",
+    baseFee: 180000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: SPECIALIZED_WAIVERS,
+  },
+  "B.Tech IT": {
+    name: "B.Tech Information Technology",
+    short: "B.Tech IT",
+    category: "B.Tech",
+    baseFee: 160000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
   },
   "B.Tech ECE": {
-    name: "B.Tech Electronics & Communication",
+    name: "B.Tech Electronics & Communication Engineering",
     short: "B.Tech ECE",
-    baseFee: 160000,
+    category: "B.Tech",
+    baseFee: 140000,
     durationYears: 4,
     semesters: 8,
+    waivers: STANDARD_WAIVERS,
   },
-  BBA: {
-    name: "Bachelor of Business Administration",
-    short: "BBA",
-    baseFee: 120000,
+  "B.Tech Mechanical": {
+    name: "B.Tech Mechanical Engineering (ME)",
+    short: "B.Tech Mechanical",
+    category: "B.Tech",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Tech Civil": {
+    name: "B.Tech Civil Engineering (CE)",
+    short: "B.Tech Civil",
+    category: "B.Tech",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Tech Electrical": {
+    name: "B.Tech Electrical Engineering (EE)",
+    short: "B.Tech Electrical",
+    category: "B.Tech",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Tech Aerospace": {
+    name: "B.Tech Aerospace Engineering",
+    short: "B.Tech Aerospace",
+    category: "B.Tech",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Tech Biotechnology": {
+    name: "B.Tech Biotechnology (BT)",
+    short: "B.Tech Biotech",
+    category: "B.Tech",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Tech Robotics & Automation": {
+    name: "B.Tech Robotics and Automation",
+    short: "B.Tech Robotics",
+    category: "B.Tech",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "Integrated B.Tech CSE + MBA": {
+    name: "Integrated B.Tech (CSE) – MBA (Dual Degree)",
+    short: "B.Tech + MBA",
+    category: "B.Tech",
+    baseFee: 160000,
+    durationYears: 5,
+    semesters: 10,
+    waivers: STANDARD_WAIVERS,
+  },
+
+  // Under-Graduate (UG) Top Programmes
+  BCA: {
+    name: "Bachelor of Computer Applications (BCA)",
+    short: "BCA",
+    category: "UG",
+    baseFee: 80000,
     durationYears: 3,
     semesters: 6,
+    waivers: STANDARD_WAIVERS,
   },
+  BBA: {
+    name: "Bachelor of Business Administration (BBA)",
+    short: "BBA",
+    category: "UG",
+    baseFee: 80000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Com": {
+    name: "Bachelor of Commerce (B.Com / B.Com Hons)",
+    short: "B.Com",
+    category: "UG",
+    baseFee: 90000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Sc IT": {
+    name: "B.Sc Information Technology (IT)",
+    short: "B.Sc IT",
+    category: "UG",
+    baseFee: 80000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Pharm": {
+    name: "Bachelor of Pharmacy (B.Pharm)",
+    short: "B.Pharm",
+    category: "UG",
+    baseFee: 120000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "B.Des": {
+    name: "Bachelor of Design (B.Design Fashion/Product/Interior)",
+    short: "B.Des",
+    category: "UG",
+    baseFee: 140000,
+    durationYears: 4,
+    semesters: 8,
+    waivers: STANDARD_WAIVERS,
+  },
+  "BA LLB": {
+    name: "B.A., LL.B. (Hons.) 5-Year Integrated Law",
+    short: "BA LLB",
+    category: "UG",
+    baseFee: 140000,
+    durationYears: 5,
+    semesters: 10,
+    waivers: STANDARD_WAIVERS,
+  },
+
+  // Post-Graduate (PG) Top Programmes
   MBA: {
-    name: "Master of Business Administration",
+    name: "Master of Business Administration (MBA)",
     short: "MBA",
-    baseFee: 190000,
+    category: "PG",
+    baseFee: 220000,
     durationYears: 2,
     semesters: 4,
+    waivers: STANDARD_WAIVERS,
+  },
+  MCA: {
+    name: "Master of Computer Applications (MCA)",
+    short: "MCA",
+    category: "PG",
+    baseFee: 100000,
+    durationYears: 2,
+    semesters: 4,
+    waivers: STANDARD_WAIVERS,
+  },
+  "M.Tech CSE": {
+    name: "M.Tech Computer Science & Engineering",
+    short: "M.Tech CSE",
+    category: "PG",
+    baseFee: 100000,
+    durationYears: 2,
+    semesters: 4,
+    waivers: STANDARD_WAIVERS,
+  },
+  "M.Com": {
+    name: "Master of Commerce (M.Com)",
+    short: "M.Com",
+    category: "PG",
+    baseFee: 60000,
+    durationYears: 2,
+    semesters: 4,
+    waivers: STANDARD_WAIVERS,
+  },
+  "LL.B.": {
+    name: "Bachelor of Laws (LL.B. 3-Year Graduate Route)",
+    short: "LL.B.",
+    category: "PG",
+    baseFee: 90000,
+    durationYears: 3,
+    semesters: 6,
+    waivers: STANDARD_WAIVERS,
   },
 } as const;
 
 export type TargetBranch = keyof typeof BRANCH_CONFIG;
+
+export const QUICK_POPULAR_BRANCHES: TargetBranch[] = [
+  "B.Tech CSE",
+  "B.Tech CSE (AI & ML)",
+  "BBA",
+  "MBA",
+  "BCA",
+  "B.Tech ECE",
+];
+
+export const COURSE_GROUPS: { group: string; branches: TargetBranch[] }[] = [
+  {
+    group: "B.Tech Engineering Programmes (Official 2027)",
+    branches: [
+      "B.Tech CSE",
+      "B.Tech CSE (AI & ML)",
+      "B.Tech CSE (Data Science)",
+      "B.Tech CSE (Cyber Security)",
+      "B.Tech IT",
+      "B.Tech ECE",
+      "B.Tech Mechanical",
+      "B.Tech Civil",
+      "B.Tech Electrical",
+      "B.Tech Aerospace",
+      "B.Tech Biotechnology",
+      "B.Tech Robotics & Automation",
+      "Integrated B.Tech CSE + MBA",
+    ],
+  },
+  {
+    group: "Top Under-Graduate (UG) Programmes",
+    branches: [
+      "BCA",
+      "BBA",
+      "B.Com",
+      "B.Sc IT",
+      "B.Pharm",
+      "B.Des",
+      "BA LLB",
+    ],
+  },
+  {
+    group: "Top Post-Graduate (PG) Programmes",
+    branches: [
+      "MBA",
+      "MCA",
+      "M.Tech CSE",
+      "M.Com",
+      "LL.B.",
+    ],
+  },
+];
 
 export type ScholarshipTierKey = "CATEGORY_A" | "CATEGORY_B" | "CATEGORY_C" | "NONE";
 
@@ -54,7 +322,7 @@ export interface TierInfo {
   key: ScholarshipTierKey;
   label: string;
   categoryNumber: string;
-  waiver: number; // e.g. 0.6 = 60%
+  defaultWaiver: number;
   percentile: string;
   lpunestScore: string;
   jeeMain: string;
@@ -66,41 +334,41 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
     key: "CATEGORY_A",
     label: "Category 1",
     categoryNumber: "Cat 1",
-    waiver: 0.6,
+    defaultWaiver: 0.5,
     percentile: "Top 10%",
-    lpunestScore: "320 – 400",
+    lpunestScore: "300 – 400",
     jeeMain: "90%+ %ile",
-    boardMarks: "95%+ in 12th",
+    boardMarks: "90%+ in 12th",
   },
   CATEGORY_B: {
     key: "CATEGORY_B",
     label: "Category 2",
     categoryNumber: "Cat 2",
-    waiver: 0.5,
+    defaultWaiver: 0.4,
     percentile: "Top 11% – 20%",
-    lpunestScore: "240 – 319",
+    lpunestScore: "212 – 299",
     jeeMain: "80% – 89.9%",
-    boardMarks: "90% – 94.9%",
+    boardMarks: "85% – 89.9%",
   },
   CATEGORY_C: {
     key: "CATEGORY_C",
     label: "Category 3",
     categoryNumber: "Cat 3",
-    waiver: 0.4,
+    defaultWaiver: 0.3,
     percentile: "Top 21% – 35%",
-    lpunestScore: "150 – 239",
+    lpunestScore: "150 – 211",
     jeeMain: "70% – 79.9%",
-    boardMarks: "80% – 89.9%",
+    boardMarks: "75% – 84.9%",
   },
   NONE: {
     key: "NONE",
     label: "Below Cutoff",
     categoryNumber: "Standard",
-    waiver: 0.0,
+    defaultWaiver: 0.0,
     percentile: "Standard Slab",
     lpunestScore: "< 150",
     jeeMain: "< 70% %ile",
-    boardMarks: "< 80% in 12th",
+    boardMarks: "< 75% in 12th",
   },
 };
 
@@ -187,8 +455,9 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   // Calculated values
   const branchInfo = BRANCH_CONFIG[targetBranch];
   const tierInfo = SCHOLARSHIP_TIERS[selectedTier];
+  const activeWaiver = branchInfo.waivers[selectedTier] ?? tierInfo.defaultWaiver;
   const baseTuition = branchInfo.baseFee;
-  const scholarshipAmount = Math.round(baseTuition * tierInfo.waiver);
+  const scholarshipAmount = Math.round(baseTuition * activeWaiver);
   const netTuitionPerSem = baseTuition - scholarshipAmount;
 
   const selectedHostel = useMemo(
@@ -219,8 +488,8 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
     const parsed = Number(val);
     if (!Number.isNaN(parsed)) {
       setExpectedScore(parsed);
-      if (parsed >= 320) setSelectedTier("CATEGORY_A");
-      else if (parsed >= 240) setSelectedTier("CATEGORY_B");
+      if (parsed >= 300) setSelectedTier("CATEGORY_A");
+      else if (parsed >= 212) setSelectedTier("CATEGORY_B");
       else if (parsed >= 150) setSelectedTier("CATEGORY_C");
       else setSelectedTier("NONE");
     }
@@ -228,9 +497,9 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
 
   const handleTierSelect = (tierKey: ScholarshipTierKey) => {
     setSelectedTier(tierKey);
-    if (tierKey === "CATEGORY_A") setExpectedScore(350);
-    else if (tierKey === "CATEGORY_B") setExpectedScore(275);
-    else if (tierKey === "CATEGORY_C") setExpectedScore(190);
+    if (tierKey === "CATEGORY_A") setExpectedScore(340);
+    else if (tierKey === "CATEGORY_B") setExpectedScore(250);
+    else if (tierKey === "CATEGORY_C") setExpectedScore(180);
     else setExpectedScore(120);
   };
 
@@ -341,27 +610,27 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             </div>
 
             {/* Quick Pills for Common Programs */}
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {(Object.keys(BRANCH_CONFIG) as TargetBranch[]).map((branch) => {
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+              {QUICK_POPULAR_BRANCHES.map((branch) => {
                 const isSelected = targetBranch === branch;
                 return (
                   <button
                     key={branch}
                     type="button"
                     onClick={() => setTargetBranch(branch)}
-                    className={`rounded-xl border px-3 py-2.5 text-xs font-bold transition-all text-center ${
+                    className={`rounded-xl border px-3 py-2 text-xs font-bold transition-all text-center ${
                       isSelected
-                        ? "border-orange-600 bg-orange-50 text-orange-900 shadow-sm"
+                        ? "border-orange-600 bg-orange-50 text-orange-900 shadow-sm ring-1 ring-orange-500"
                         : "border-slate-200 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
                     }`}
                   >
-                    {branch}
+                    {BRANCH_CONFIG[branch].short}
                   </button>
                 );
               })}
             </div>
 
-            {/* Detailed Select Dropdown */}
+            {/* Detailed Select Dropdown Grouped by Official Category */}
             <div className="mt-3">
               <select
                 id="calc-course"
@@ -369,10 +638,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 onChange={(e) => setTargetBranch(e.target.value as TargetBranch)}
                 className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
               >
-                {(Object.keys(BRANCH_CONFIG) as TargetBranch[]).map((branch) => (
-                  <option key={branch} value={branch}>
-                    {BRANCH_CONFIG[branch].name} ({BRANCH_CONFIG[branch].durationYears} Years · {formatINR(BRANCH_CONFIG[branch].baseFee)}/sem)
-                  </option>
+                {COURSE_GROUPS.map((grp) => (
+                  <optgroup key={grp.group} label={grp.group}>
+                    {grp.branches.map((branch) => (
+                      <option key={branch} value={branch}>
+                        {BRANCH_CONFIG[branch].name} ({BRANCH_CONFIG[branch].durationYears} Years · {formatINR(BRANCH_CONFIG[branch].baseFee)}/sem)
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
@@ -395,7 +668,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 </div>
               </div>
               <span className="hidden rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 sm:inline-block">
-                {tierInfo.waiver > 0 ? `${tierInfo.waiver * 100}% Waiver Active` : "Standard Slabs"}
+                {activeWaiver > 0 ? `${Math.round(activeWaiver * 100)}% Waiver Active` : "Standard Slabs"}
               </span>
             </div>
 
@@ -461,7 +734,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                       )}
                     </div>
                     <span className="mt-1 text-sm font-black text-slate-950">
-                      {tier.waiver > 0 ? `${tier.waiver * 100}% Off` : "0% Off"}
+                      {branchInfo.waivers[key] > 0 ? `${Math.round(branchInfo.waivers[key] * 100)}% Off` : "0% Off"}
                     </span>
                     <span className="mt-1 text-[11px] font-medium text-slate-500">
                       {basisMode === "lpunest"
@@ -589,7 +862,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 </span>
               </div>
               <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 border border-emerald-500/30">
-                {tierInfo.label} ({tierInfo.waiver * 100}% Waiver)
+                {tierInfo.label} ({Math.round(activeWaiver * 100)}% Waiver)
               </span>
             </div>
 
