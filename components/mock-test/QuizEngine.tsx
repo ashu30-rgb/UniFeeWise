@@ -3,12 +3,16 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
 import type { MockSubjectTest } from "@/lib/mockTestTypes";
+import { trackLeadConversion } from "@/lib/gtag";
 
 interface QuizEngineProps {
   test: MockSubjectTest;
 }
 
 type AnswersMap = Record<string, number | null>;
+
+const DISCOUNT_CODE = "LPUMZW722";
+const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 
 function formatTime(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
@@ -29,6 +33,18 @@ export default function QuizEngine({ test }: QuizEngineProps) {
   const [secondsLeft, setSecondsLeft] = useState(
     Math.max(1, test.timeLimitMinutes) * 60
   );
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(DISCOUNT_CODE);
+      setCopied(true);
+      trackLeadConversion(20.0, "INR");
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   const currentQuestion = questions[currentIndex];
   const totalQuestions = questions.length;
@@ -158,6 +174,40 @@ export default function QuizEngine({ test }: QuizEngineProps) {
               </div>
             );
           })}
+        </div>
+
+        {/* Contextual LPUNEST Scholarship & 20% Form Discount Banner */}
+        <div className="mt-6 rounded-xl border border-dashed border-orange-500/60 bg-[#1e2329] p-5 text-center space-y-2.5">
+          <p className="text-xs font-bold uppercase tracking-wider text-orange-400">
+            {totalQuestions > 0 && score / totalQuestions >= 0.75
+              ? "Scored 75%+? You are on track for a Category 1 (50%–60%) Scholarship!"
+              : "LPUNEST Has 0 Negative Marking — Every Attempt Boosts Your Bracket!"}
+          </p>
+          <p className="text-xs text-gray-300 leading-relaxed">
+            Lock in your Phase 1 application on <strong>admission.lpu.in</strong> using code{" "}
+            <strong className="font-mono text-orange-400 bg-black/40 px-1.5 py-0.5 rounded border border-orange-500/30">
+              LPUMZW722
+            </strong>{" "}
+            for a <strong>flat 20% discount</strong> on the form fee (₹800 for boys / ₹400 for girls).
+          </p>
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={handleCopyCode}
+              className="rounded-lg bg-orange-600 px-4 py-2 text-xs font-bold text-white hover:bg-orange-500 transition shadow-sm whitespace-nowrap"
+            >
+              {copied ? "Copied! Paste at admission.lpu.in" : "Copy Coupon Code LPUMZW722"}
+            </button>
+            <a
+              href={AFFILIATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackLeadConversion(50.0, "INR")}
+              className="rounded-lg border border-orange-500/50 bg-transparent px-4 py-2 text-xs font-bold text-orange-300 hover:bg-orange-500/10 transition whitespace-nowrap"
+            >
+              Apply on Official Portal (20% Off) →
+            </a>
+          </div>
         </div>
 
         <GlowingCtaButton

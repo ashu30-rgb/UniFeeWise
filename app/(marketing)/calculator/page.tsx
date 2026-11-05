@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalculatorForm from "@/components/calculator/CalculatorForm";
+import MockTestHub from "@/components/mock-test/MockTestHub";
 import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq";
 import { ShieldCheck } from "lucide-react";
 
@@ -33,11 +34,15 @@ export default function CalculatorPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <CalculatorForm />
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <MockTestHub />
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScholarshipGuideAndFaq />
       </section>
     </main>

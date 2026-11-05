@@ -4,7 +4,7 @@ import { Calculator, ShieldAlert, Sparkles } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-slate-800 bg-slate-950 text-slate-400">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Top Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Brand & Purpose */}
@@ -79,6 +79,15 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-xs">
               <li>
                 <Link
+                  href="/#mock-test"
+                  className="inline-flex items-center gap-1 font-bold text-orange-400 transition hover:text-orange-300"
+                >
+                  <Sparkles className="h-3 w-3" />
+                  Free Mock Test Hub
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/btech-previous-year-paper"
                   className="transition hover:text-orange-400"
                 >
@@ -148,7 +157,7 @@ export default function Footer() {
         </div>
 
         {/* Mandatory Independent Compliance Disclaimer Block (Anti-Suspension) */}
-        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-inner">
+        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-inner space-y-3">
           <div className="flex items-start gap-3">
             <span
               className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-400"
@@ -159,15 +168,19 @@ export default function Footer() {
             <div className="space-y-2 text-xs leading-relaxed text-slate-400">
               <p>
                 <strong className="font-semibold text-slate-300">
-                  Disclaimer:
+                  Note on Fee Estimates &amp; Accuracy:
+                </strong>{" "}
+                All tuition, scholarship brackets, hostel, and mess figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
+              </p>
+              <p>
+                <strong className="font-semibold text-slate-300">
+                  Independent Status Disclaimer:
                 </strong>{" "}
                 UniFeeWise is an independent student fee calculation,
                 scholarship estimation, and educational guidance tool built by
                 alumni/students. We are NOT the official website of Lovely
                 Professional University (LPU) and are not directly affiliated
                 with the university&apos;s administrative billing department.
-                All tuition, hostel, and mess fee structures are estimates based
-                on publicly available 2026–2027 university brochures.
               </p>
               <p className="text-[11px] text-slate-500">
                 Trademarks Notice: &ldquo;Lovely Professional

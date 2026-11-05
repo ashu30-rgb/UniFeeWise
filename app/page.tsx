@@ -1,5 +1,6 @@
 import { Sparkles, ShieldCheck, Zap, CheckCircle2 } from "lucide-react";
 import CalculatorForm from "@/components/calculator/CalculatorForm";
+import MockTestHub from "@/components/mock-test/MockTestHub";
 import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq";
 
 export default function Home() {
@@ -33,15 +34,15 @@ export default function Home() {
 
           {/* Trust Highlights */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs font-medium text-slate-500 sm:gap-6">
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 whitespace-nowrap">
               <Zap className="h-3.5 w-3.5 text-orange-500" />
               100% Free &amp; Instant Estimation
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 whitespace-nowrap">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
               Zero Forced Gate to Calculate
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 whitespace-nowrap">
               <Sparkles className="h-3.5 w-3.5 text-amber-500" />
               Verified Coupon: LPUMZW722
             </span>
@@ -52,14 +53,21 @@ export default function Home() {
       {/* =========================================================================
           CALCULATOR WORKBENCH (#calculator)
           ========================================================================= */}
-      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <CalculatorForm />
+      </section>
+
+      {/* =========================================================================
+          LPUNEST 2027 PRACTICE & MOCK TEST HUB (#mock-test)
+          ========================================================================= */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <MockTestHub />
       </section>
 
       {/* =========================================================================
           EDUCATIONAL SECTIONS & FAQ ACCORDION (#cutoffs, #discount, #faq)
           ========================================================================= */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScholarshipGuideAndFaq />
       </section>
     </main>

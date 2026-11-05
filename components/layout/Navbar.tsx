@@ -9,6 +9,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Fee Calculator", href: "/#calculator" },
+    { label: "Mock Tests", href: "/#mock-test", badge: "Free" },
     { label: "Scholarship Cutoffs", href: "/#cutoffs" },
     { label: "LPUNEST Discount", href: "/#discount" },
     { label: "FAQs", href: "/#faq" },
@@ -16,12 +17,12 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/85 backdrop-blur-md transition-all">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Brand & Edition Badge */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/"
-            className="flex items-center gap-2 font-black tracking-tight text-slate-900 transition hover:opacity-90"
+            className="flex items-center gap-2 font-black tracking-tight text-slate-900 transition hover:opacity-90 whitespace-nowrap"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-600 text-white shadow-sm shadow-orange-500/30">
               <Calculator className="h-4 w-4" />
@@ -30,7 +31,7 @@ export default function Navbar() {
               Uni<span className="text-orange-600">Fee</span>Wise
             </span>
           </Link>
-          <span className="hidden items-center gap-1 rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 text-[11px] font-semibold text-orange-700 sm:inline-flex">
+          <span className="hidden items-center gap-1 rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 text-[11px] font-semibold text-orange-700 whitespace-nowrap lg:inline-flex">
             <Sparkles className="h-3 w-3 text-orange-500" />
             2027 Admission Edition
           </span>
@@ -38,25 +39,30 @@ export default function Navbar() {
 
         {/* Center: Desktop Navigation Links */}
         <nav
-          className="hidden items-center gap-6 md:flex"
+          className="hidden items-center gap-5 md:flex"
           aria-label="Main Navigation"
         >
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-xs font-semibold tracking-wide text-slate-600 transition hover:text-orange-600"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-slate-600 transition hover:text-orange-600 whitespace-nowrap"
             >
-              {link.label}
+              <span>{link.label}</span>
+              {link.badge && (
+                <span className="rounded-full bg-emerald-100 px-1.5 py-0.2 text-[10px] font-extrabold text-emerald-800">
+                  {link.badge}
+                </span>
+              )}
             </Link>
           ))}
         </nav>
 
         {/* Right: CTA Button & Mobile Toggle */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <a
             href="/#calculator"
-            className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-orange-600 hover:shadow-orange-500/20 sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-orange-600 hover:shadow-orange-500/20 whitespace-nowrap sm:inline-flex"
           >
             <span>Get 20% Form Discount</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -65,7 +71,7 @@ export default function Navbar() {
           {/* Mobile CTA (Compact) */}
           <a
             href="/#calculator"
-            className="rounded-full bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-orange-700 sm:hidden"
+            className="rounded-full bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-orange-700 whitespace-nowrap sm:hidden"
           >
             20% Off Code
           </a>
@@ -96,9 +102,14 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-orange-600"
+                className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-orange-600"
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.badge && (
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-extrabold text-emerald-800">
+                    {link.badge}
+                  </span>
+                )}
               </Link>
             ))}
             <div className="pt-2">

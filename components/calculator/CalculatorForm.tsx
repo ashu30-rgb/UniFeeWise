@@ -10,6 +10,8 @@ import {
   ExternalLink,
   BookOpen,
   CheckCircle2,
+  Tag,
+  Sparkles,
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
 
@@ -518,11 +520,21 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const handleCopyCode = async () => {
     try {
       await navigator.clipboard.writeText(DISCOUNT_CODE);
-      setCopiedCode(true);
-      setTimeout(() => setCopiedCode(false), 2500);
     } catch {
-      setCopiedCode(false);
+      const textarea = document.createElement("textarea");
+      textarea.value = DISCOUNT_CODE;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        // ignore
+      }
+      document.body.removeChild(textarea);
     }
+    setCopiedCode(true);
+    trackLeadConversion(20.0, "INR");
+    setTimeout(() => setCopiedCode(false), 2500);
   };
 
   const handleApplyPortalClick = () => {
@@ -537,7 +549,43 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
         {/* =====================================================================
             LEFT COLUMN (7 cols): Step-by-Step Interactive Inputs
             ===================================================================== */}
-        <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 space-y-8">
+        <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 space-y-7">
+          {/* Open Coupon Direct Conversion Banner */}
+          <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-2xl border border-orange-200 bg-orange-50/80 px-4 py-3 text-xs shadow-sm">
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-orange-600 text-white shadow-xs">
+                <Tag className="h-3.5 w-3.5" />
+              </span>
+              <span className="font-extrabold text-orange-950">
+                Official LPUNEST 20% Form Discount:
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleCopyCode}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-orange-300 bg-white px-3 py-1 font-mono font-black text-orange-600 hover:bg-orange-50 transition shadow-sm whitespace-nowrap"
+                aria-label="Copy coupon code LPUMZW722"
+              >
+                <span>{DISCOUNT_CODE}</span>
+                {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+              </button>
+              <button
+                type="button"
+                onClick={handleApplyPortalClick}
+                className="hidden sm:inline-flex items-center gap-1 rounded-xl bg-orange-600 px-3 py-1 font-bold text-white hover:bg-orange-500 transition shadow-sm whitespace-nowrap"
+              >
+                <span>Apply (20% Off)</span>
+                <ExternalLink className="h-3 w-3" />
+              </button>
+            </div>
+            {copiedCode && (
+              <p className="w-full text-[11px] font-bold text-emerald-700 animate-fadeIn">
+                ✓ Copied! Paste at admission.lpu.in checkout to save 20%.
+              </p>
+            )}
+          </div>
+
           {/* STEP 1: Program & Stream Selection */}
           <div>
             <div className="flex items-center gap-3">
@@ -736,14 +784,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
         <div className="lg:col-span-5 lg:sticky lg:top-24 rounded-3xl bg-slate-900 p-6 sm:p-7 text-white shadow-2xl space-y-6 border border-slate-800">
           {/* Top Live Readout (Always Visible — Zero Gate) */}
           <div>
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-300 whitespace-nowrap">
                   Live Fee Projection
                 </span>
               </div>
-              <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 border border-emerald-500/30">
+              <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 border border-emerald-500/30 whitespace-nowrap">
                 {tierInfo.label} ({Math.round(activeWaiver * 100)}% Waiver)
               </span>
             </div>
@@ -778,7 +826,54 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             </div>
           </div>
 
-          {/* Bottom "Soft Gate" Unlock Box (Inside the Card) */}
+          {/* Open Coupon Card (Always Open & Visible for Instant Conversions) */}
+          <div className="rounded-2xl border border-orange-500/40 bg-gradient-to-b from-orange-950/40 to-slate-950/70 p-4 text-center space-y-2.5">
+            <div className="flex items-center justify-between text-[11px] font-bold">
+              <span className="text-orange-400 uppercase tracking-wider flex items-center gap-1">
+                <Tag className="h-3 w-3" />
+                Official 20% Form Discount
+              </span>
+              <span className="text-emerald-400 font-mono text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                Active Code
+              </span>
+            </div>
+
+            <div className="flex items-center justify-center gap-2">
+              <span className="font-mono text-xl sm:text-2xl font-black tracking-widest text-white bg-slate-900/90 px-3.5 py-1 rounded-xl border border-slate-700">
+                {DISCOUNT_CODE}
+              </span>
+              <button
+                type="button"
+                onClick={handleCopyCode}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-orange-600 px-3 py-2 text-xs font-bold text-white hover:bg-orange-500 transition shadow-sm whitespace-nowrap"
+                aria-label="Copy coupon code LPUMZW722"
+              >
+                {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />}
+                <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
+              </button>
+            </div>
+
+            <p className="text-[11px] text-slate-300 leading-tight">
+              Reduces application fee from ₹1,000 to <strong className="text-white">₹800</strong> (for girls: <strong className="text-white">₹400</strong>).
+            </p>
+
+            {copiedCode && (
+              <p className="text-[11px] font-bold text-emerald-400 animate-fadeIn">
+                ✓ Copied! Paste at admission.lpu.in checkout.
+              </p>
+            )}
+
+            <button
+              type="button"
+              onClick={handleApplyPortalClick}
+              className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-orange-600/20 transition hover:from-orange-600 hover:to-amber-600 whitespace-nowrap"
+            >
+              <span>Apply on Official LPU Portal (20% Off)</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          {/* Bottom "Soft Gate" Unlock Box (For 4-Year Schedule + Free Mock Pack) */}
           <div className="rounded-2xl border border-slate-700/80 bg-slate-800/80 p-5 shadow-inner">
             {!isUnlocked ? (
               /* PRE-UNLOCK STATE: Ultra-Compact Lead Form */
@@ -789,10 +884,10 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   </span>
                   <div>
                     <h4 className="text-xs font-extrabold text-white sm:text-sm">
-                      Unlock Full Degree Breakdown + 20% Discount Code
+                      Unlock Full 4-Year Breakdown &amp; Free Mock Pack
                     </h4>
                     <p className="mt-0.5 text-[11px] text-slate-400 leading-tight">
-                      Get semester-by-semester forecast &amp; coupon <strong className="text-orange-400 font-mono">LPUMZW722</strong>.
+                      Get semester-by-semester forecast &amp; printable LPUNEST study resources.
                     </p>
                   </div>
                 </div>
@@ -854,9 +949,9 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full rounded-xl bg-orange-600 px-4 py-2.5 text-xs font-bold text-white shadow-md transition hover:bg-orange-500 disabled:opacity-60 flex items-center justify-center gap-1.5"
+                    className="w-full rounded-xl bg-orange-600 px-4 py-2.5 text-xs font-bold text-white shadow-md transition hover:bg-orange-500 disabled:opacity-60 flex items-center justify-center gap-1.5 whitespace-nowrap"
                   >
-                    <span>{isSubmitting ? "Unlocking Breakdown..." : "Unlock Full Breakdown & 20% Code →"}</span>
+                    <span>{isSubmitting ? "Unlocking Breakdown..." : "Get Full 4-Year Breakdown →"}</span>
                   </button>
 
                   <p className="text-[10px] text-slate-400 text-center">
@@ -865,54 +960,20 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 </form>
               </div>
             ) : (
-              /* POST-UNLOCK STATE: Coupon Code + Detailed Schedule */
+              /* POST-UNLOCK STATE: Detailed Schedule & Study Pack */
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
                   <Unlock className="h-4 w-4" />
-                  <span>Breakdown &amp; Coupon Unlocked</span>
+                  <span>4-Year Breakdown &amp; Study Pack Unlocked</span>
                 </div>
-
-                {/* Prominent One-Click Coupon Card */}
-                <div className="rounded-xl border border-orange-500/50 bg-orange-950/40 p-3.5 text-center">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-orange-400">
-                    Official LPUNEST 20% Form Discount
-                  </span>
-                  <div className="mt-1 flex items-center justify-center gap-2">
-                    <span className="font-mono text-xl font-black tracking-widest text-white">
-                      {DISCOUNT_CODE}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleCopyCode}
-                      className="inline-flex items-center gap-1 rounded-lg bg-orange-600 px-2.5 py-1 text-xs font-bold text-white hover:bg-orange-500 transition"
-                      aria-label="Copy coupon code"
-                    >
-                      {copiedCode ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                      <span>{copiedCode ? "Copied" : "Copy"}</span>
-                    </button>
-                  </div>
-                  <p className="mt-1 text-[10px] text-slate-300">
-                    Reduces form fee from ₹1,000 to ₹800 (for girls: ₹400).
-                  </p>
-                </div>
-
-                {/* Primary Apply CTA Button */}
-                <button
-                  type="button"
-                  onClick={handleApplyPortalClick}
-                  className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-orange-600/30 transition hover:from-orange-600 hover:to-amber-600"
-                >
-                  <span>Apply on Official LPU Portal (20% Off)</span>
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </button>
 
                 {/* Degree Cost Summary Table */}
-                <div className="rounded-xl border border-slate-700 bg-slate-900 p-3 text-xs space-y-2">
+                <div className="rounded-xl border border-slate-700 bg-slate-900 p-3.5 text-xs space-y-2">
                   <div className="font-bold text-slate-200 border-b border-slate-800 pb-1.5 flex justify-between">
                     <span>{branchInfo.durationYears}-Year Total Forecast</span>
                     <span className="text-emerald-400">Save {formatINR(scholarshipAmount * branchInfo.semesters)}</span>
                   </div>
-                  <div className="space-y-1 text-[11px] text-slate-400">
+                  <div className="space-y-1.5 text-[11px] text-slate-400">
                     <div className="flex justify-between">
                       <span>Total Net Tuition ({branchInfo.semesters} Sems):</span>
                       <span className="text-white font-medium">{formatINR(netTuitionPerSem * branchInfo.semesters)}</span>
@@ -929,17 +990,34 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 </div>
 
                 {/* Study Resources download links */}
-                <div className="text-center pt-1">
+                <div className="space-y-2 pt-1 text-center">
                   <Link
                     href="/btech-previous-year-paper"
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-orange-400 hover:text-orange-300"
+                    className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold text-orange-400 hover:text-orange-300 w-full"
                   >
                     <BookOpen className="h-3 w-3" />
-                    <span>Download LPUNEST B.Tech Previous Year Paper (PDF) →</span>
+                    <span>Download LPUNEST Previous Year Paper (PDF) →</span>
                   </Link>
+                  <a
+                    href="#mock-test"
+                    className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 w-full"
+                  >
+                    <Sparkles className="h-3 w-3" />
+                    <span>Attempt Free Online Practice Mock Tests →</span>
+                  </a>
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Diplomatic Fee Accuracy Disclaimer Note */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-[11px] leading-relaxed text-slate-400 space-y-1">
+            <span className="font-bold text-slate-300 block">
+              Note on Fee Estimates:
+            </span>
+            <p>
+              All tuition, scholarship brackets, hostel, and mess figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
+            </p>
           </div>
         </div>
       </div>

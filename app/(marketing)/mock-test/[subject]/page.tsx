@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   return {
     title: `${test.title} | UniFeeWise`,
-    description: `Practice free interactive ${test.subjectName} questions for LPUNEST 2026 with instant scoring.`,
+    description: `Practice free interactive ${test.subjectName} questions for LPUNEST 2027 with instant scoring and scholarship advice.`,
   };
 }
 
@@ -53,7 +53,7 @@ export default function MockTestSubjectPage({ params }: MockTestPageProps) {
       <div className="mx-auto max-w-3xl px-4 py-12">
         <header className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">
-            LPUNEST 2026 Practice
+            LPUNEST 2027 Practice Edition
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             {test.title}

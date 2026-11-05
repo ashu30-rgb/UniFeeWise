@@ -10,16 +10,19 @@ import {
   CheckCircle2,
   Tag,
   ExternalLink,
+  Copy,
+  Check,
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
 
 const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
+const DISCOUNT_CODE = "LPUMZW722";
 
 const FAQS = [
   {
     question: "How do I get the 20% discount on the LPUNEST form?",
     answer:
-      "When registering on the official university portal (admission.lpu.in), enter coupon code LPUMZW722 at the checkout stage. This officially reduces the application form fee from ₹1,000 to ₹800 for male applicants, and from ₹500 to ₹400 for female applicants.",
+      "When registering on the official university portal (admission.lpu.in), enter coupon code LPUMZW722 at the checkout stage. This officially gives you a flat 20% discount, reducing the application form fee from ₹1,000 to ₹800 for male applicants, and from ₹500 to ₹400 for female applicants.",
   },
   {
     question: "Can I improve my scholarship in Phase 2?",
@@ -40,6 +43,7 @@ const FAQS = [
 
 export default function ScholarshipGuideAndFaq() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [bannerCopied, setBannerCopied] = useState<boolean>(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
@@ -48,6 +52,26 @@ export default function ScholarshipGuideAndFaq() {
   const handleApplyClick = () => {
     trackLeadConversion(50.0, "INR");
     window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCopyBannerCode = async () => {
+    try {
+      await navigator.clipboard.writeText(DISCOUNT_CODE);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = DISCOUNT_CODE;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        // ignore
+      }
+      document.body.removeChild(textarea);
+    }
+    setBannerCopied(true);
+    trackLeadConversion(20.0, "INR");
+    setTimeout(() => setBannerCopied(false), 2500);
   };
 
   return (
@@ -93,10 +117,10 @@ export default function ScholarshipGuideAndFaq() {
 
             <div className="my-5 rounded-xl bg-white p-4 border border-orange-100 shadow-inner">
               <div className="text-3xl font-black text-slate-900">
-                50%–70% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
+                50%–60% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
               <div className="mt-1 text-xs font-medium text-emerald-600">
-                Saves up to ₹4,48,000 on 4-Yr B.Tech
+                Saves up to ₹7,68,000 on 4-Yr B.Tech (₹96,000/sem)
               </div>
             </div>
 
@@ -111,7 +135,7 @@ export default function ScholarshipGuideAndFaq() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-                <span><strong>12th Board:</strong> 90%+ (95%+ for 70%)</span>
+                <span><strong>12th Board:</strong> 90%+ (95%+ for 60%)</span>
               </li>
             </ul>
           </div>
@@ -137,7 +161,7 @@ export default function ScholarshipGuideAndFaq() {
                 40%–50% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
               <div className="mt-1 text-xs font-medium text-emerald-600">
-                Saves up to ₹3,20,000 on 4-Yr B.Tech
+                Saves up to ₹6,40,000 on 4-Yr B.Tech (₹80,000/sem)
               </div>
             </div>
 
@@ -178,7 +202,7 @@ export default function ScholarshipGuideAndFaq() {
                 30%–40% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
               <div className="mt-1 text-xs font-medium text-emerald-600">
-                Saves up to ₹2,56,000 on 4-Yr B.Tech
+                Saves up to ₹5,12,000 on 4-Yr B.Tech (₹64,000/sem)
               </div>
             </div>
 
@@ -210,13 +234,13 @@ export default function ScholarshipGuideAndFaq() {
             </h4>
             <p className="mt-1 leading-relaxed text-amber-800">
               Phase 1 carries the highest scholarship seat quotas. In subsequent
-              phases (Phase 2 & Phase 3), the university reduces scholarship percentage
+              phases (Phase 2 &amp; Phase 3), the university reduces scholarship percentage
               caps and increases fee slabs as intake quotas fill up.
             </p>
           </div>
           <a
             href="#calculator"
-            className="shrink-0 rounded-xl bg-amber-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-amber-700"
+            className="shrink-0 rounded-xl bg-amber-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-amber-700 whitespace-nowrap"
           >
             Calculate Phase 1 Fee →
           </a>
@@ -228,31 +252,39 @@ export default function ScholarshipGuideAndFaq() {
           ========================================================================= */}
       <section
         id="discount"
-        className="scroll-mt-24 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-8 text-white shadow-xl sm:p-10"
+        className="scroll-mt-24 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-10 text-white shadow-xl"
       >
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/20 px-3 py-1 text-xs font-bold text-orange-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/20 px-3 py-1 text-xs font-bold text-orange-400 whitespace-nowrap">
               <Tag className="h-3 w-3" />
               Verified Official Coupon Code
             </span>
             <h3 className="mt-3 text-2xl font-black text-white sm:text-3xl">
-              Save 20% on Your Official LPUNEST Form
+              Save 20% Instantly on Your Official LPUNEST Form
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-sm">
-              Use official code <strong className="font-mono text-orange-400">LPUMZW722</strong> on
-              admission.lpu.in to reduce your application fee to ₹800 (for girls: ₹400).
+              Use verified code <strong className="font-mono text-orange-400">LPUMZW722</strong> on admission.lpu.in to reduce your Soft-Copy LPUNEST Kit fee from ₹1,000 to ₹800 for boys (and from ₹500 to ₹400 for girls).
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <div className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-950/70 px-4 py-3 font-mono text-xl font-black tracking-widest text-orange-400">
-              LPUMZW722
-            </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+            <button
+              type="button"
+              onClick={handleCopyBannerCode}
+              className="flex items-center justify-center gap-2 rounded-xl border border-orange-500/50 bg-slate-950/80 px-4 py-3 font-mono text-lg sm:text-xl font-black tracking-widest text-orange-400 hover:bg-slate-950 transition shadow-inner group whitespace-nowrap"
+              aria-label="Copy coupon code LPUMZW722"
+            >
+              <span>LPUMZW722</span>
+              <span className="flex items-center gap-1 rounded-md bg-orange-600/30 px-2 py-0.5 text-[10px] font-bold text-orange-200 group-hover:bg-orange-600/50">
+                {bannerCopied ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
+                <span>{bannerCopied ? "Copied! Paste at admission.lpu.in" : "Copy"}</span>
+              </span>
+            </button>
             <button
               type="button"
               onClick={handleApplyClick}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-orange-500"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-orange-500 whitespace-nowrap"
             >
               <span>Apply on Official Portal</span>
               <ExternalLink className="h-4 w-4" />
