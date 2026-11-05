@@ -543,35 +543,9 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
   },
 };
 
-export const HOSTEL_OPTIONS = [
-  { id: "day_scholar", label: "Day Scholar (No Hostel)", feePerSem: 0, electricityUnits: 0 },
-  { id: "4_seater_ac", label: "4-Seater AC Standard (500 free units)", feePerSem: 46350, electricityUnits: 500 },
-  { id: "4_seater_non_ac", label: "4-Seater Air Cooled (300 free units)", feePerSem: 41850, electricityUnits: 300 },
-  { id: "3_seater_ac", label: "3-Seater AC Standard (550 free units)", feePerSem: 50850, electricityUnits: 550 },
-  { id: "3_seater_non_ac", label: "3-Seater Air Cooled (350 free units)", feePerSem: 48600, electricityUnits: 350 },
-  { id: "2_seater_ac", label: "2-Seater AC Standard (750 free units)", feePerSem: 64350, electricityUnits: 750 },
-  { id: "2_seater_non_ac", label: "2-Seater Air Cooled (400 free units)", feePerSem: 55350, electricityUnits: 400 },
-  { id: "1_seater_ac", label: "1-Seater AC Single Room (1000 free units)", feePerSem: 73350, electricityUnits: 1000 },
-  { id: "dorm_ac", label: "6/7/8-Seater AC Dormitory (350 free units)", feePerSem: 40500, electricityUnits: 350 },
-] as const;
-
-export type HostelOptionId = (typeof HOSTEL_OPTIONS)[number]["id"];
-
-export const MESS_OPTIONS = [
-  { id: "none", label: "None / Day Scholar", feePerSem: 0 },
-  { id: "standard_veg_4", label: "Standard Veg Mess - 4 Meals (Breakfast, Lunch, Snacks, Dinner)", feePerSem: 22500 },
-  { id: "standard_veg_3", label: "Standard Veg Mess - 3 Meals (Breakfast, Lunch, Dinner)", feePerSem: 20700 },
-  { id: "standard_veg_2", label: "Standard Veg Mess - 2 Meals (Breakfast & Dinner)", feePerSem: 18900 },
-  { id: "ala_carte_4", label: "A La Carte Multi-Cuisine Mess - 4 Meals", feePerSem: 26100 },
-  { id: "non_veg_3", label: "Non-Vegetarian Mess - 3 Meals", feePerSem: 38500 },
-] as const;
-
-export type MessOptionId = (typeof MESS_OPTIONS)[number]["id"];
-
 type BasisMode = "lpunest" | "jee" | "boards";
 
 const EXAM_FEE_PER_SEM = 4500;
-const LAUNDRY_FEE_PER_SEM_HOSTEL = 2430; // Official Session Rate: Rs. 4,860 / session (per residence.php)
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -596,8 +570,6 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const [basisMode, setBasisMode] = useState<BasisMode>("lpunest");
   const [selectedTier, setSelectedTier] = useState<ScholarshipTierKey>("CATEGORY_A");
   const [expectedScore, setExpectedScore] = useState<number | "">(340);
-  const [hostelId, setHostelId] = useState<HostelOptionId>("day_scholar");
-  const [messId, setMessId] = useState<MessOptionId>("none");
   const [copiedCode, setCopiedCode] = useState(false);
 
   // Calculated values
@@ -607,17 +579,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const baseTuition = branchInfo.baseFee;
   const scholarshipAmount = Math.round(baseTuition * activeWaiver);
   const netTuitionPerSem = baseTuition - scholarshipAmount;
-
-  // Hostel & Mess additions
-  const selectedHostel = HOSTEL_OPTIONS.find((h) => h.id === hostelId) ?? HOSTEL_OPTIONS[0];
-  const selectedMess = MESS_OPTIONS.find((m) => m.id === messId) ?? MESS_OPTIONS[0];
-  const isHosteller = selectedHostel.feePerSem > 0;
-  const hostelFee = selectedHostel.feePerSem;
-  const messFee = selectedMess.feePerSem;
-  const laundryFee = isHosteller ? LAUNDRY_FEE_PER_SEM_HOSTEL : 0;
-
-  const totalPerSemester =
-    netTuitionPerSem + hostelFee + messFee + EXAM_FEE_PER_SEM + laundryFee;
+  const totalPerSemester = netTuitionPerSem + EXAM_FEE_PER_SEM;
   const totalDegreeCost = totalPerSemester * branchInfo.semesters;
   const totalScholarshipSavings = scholarshipAmount * branchInfo.semesters;
 
@@ -914,73 +876,6 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               </div>
             )}
           </div>
-
-          {/* STEP 3: Residence & Dining Options (Optional) */}
-          <div className="border-t border-slate-100 pt-7">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white shadow-sm">
-                  3
-                </span>
-                <div>
-                  <h3 className="text-base font-extrabold tracking-tight text-slate-900 sm:text-lg">
-                    Hostel &amp; Mess Package (Optional)
-                  </h3>
-                  <p className="text-xs text-slate-500">
-                    Estimate accommodation, electricity quota, and dining mess packages.
-                  </p>
-                </div>
-              </div>
-              <span className="hidden rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700 sm:inline-block">
-                {isHosteller ? "Hosteller" : "Day Scholar"}
-              </span>
-            </div>
-
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {/* Hostel Select */}
-              <div className="space-y-1.5">
-                <label htmlFor="calc-hostel" className="block text-xs font-bold text-slate-700">
-                  Room Seater &amp; AC Option:
-                </label>
-                <select
-                  id="calc-hostel"
-                  value={hostelId}
-                  onChange={(e) => setHostelId(e.target.value as HostelOptionId)}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
-                >
-                  {HOSTEL_OPTIONS.map((opt) => (
-                    <option key={opt.id} value={opt.id}>
-                      {opt.label} {opt.feePerSem > 0 ? `(${formatINR(opt.feePerSem)}/sem)` : ""}
-                    </option>
-                  ))}
-                </select>
-                {isHosteller && (
-                  <p className="text-[10px] text-slate-500">
-                    Includes {selectedHostel.electricityUnits} free units/session + standard laundry ({formatINR(LAUNDRY_FEE_PER_SEM_HOSTEL)}/sem).
-                  </p>
-                )}
-              </div>
-
-              {/* Mess Select */}
-              <div className="space-y-1.5">
-                <label htmlFor="calc-mess" className="block text-xs font-bold text-slate-700">
-                  Mess Dining Package:
-                </label>
-                <select
-                  id="calc-mess"
-                  value={messId}
-                  onChange={(e) => setMessId(e.target.value as MessOptionId)}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
-                >
-                  {MESS_OPTIONS.map((opt) => (
-                    <option key={opt.id} value={opt.id}>
-                      {opt.label} {opt.feePerSem > 0 ? `(${formatINR(opt.feePerSem)}/sem)` : ""}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* =====================================================================
@@ -1015,31 +910,17 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 <span>Net Tuition / Semester</span>
                 <span className="font-bold text-white text-sm">{formatINR(netTuitionPerSem)}</span>
               </div>
-              {isHosteller && (
-                <div className="flex items-center justify-between text-slate-400">
-                  <span>Hostel Accommodation / Sem</span>
-                  <span className="font-semibold text-slate-200">{formatINR(hostelFee)}</span>
-                </div>
-              )}
-              {messFee > 0 && (
-                <div className="flex items-center justify-between text-slate-400">
-                  <span>Dining Mess Package / Sem</span>
-                  <span className="font-semibold text-slate-200">{formatINR(messFee)}</span>
-                </div>
-              )}
               <div className="flex items-center justify-between text-slate-400">
-                <span>
-                  Semester Examination Fee {isHosteller && "+ Laundry"}
-                </span>
+                <span>Semester Examination Fee</span>
                 <span className="font-semibold text-slate-200">
-                  {formatINR(EXAM_FEE_PER_SEM + laundryFee)}
+                  {formatINR(EXAM_FEE_PER_SEM)}
                 </span>
               </div>
               <div className="border-t border-slate-800 pt-3 flex items-baseline justify-between">
                 <div>
                   <span className="text-xs font-bold text-slate-300">Total Net / Semester</span>
                   <p className="text-[10px] text-slate-500">
-                    Includes official ₹4,500/sem exam fee {isHosteller && "+ laundry"}
+                    Includes official ₹4,500/sem examination fee
                   </p>
                 </div>
                 <span className="text-xl font-black text-orange-400 sm:text-2xl">
@@ -1059,7 +940,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   Complete {branchInfo.durationYears}-Year ({branchInfo.semesters} Semesters) Net Breakdown
                 </h3>
                 <p className="text-[10px] text-slate-400">
-                  All-inclusive degree forecast based on your selected tier &amp; residence
+                  Degree tuition forecast based on your selected scholarship bracket
                 </p>
               </div>
               {scholarshipAmount > 0 && (
@@ -1074,18 +955,6 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 <span>Total Net Tuition ({branchInfo.semesters} Sems):</span>
                 <span className="font-semibold text-slate-200">{formatINR(netTuitionPerSem * branchInfo.semesters)}</span>
               </div>
-              {isHosteller && (
-                <div className="flex items-center justify-between text-slate-400">
-                  <span>Total Hostel &amp; Laundry ({branchInfo.semesters} Sems):</span>
-                  <span className="font-semibold text-slate-200">{formatINR((hostelFee + laundryFee) * branchInfo.semesters)}</span>
-                </div>
-              )}
-              {messFee > 0 && (
-                <div className="flex items-center justify-between text-slate-400">
-                  <span>Total Dining Mess ({branchInfo.semesters} Sems):</span>
-                  <span className="font-semibold text-slate-200">{formatINR(messFee * branchInfo.semesters)}</span>
-                </div>
-              )}
               <div className="flex items-center justify-between text-slate-400">
                 <span>Total Examination Fees ({branchInfo.semesters} Sems):</span>
                 <span className="font-semibold text-slate-200">{formatINR(EXAM_FEE_PER_SEM * branchInfo.semesters)}</span>
@@ -1190,7 +1059,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               Note on Fee Estimates:
             </span>
             <p>
-              All tuition, scholarship brackets, hostel, and mess figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
+              All tuition, scholarship brackets, and semester examination fee figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
             </p>
           </div>
         </div>

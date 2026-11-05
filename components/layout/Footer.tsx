@@ -182,7 +182,7 @@ export default function Footer() {
                 <strong className="font-semibold text-slate-300">
                   Note on Fee Estimates &amp; Accuracy:
                 </strong>{" "}
-                All tuition, scholarship brackets, hostel, and mess figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
+                All tuition, scholarship brackets, and semester examination fee figures calculated above are indicative estimates based on publicly released university reference brochures to help families plan their budget. Because seat quotas, phase-wise scholarship cutoffs, and specialization fees may be updated by the university during the admission cycle, please always verify your final, exact fee structure directly on the official LPU website (www.lpu.in) or admission portal.
               </p>
               <p>
                 <strong className="font-semibold text-slate-300">
