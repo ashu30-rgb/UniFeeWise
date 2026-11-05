@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,9 +12,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "LPUNEST 2026 Calculator | UniFeeWise",
-  description: "Calculate your LPUNEST 2026 ROI with UniFeeWise.",
+  title: "LPUNEST 2027 Fee, Hostel & Scholarship Calculator | UniFeeWise",
+  description:
+    "Calculate your exact 4-year LPU tuition, scholarship bracket, hostel and mess charges in 30 seconds. Unlock 80% discount on LPUNEST application form with code LPUMZW722.",
 };
+
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 
 export default function RootLayout({
   children,
@@ -21,9 +27,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-[#0d1117] text-[#e6edf3] antialiased`}
+        className={`${inter.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased font-sans`}
       >
-        {children}
+        {googleAdsId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-ads-gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${googleAdsId}');
+              `}
+            </Script>
+          </>
+        )}
+        <Navbar />
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
     </html>
   );

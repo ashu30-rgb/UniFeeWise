@@ -59,11 +59,20 @@ export default function LeadGateDialog({
       return;
     }
 
+    let cleanPhone = whatsappNumber.trim().replace(/\D/g, "");
+    if (cleanPhone.length === 12 && cleanPhone.startsWith("91")) {
+      cleanPhone = cleanPhone.slice(2);
+    }
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      setFormError("Please enter a valid 10-digit Indian WhatsApp mobile number.");
+      return;
+    }
+
     setFormError(null);
     await onSubmit({
       fullName: fullName.trim(),
       email: email.trim(),
-      whatsappNumber: whatsappNumber.trim(),
+      whatsappNumber: cleanPhone,
     });
   };
 
@@ -92,7 +101,7 @@ export default function LeadGateDialog({
           </h2>
           <p className="mt-2 text-sm text-gray-400">
             Enter your details to view your exact fees and claim the exclusive
-            20% application discount code.
+            80% application discount code.
           </p>
         </div>
 

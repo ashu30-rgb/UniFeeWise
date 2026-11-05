@@ -134,8 +134,8 @@ export default function ProgramSeoPage({ params }: ProgramSeoPageProps) {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto -mt-8 w-full max-w-xl px-4 pb-16">
-        <CalculatorForm />
+      <section className="relative z-10 mx-auto -mt-8 w-full max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+        <CalculatorForm initialBranch={program.shortName} />
       </section>
     </main>
   );

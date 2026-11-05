@@ -5,6 +5,7 @@ import LeadGateDialog, {
   type LeadFormData,
 } from "@/components/calculator/LeadGateDialog";
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
+import { trackLeadConversion } from "@/lib/gtag";
 
 const PDF_HREF = "/assets/lpunest-btech-previous-year.pdf";
 const PDF_DOWNLOAD_NAME = "LPUNEST_BTech_Paper.pdf";
@@ -69,6 +70,7 @@ export default function GatedPdfDownload() {
 
       setIsUnlocked(true);
       setIsModalOpen(false);
+      trackLeadConversion(1.0, "INR");
     } catch (error) {
       const message =
         error instanceof Error
@@ -105,7 +107,7 @@ export default function GatedPdfDownload() {
 
         <div className="mt-6 rounded-xl border border-dashed border-orange-500/60 bg-[#1e2329] p-5">
           <p className="text-sm font-medium uppercase tracking-wide text-[#8b949e]">
-            Your Flat 20% Application Discount
+            Official 80% Application Form Discount
           </p>
           <p className="mt-3 font-mono text-3xl font-extrabold tracking-widest text-orange-400">
             {DISCOUNT_CODE}
@@ -114,9 +116,10 @@ export default function GatedPdfDownload() {
             href={AFFILIATE_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackLeadConversion(2.0, "INR")}
             className="mt-4 inline-flex text-sm font-semibold text-orange-300 underline-offset-4 transition hover:text-orange-200 hover:underline"
           >
-            Apply Now with Discount →
+            Apply on Official LPU Portal (Code LPUMZW722) →
           </a>
         </div>
       </section>
@@ -135,7 +138,7 @@ export default function GatedPdfDownload() {
           </h2>
           <p className="mt-2 max-w-md text-sm text-gray-400">
             Unlock the free PDF instantly. Enter your details once to download
-            and claim your 20% LPUNEST application discount.
+            and claim your 80% LPUNEST application discount.
           </p>
           <GlowingCtaButton
             type="button"

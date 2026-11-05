@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
+import { trackLeadConversion } from "@/lib/gtag";
 
 export interface ScholarshipResultData {
   tier: string;
@@ -37,6 +38,11 @@ export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
     } catch {
       setCopied(false);
     }
+  };
+
+  const handleApplyClick = () => {
+    trackLeadConversion(2.0, "INR");
+    window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -79,7 +85,7 @@ export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
 
       <div className="mt-6 rounded-xl border border-dashed border-[#30363d] bg-[#1e2329] p-5 text-center">
         <p className="text-sm font-medium uppercase tracking-wide text-[#8b949e]">
-          Exclusive 20% LPUNEST Application Discount Code
+          Official 80% LPUNEST Application Discount Code
         </p>
         <button
           type="button"
@@ -98,11 +104,9 @@ export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
 
       <GlowingCtaButton
         type="button"
-        text="Apply Now with Discount"
+        text="Apply Now on Official LPU Portal"
         className="mt-6 w-full"
-        onClick={() => {
-          window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
-        }}
+        onClick={handleApplyClick}
       />
     </section>
   );
