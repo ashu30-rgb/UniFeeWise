@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Calculator, ShieldAlert, Sparkles } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
 export default function Footer() {
   return (
@@ -77,6 +78,17 @@ export default function Footer() {
               Study Resources
             </h3>
             <ul className="mt-3 space-y-2 text-xs">
+              <li>
+                <a
+                  href="https://chat.whatsapp.com/HVj67QWkaXZAy55FmP1IrL"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-bold text-emerald-400 transition hover:text-emerald-300"
+                >
+                  <WhatsAppIcon className="h-3 w-3 fill-current" />
+                  <span>LPUNEST WhatsApp Community Desk</span>
+                </a>
+              </li>
               <li>
                 <Link
                   href="/#mock-test"

@@ -14,6 +14,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
 
 const STANDARD_WAIVERS: Record<ScholarshipTierKey, number> = {
   CATEGORY_A: 0.5,
@@ -542,6 +544,11 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
     window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
   };
 
+  const handleWhatsAppCommunityClick = () => {
+    trackLeadConversion(30.0, "INR");
+    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div id="calculator" className="scroll-mt-20 w-full">
       {/* 12-Column Responsive Split-Pane Workbench */}
@@ -871,6 +878,18 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <span>Apply on Official LPU Portal (20% Off)</span>
               <ExternalLink className="h-3.5 w-3.5" />
             </button>
+
+            {/* WhatsApp Community Desk CTA */}
+            <div className="pt-2 border-t border-slate-800">
+              <button
+                type="button"
+                onClick={handleWhatsAppCommunityClick}
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition leading-snug text-center cursor-pointer"
+              >
+                <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
+                <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk (Free Mock PDFs &amp; Slot Alerts)</span>
+              </button>
+            </div>
           </div>
 
           {/* Bottom "Soft Gate" Unlock Box (For 4-Year Schedule + Free Mock Pack) */}
@@ -958,6 +977,18 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     🔒 Zero spam. We never share your number.
                   </p>
                 </form>
+
+                {/* WhatsApp Community Desk Alternative Button */}
+                <div className="pt-2 border-t border-slate-700/60">
+                  <button
+                    type="button"
+                    onClick={handleWhatsAppCommunityClick}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition leading-snug text-center cursor-pointer"
+                  >
+                    <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
+                    <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk (Free Mock PDFs &amp; Slot Alerts)</span>
+                  </button>
+                </div>
               </div>
             ) : (
               /* POST-UNLOCK STATE: Detailed Schedule & Study Pack */
@@ -1005,6 +1036,17 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     <Sparkles className="h-3 w-3" />
                     <span>Attempt Free Online Practice Mock Tests →</span>
                   </a>
+
+                  <div className="pt-2 border-t border-slate-800">
+                    <button
+                      type="button"
+                      onClick={handleWhatsAppCommunityClick}
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition leading-snug text-center cursor-pointer"
+                    >
+                      <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
+                      <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk (Free Mock PDFs &amp; Slot Alerts)</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

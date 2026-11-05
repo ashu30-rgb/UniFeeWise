@@ -14,6 +14,8 @@ import {
   Check,
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
 
 const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 const DISCOUNT_CODE = "LPUMZW722";
@@ -52,6 +54,11 @@ export default function ScholarshipGuideAndFaq() {
   const handleApplyClick = () => {
     trackLeadConversion(50.0, "INR");
     window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleWhatsAppClick = () => {
+    trackLeadConversion(30.0, "INR");
+    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
   };
 
   const handleCopyBannerCode = async () => {
@@ -341,6 +348,26 @@ export default function ScholarshipGuideAndFaq() {
               </div>
             );
           })}
+        </div>
+
+        {/* WhatsApp Prep Community Help Desk Banner */}
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-emerald-50/60 p-5 shadow-xs sm:flex sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <h4 className="text-sm font-bold text-emerald-950 flex items-center gap-2">
+              <WhatsAppIcon className="h-4 w-4 fill-current text-emerald-600 shrink-0" />
+              <span>Need Personal Cutoff Guidance or Syllabus PDFs?</span>
+            </h4>
+            <p className="text-xs text-emerald-800 leading-relaxed">
+              Join applicants in our LPUNEST 2027 WhatsApp Desk for free mock PDFs, cutoff discussions &amp; slot alerts.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={handleWhatsAppClick}
+            className="mt-4 sm:mt-0 shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 transition cursor-pointer"
+          >
+            <span>Join WhatsApp Desk →</span>
+          </button>
         </div>
       </section>
     </div>

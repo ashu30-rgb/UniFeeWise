@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { MOCK_COURSES, type PracticeSubject } from "@/lib/mockTestDataExpanded";
 import { trackLeadConversion } from "@/lib/gtag";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
 
 const DISCOUNT_CODE = "LPUMZW722";
 const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
@@ -136,6 +138,11 @@ export default function MockTestHub() {
   const handleApplyPortalClick = () => {
     trackLeadConversion(50.0, "INR");
     window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleWhatsAppClick = () => {
+    trackLeadConversion(30.0, "INR");
+    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -421,10 +428,19 @@ export default function MockTestHub() {
                 <button
                   type="button"
                   onClick={handleRestart}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm cursor-pointer"
                 >
                   <RotateCcw className="h-3.5 w-3.5" />
-                  <span>Retake This Subject Test</span>
+                  <span>Retake Subject Test</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleWhatsAppClick}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 transition shadow-sm cursor-pointer"
+                >
+                  <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />
+                  <span>Join WhatsApp Desk (Free Mock PDFs)</span>
                 </button>
 
                 <a

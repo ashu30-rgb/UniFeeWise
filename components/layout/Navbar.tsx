@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Sparkles, Menu, X, ArrowRight, Calculator } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { trackLeadConversion } from "@/lib/gtag";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,8 +18,31 @@ export default function Navbar() {
     { label: "FAQs", href: "/#faq" },
   ];
 
+  const handleWhatsAppClick = () => {
+    trackLeadConversion(30.0, "INR");
+    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/85 backdrop-blur-md transition-all">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-all">
+      {/* Top Subtle Announcement Bar */}
+      <div className="border-b border-emerald-900/30 bg-emerald-950 px-4 py-1.5 text-center text-[11px] text-emerald-200">
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 flex-wrap">
+          <span className="inline-flex items-center gap-1 font-semibold text-emerald-300">
+            <WhatsAppIcon className="h-3.5 w-3.5 fill-current text-emerald-400" />
+            Official Prep Desk:
+          </span>
+          <button
+            type="button"
+            onClick={handleWhatsAppClick}
+            className="inline-flex items-center gap-1 font-bold text-white hover:text-emerald-300 underline underline-offset-2 transition cursor-pointer"
+          >
+            <span>Join LPUNEST 2027 WhatsApp Desk (Free Mock PDFs &amp; Slot Alerts)</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Brand & Edition Badge */}
         <div className="flex items-center gap-3 shrink-0">
@@ -58,8 +84,20 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right: CTA Button & Mobile Toggle */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Right: Actions & Mobile Toggle */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          {/* WhatsApp Subtle Desk Link (Desktop) */}
+          <button
+            type="button"
+            onClick={handleWhatsAppClick}
+            className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 whitespace-nowrap md:inline-flex cursor-pointer shadow-xs"
+            title="Join LPUNEST 2027 WhatsApp Prep & Cutoff Desk"
+          >
+            <WhatsAppIcon className="h-3.5 w-3.5 fill-current text-emerald-600" />
+            <span>Join WhatsApp Desk</span>
+          </button>
+
+          {/* Form Discount CTA */}
           <a
             href="/#calculator"
             className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-orange-600 hover:shadow-orange-500/20 whitespace-nowrap sm:inline-flex"
@@ -97,6 +135,19 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="border-b border-slate-200 bg-white px-4 py-4 shadow-lg md:hidden">
           <nav className="flex flex-col space-y-3">
+            {/* Mobile WhatsApp Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                handleWhatsAppClick();
+              }}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 cursor-pointer shadow-xs"
+            >
+              <WhatsAppIcon className="h-4 w-4 fill-current text-emerald-600" />
+              <span>Join LPUNEST 2027 WhatsApp Desk</span>
+            </button>
+
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -112,6 +163,7 @@ export default function Navbar() {
                 )}
               </Link>
             ))}
+
             <div className="pt-2">
               <a
                 href="/#calculator"
@@ -128,4 +180,3 @@ export default function Navbar() {
     </header>
   );
 }
-
