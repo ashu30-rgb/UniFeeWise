@@ -4,3 +4,4 @@ export const WHATSAPP_COMMUNITY_URL =
 export const DISCOUNT_CODE = "LPUMZW722";
 
 export const AFFILIATE_URL = "https://admission.lpu.in/?coupon=LPUMZW722";
+

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+export const GOOGLE_ADS_ID =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-444176056";
 export const GOOGLE_ADS_CONVERSION_LABEL =
-  process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL || "QLq6CKeD6rIdELit5tMB";
 
 declare global {
   interface Window {
@@ -11,7 +12,7 @@ declare global {
 }
 
 /**
- * Fires a Google Ads conversion event for lead captures and CTA conversions.
+ * Fires a Google Ads conversion event for lead captures, WhatsApp joins, and CTA conversions.
  * Reads NEXT_PUBLIC_GOOGLE_ADS_ID and NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL.
  */
 export function trackLeadConversion(value = 50.0, currency = "INR") {
@@ -19,8 +20,8 @@ export function trackLeadConversion(value = 50.0, currency = "INR") {
     return;
   }
 
-  const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-  const conversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
+  const adsId = GOOGLE_ADS_ID;
+  const conversionLabel = GOOGLE_ADS_CONVERSION_LABEL;
 
   if (typeof (window as any).gtag === "function") {
     if (adsId && conversionLabel) {
@@ -29,6 +30,13 @@ export function trackLeadConversion(value = 50.0, currency = "INR") {
         value: value,
         currency: currency,
       });
+      console.log(
+        `[Google Ads] Conversion event fired to ${adsId}/${conversionLabel}:`,
+        {
+          value,
+          currency,
+        }
+      );
     } else {
       // Graceful fallback for development / unconfigured environments
       console.log(
