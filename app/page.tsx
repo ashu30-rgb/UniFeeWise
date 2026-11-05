@@ -26,9 +26,9 @@ export default function Home() {
 
           {/* Subheadline */}
           <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-base md:text-lg leading-relaxed text-slate-600">
-            Stop guessing hidden costs. Estimate your semester tuition,
-            LPUNEST/JEE scholarship tier, hostel, and mess charges—plus unlock an
-            instant 80% discount on your LPUNEST application form.
+            Stop guessing hidden costs. Estimate your exact semester tuition and
+            LPUNEST/JEE scholarship tier—plus unlock an
+            instant 20% discount on your LPUNEST application form.
           </p>
 
           {/* Trust Highlights */}

@@ -85,7 +85,7 @@ export default function ScholarshipResults({ data }: ScholarshipResultsProps) {
 
       <div className="mt-6 rounded-xl border border-dashed border-[#30363d] bg-[#1e2329] p-5 text-center">
         <p className="text-sm font-medium uppercase tracking-wide text-[#8b949e]">
-          Official 80% LPUNEST Application Discount Code
+          Official 20% LPUNEST Application Discount Code
         </p>
         <button
           type="button"

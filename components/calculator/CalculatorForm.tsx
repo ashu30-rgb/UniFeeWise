@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useId, useMemo, type FormEvent, type ChangeEvent } from "react";
+import { useState, useId, type FormEvent, type ChangeEvent } from "react";
 import Link from "next/link";
 import {
   Lock,
@@ -8,8 +8,6 @@ import {
   Copy,
   Check,
   ExternalLink,
-  Home as HomeIcon,
-  Utensils,
   BookOpen,
   CheckCircle2,
 } from "lucide-react";
@@ -372,46 +370,12 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
   },
 };
 
-export const HOSTEL_OPTIONS = [
-  { id: "day_scholar", label: "Day Scholar (No Hostel)", feePerSem: 0, annualFee: 0, electricityUnits: 0 },
-  { id: "4_seater_ac", label: "4-Seater AC Standard (500 free units)", feePerSem: 46350, annualFee: 92700, electricityUnits: 500 },
-  { id: "4_seater_non_ac", label: "4-Seater Air Cooled (300 free units)", feePerSem: 41850, annualFee: 83700, electricityUnits: 300 },
-  { id: "3_seater_ac", label: "3-Seater AC Standard (550 free units)", feePerSem: 50850, annualFee: 101700, electricityUnits: 550 },
-  { id: "3_seater_non_ac", label: "3-Seater Air Cooled (350 free units)", feePerSem: 48600, annualFee: 97200, electricityUnits: 350 },
-  { id: "2_seater_ac", label: "2-Seater AC Standard (750 free units)", feePerSem: 64350, annualFee: 128700, electricityUnits: 750 },
-  { id: "2_seater_non_ac", label: "2-Seater Air Cooled (400 free units)", feePerSem: 55350, annualFee: 110700, electricityUnits: 400 },
-  { id: "1_seater_ac", label: "1-Seater AC Single Room (1000 free units)", feePerSem: 73350, annualFee: 146700, electricityUnits: 1000 },
-  { id: "4_seater_apt", label: "4-Seater Studio Apartment AC (500 units)", feePerSem: 49500, annualFee: 99000, electricityUnits: 500 },
-  { id: "3_seater_apt", label: "3-Seater Studio Apartment AC (550 units)", feePerSem: 58500, annualFee: 117000, electricityUnits: 550 },
-  { id: "2_seater_apt", label: "2-Seater Studio Apartment AC (750 units)", feePerSem: 67500, annualFee: 135000, electricityUnits: 750 },
-  { id: "1_seater_apt", label: "1-Seater Studio Apartment AC (1000 units)", feePerSem: 90000, annualFee: 180000, electricityUnits: 1000 },
-  { id: "5_seater_ac", label: "5-Seater AC Standard (400 free units)", feePerSem: 40500, annualFee: 81000, electricityUnits: 400 },
-  { id: "5_seater_non_ac", label: "5-Seater Air Cooled (300 free units)", feePerSem: 36000, annualFee: 72000, electricityUnits: 300 },
-  { id: "dorm_ac", label: "6/7/8-Seater AC Dormitory (350 units)", feePerSem: 40500, annualFee: 81000, electricityUnits: 350 },
-  { id: "dorm_non_ac", label: "6/7/8-Seater Air Cooled Dormitory (250 units)", feePerSem: 36000, annualFee: 72000, electricityUnits: 250 },
-] as const;
-
-export type HostelOptionId = (typeof HOSTEL_OPTIONS)[number]["id"];
-
-export const MESS_OPTIONS = [
-  { id: "none", label: "None / Day Scholar", feePerSem: 0, annualFee: 0 },
-  { id: "standard_veg_4", label: "Standard Veg Mess - 4 Meals (Breakfast, Lunch, Snacks, Dinner)", feePerSem: 22500, annualFee: 45000 },
-  { id: "standard_veg_3", label: "Standard Veg Mess - 3 Meals (Breakfast, Lunch, Dinner)", feePerSem: 20700, annualFee: 41400 },
-  { id: "standard_veg_2", label: "Standard Veg Mess - 2 Meals (Breakfast & Dinner)", feePerSem: 18900, annualFee: 37800 },
-  { id: "ala_carte_4", label: "A La Carte Multi-Cuisine Mess - 4 Meals (Choice of Regional Delicacies)", feePerSem: 26100, annualFee: 52200 },
-  { id: "non_veg_3", label: "Non-Vegetarian Mess - 3 Meals (Per Semester)", feePerSem: 38500, annualFee: 75000 },
-  { id: "non_veg_2", label: "Non-Vegetarian Mess - 2 Meals (Per Semester)", feePerSem: 33500, annualFee: 65000 },
-] as const;
-
-export type MessOptionId = (typeof MESS_OPTIONS)[number]["id"];
-
 type BasisMode = "lpunest" | "jee" | "boards";
 
 const DISCOUNT_CODE = "LPUMZW722";
 const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 
 const EXAM_FEE_PER_SEM = 4500;
-const LAUNDRY_FEE_PER_SEM_HOSTEL = 2430; // Official Session Rate: Rs. 4,860 / session (per residence.php)
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -436,8 +400,6 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const [basisMode, setBasisMode] = useState<BasisMode>("lpunest");
   const [selectedTier, setSelectedTier] = useState<ScholarshipTierKey>("CATEGORY_A");
   const [expectedScore, setExpectedScore] = useState<number | "">(340);
-  const [hostelId, setHostelId] = useState<HostelOptionId>("4_seater_ac");
-  const [messId, setMessId] = useState<MessOptionId>("standard_veg_4");
 
   // Lead Gate Form states
   const [leadName, setLeadName] = useState("");
@@ -459,24 +421,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const baseTuition = branchInfo.baseFee;
   const scholarshipAmount = Math.round(baseTuition * activeWaiver);
   const netTuitionPerSem = baseTuition - scholarshipAmount;
-
-  const selectedHostel = useMemo(
-    () => HOSTEL_OPTIONS.find((h) => h.id === hostelId) ?? HOSTEL_OPTIONS[1],
-    [hostelId]
-  );
-  const selectedMess = useMemo(
-    () => MESS_OPTIONS.find((m) => m.id === messId) ?? MESS_OPTIONS[1],
-    [messId]
-  );
-
-  const isHosteler = selectedHostel.feePerSem > 0;
-  const recurringLaundry = isHosteler ? LAUNDRY_FEE_PER_SEM_HOSTEL : 0;
-  const totalPerSemester =
-    netTuitionPerSem +
-    selectedHostel.feePerSem +
-    selectedMess.feePerSem +
-    EXAM_FEE_PER_SEM +
-    recurringLaundry;
+  const totalPerSemester = netTuitionPerSem + EXAM_FEE_PER_SEM;
 
   // Handle Score Input change
   const handleScoreChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -783,69 +728,6 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               </div>
             )}
           </div>
-
-          {/* STEP 3: Hostel & Mess Preferences */}
-          <div className="border-t border-slate-100 pt-7 space-y-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white shadow-sm">
-                3
-              </span>
-              <div>
-                <h3 className="text-base font-extrabold tracking-tight text-slate-900 sm:text-lg">
-                  Hostel &amp; Mess Preferences
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Choose your room type (AC/Non-AC) and optional dining plan.
-                </p>
-              </div>
-            </div>
-
-            {/* Hostel Selector */}
-            <div className="space-y-1.5">
-              <label
-                htmlFor="calc-hostel"
-                className="flex items-center gap-1.5 text-xs font-bold text-slate-700"
-              >
-                <HomeIcon className="h-3.5 w-3.5 text-slate-500" />
-                Accommodation Room Type
-              </label>
-              <select
-                id="calc-hostel"
-                value={hostelId}
-                onChange={(e) => setHostelId(e.target.value as HostelOptionId)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
-              >
-                {HOSTEL_OPTIONS.map((hostel) => (
-                  <option key={hostel.id} value={hostel.id}>
-                    {hostel.label} {hostel.feePerSem > 0 ? `· ${formatINR(hostel.feePerSem)}/sem (${formatINR(hostel.annualFee)}/yr)` : "(₹0)"}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Mess Selector */}
-            <div className="space-y-1.5">
-              <label
-                htmlFor="calc-mess"
-                className="flex items-center gap-1.5 text-xs font-bold text-slate-700"
-              >
-                <Utensils className="h-3.5 w-3.5 text-slate-500" />
-                Mess &amp; Dining Plan
-              </label>
-              <select
-                id="calc-mess"
-                value={messId}
-                onChange={(e) => setMessId(e.target.value as MessOptionId)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
-              >
-                {MESS_OPTIONS.map((mess) => (
-                  <option key={mess.id} value={mess.id}>
-                    {mess.label} {mess.feePerSem > 0 ? `· ${formatINR(mess.feePerSem)}/sem (${formatINR(mess.annualFee)}/yr)` : "(₹0)"}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
         </div>
 
         {/* =====================================================================
@@ -880,22 +762,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 <span>Net Tuition / Semester</span>
                 <span className="font-bold text-white text-sm">{formatINR(netTuitionPerSem)}</span>
               </div>
-              {selectedHostel.feePerSem > 0 && (
-                <div className="flex items-center justify-between text-slate-400">
-                  <span>Hostel ({selectedHostel.label.split("(")[0].trim()})</span>
-                  <span className="font-semibold text-slate-200">{formatINR(selectedHostel.feePerSem)}</span>
-                </div>
-              )}
-              {selectedMess.feePerSem > 0 && (
-                <div className="flex items-center justify-between text-slate-400">
-                  <span>Mess ({selectedMess.label.split("-")[0].trim()})</span>
-                  <span className="font-semibold text-slate-200">{formatINR(selectedMess.feePerSem)}</span>
-                </div>
-              )}
+              <div className="flex items-center justify-between text-slate-400">
+                <span>Semester Examination Fee</span>
+                <span className="font-semibold text-slate-200">{formatINR(EXAM_FEE_PER_SEM)}</span>
+              </div>
               <div className="border-t border-slate-800 pt-3 flex items-baseline justify-between">
                 <div>
                   <span className="text-xs font-bold text-slate-300">Total Net / Semester</span>
-                  <p className="text-[10px] text-slate-500">Includes exam &amp; official laundry fee</p>
+                  <p className="text-[10px] text-slate-500">Includes official ₹4,500/sem examination fee</p>
                 </div>
                 <span className="text-xl font-black text-orange-400 sm:text-2xl">
                   {formatINR(totalPerSemester)}
@@ -915,7 +789,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   </span>
                   <div>
                     <h4 className="text-xs font-extrabold text-white sm:text-sm">
-                      Unlock Full 4-Year Breakdown + 80% Discount Code
+                      Unlock Full Degree Breakdown + 20% Discount Code
                     </h4>
                     <p className="mt-0.5 text-[11px] text-slate-400 leading-tight">
                       Get semester-by-semester forecast &amp; coupon <strong className="text-orange-400 font-mono">LPUMZW722</strong>.
@@ -982,7 +856,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     disabled={isSubmitting}
                     className="w-full rounded-xl bg-orange-600 px-4 py-2.5 text-xs font-bold text-white shadow-md transition hover:bg-orange-500 disabled:opacity-60 flex items-center justify-center gap-1.5"
                   >
-                    <span>{isSubmitting ? "Unlocking Breakdown..." : "Unlock Full Breakdown & 80% Code →"}</span>
+                    <span>{isSubmitting ? "Unlocking Breakdown..." : "Unlock Full Breakdown & 20% Code →"}</span>
                   </button>
 
                   <p className="text-[10px] text-slate-400 text-center">
@@ -991,7 +865,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 </form>
               </div>
             ) : (
-              /* POST-UNLOCK STATE: Coupon Code + Detailed 4-Year Schedule */
+              /* POST-UNLOCK STATE: Coupon Code + Detailed Schedule */
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
                   <Unlock className="h-4 w-4" />
@@ -1001,7 +875,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 {/* Prominent One-Click Coupon Card */}
                 <div className="rounded-xl border border-orange-500/50 bg-orange-950/40 p-3.5 text-center">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-orange-400">
-                    Official LPUNEST 80% Form Discount
+                    Official LPUNEST 20% Form Discount
                   </span>
                   <div className="mt-1 flex items-center justify-center gap-2">
                     <span className="font-mono text-xl font-black tracking-widest text-white">
@@ -1018,7 +892,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     </button>
                   </div>
                   <p className="mt-1 text-[10px] text-slate-300">
-                    Reduces form fee from ₹1,000 to ₹200 (for girls: ₹100).
+                    Reduces form fee from ₹1,000 to ₹800 (for girls: ₹400).
                   </p>
                 </div>
 
@@ -1028,11 +902,11 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   onClick={handleApplyPortalClick}
                   className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-orange-600/30 transition hover:from-orange-600 hover:to-amber-600"
                 >
-                  <span>Apply on Official LPU Portal (80% Off)</span>
+                  <span>Apply on Official LPU Portal (20% Off)</span>
                   <ExternalLink className="h-3.5 w-3.5" />
                 </button>
 
-                {/* 4-Year Cost Summary Table */}
+                {/* Degree Cost Summary Table */}
                 <div className="rounded-xl border border-slate-700 bg-slate-900 p-3 text-xs space-y-2">
                   <div className="font-bold text-slate-200 border-b border-slate-800 pb-1.5 flex justify-between">
                     <span>{branchInfo.durationYears}-Year Total Forecast</span>
@@ -1043,21 +917,9 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                       <span>Total Net Tuition ({branchInfo.semesters} Sems):</span>
                       <span className="text-white font-medium">{formatINR(netTuitionPerSem * branchInfo.semesters)}</span>
                     </div>
-                    {selectedHostel.feePerSem > 0 && (
-                      <div className="flex justify-between">
-                        <span>Total Hostel Accommodation:</span>
-                        <span className="text-white font-medium">{formatINR(selectedHostel.feePerSem * branchInfo.semesters)}</span>
-                      </div>
-                    )}
-                    {selectedMess.feePerSem > 0 && (
-                      <div className="flex justify-between">
-                        <span>Total Dining Mess:</span>
-                        <span className="text-white font-medium">{formatINR(selectedMess.feePerSem * branchInfo.semesters)}</span>
-                      </div>
-                    )}
                     <div className="flex justify-between">
-                      <span>Exam &amp; Recurring Fees:</span>
-                      <span className="text-white font-medium">{formatINR((EXAM_FEE_PER_SEM + recurringLaundry) * branchInfo.semesters)}</span>
+                      <span>Total Exam Fees ({branchInfo.semesters} Sems):</span>
+                      <span className="text-white font-medium">{formatINR(EXAM_FEE_PER_SEM * branchInfo.semesters)}</span>
                     </div>
                     <div className="border-t border-slate-800 pt-1.5 flex justify-between text-xs font-bold text-white">
                       <span>Grand Total Net Payable:</span>

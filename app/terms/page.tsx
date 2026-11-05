@@ -83,10 +83,10 @@ export default function TermsOfServicePage() {
                   <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono font-bold text-orange-600">
                     LPUMZW722
                   </code>{" "}
-                  provides an 80% discount on the LPUNEST application fee when
+                  provides a 20% discount on the LPUNEST application fee when
                   redeemed during online registration on the official university
-                  portal (e.g. reducing the form fee from ₹1,000 to ₹200 for
-                  boys, and from ₹500 to ₹100 for girls).
+                  portal (e.g. reducing the form fee from ₹1,000 to ₹800 for
+                  boys, and from ₹500 to ₹400 for girls).
                 </li>
                 <li>
                   The discount is applied strictly at the checkout stage on the

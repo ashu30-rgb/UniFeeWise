@@ -52,18 +52,18 @@ async function sendReminderEmail(params: {
   const { error } = await getResend().emails.send({
     from,
     to: params.to,
-    subject: "Your LPUNEST 2026 deadline is approaching — 80% discount inside",
+    subject: "Your LPUNEST deadline is approaching — 20% discount inside",
     html: `
 <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid #1f2937; background-color: #0d1117;">
   <div style="background-color: #161b22; padding: 32px 24px; text-align: center; border-bottom: 1px solid #1f2937;">
-    <h2 style="color: #e6edf3; margin: 0; font-size: 24px; font-weight: 600;">LPUNEST 2026 Application</h2>
+    <h2 style="color: #e6edf3; margin: 0; font-size: 24px; font-weight: 600;">LPUNEST Application</h2>
   </div>
   <div style="padding: 32px 24px; color: #c9d1d9;">
     <p style="font-size: 16px; line-height: 1.5; margin-top: 0;">Hi ${params.fullName},</p>
     <p style="font-size: 16px; line-height: 1.5;">Your registration deadline for LPUNEST is approaching in less than 48 hours. Complete your application now to lock in your calculated scholarship for <strong>${params.targetBranch}</strong>.</p>
     
     <div style="background-color: #161b22; border: 1px dashed #30363d; padding: 24px; border-radius: 8px; text-align: center; margin: 32px 0;">
-      <p style="margin: 0; font-size: 14px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Official 80% Form Discount Code</p>
+      <p style="margin: 0; font-size: 14px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Official 20% Form Discount Code</p>
       <p style="margin: 12px 0 0 0; font-size: 32px; font-weight: 800; letter-spacing: 2px; color: #58a6ff;">${DISCOUNT_CODE}</p>
     </div>
     

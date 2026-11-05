@@ -107,7 +107,7 @@ export default function GatedPdfDownload() {
 
         <div className="mt-6 rounded-xl border border-dashed border-orange-500/60 bg-[#1e2329] p-5">
           <p className="text-sm font-medium uppercase tracking-wide text-[#8b949e]">
-            Official 80% Application Form Discount
+            Official 20% Application Form Discount
           </p>
           <p className="mt-3 font-mono text-3xl font-extrabold tracking-widest text-orange-400">
             {DISCOUNT_CODE}
@@ -138,7 +138,7 @@ export default function GatedPdfDownload() {
           </h2>
           <p className="mt-2 max-w-md text-sm text-gray-400">
             Unlock the free PDF instantly. Enter your details once to download
-            and claim your 80% LPUNEST application discount.
+            and claim your 20% LPUNEST application discount.
           </p>
           <GlowingCtaButton
             type="button"

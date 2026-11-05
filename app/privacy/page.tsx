@@ -92,7 +92,7 @@ export default function PrivacyPolicyPage() {
             <ul className="mt-3 list-disc space-y-1.5 pl-5">
               <li>
                 To calculate and provide your customized 4-year net payable fee
-                breakdown (including hostel seater, mess, and recurring exam
+                breakdown (including semester tuition, scholarship savings, and recurring exam
                 charges).
               </li>
               <li>
@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
                 <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono font-bold text-orange-600">
                   LPUMZW722
                 </code>
-                ) providing an 80% promotional discount on the official LPUNEST
+                ) providing a 20% promotional discount on the official LPUNEST
                 application form.
               </li>
               <li>

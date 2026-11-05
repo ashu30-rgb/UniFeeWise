@@ -12,9 +12,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "LPUNEST 2027 Fee, Hostel & Scholarship Calculator | UniFeeWise",
+  title: "LPUNEST 2027 Fee & Scholarship Calculator | UniFeeWise",
   description:
-    "Calculate your exact 4-year LPU tuition, scholarship bracket, hostel and mess charges in 30 seconds. Unlock 80% discount on LPUNEST application form with code LPUMZW722.",
+    "Calculate your exact 4-year LPU tuition and scholarship bracket in 30 seconds. Unlock 20% discount on LPUNEST application form with code LPUMZW722.",
 };
 
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;

@@ -101,7 +101,7 @@ export default function LeadGateDialog({
           </h2>
           <p className="mt-2 text-sm text-gray-400">
             Enter your details to view your exact fees and claim the exclusive
-            80% application discount code.
+            20% application discount code.
           </p>
         </div>
 

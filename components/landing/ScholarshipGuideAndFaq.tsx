@@ -17,9 +17,9 @@ const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
 
 const FAQS = [
   {
-    question: "How do I get the 80% discount on the LPUNEST form?",
+    question: "How do I get the 20% discount on the LPUNEST form?",
     answer:
-      "When registering on the official university portal (admission.lpu.in), enter coupon code LPUMZW722 at the checkout stage. This officially reduces the application form fee from ₹1,000 to ₹200 for male applicants, and from ₹500 to ₹100 for female applicants.",
+      "When registering on the official university portal (admission.lpu.in), enter coupon code LPUMZW722 at the checkout stage. This officially reduces the application form fee from ₹1,000 to ₹800 for male applicants, and from ₹500 to ₹400 for female applicants.",
   },
   {
     question: "Can I improve my scholarship in Phase 2?",
@@ -237,11 +237,11 @@ export default function ScholarshipGuideAndFaq() {
               Verified Official Coupon Code
             </span>
             <h3 className="mt-3 text-2xl font-black text-white sm:text-3xl">
-              Save 80% on Your Official LPUNEST Form
+              Save 20% on Your Official LPUNEST Form
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-sm">
               Use official code <strong className="font-mono text-orange-400">LPUMZW722</strong> on
-              admission.lpu.in to reduce your application fee to ₹200 (for girls: ₹100).
+              admission.lpu.in to reduce your application fee to ₹800 (for girls: ₹400).
             </p>
           </div>
 

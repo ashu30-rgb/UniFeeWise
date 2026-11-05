@@ -4,9 +4,9 @@ import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq"
 import { ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "LPU Fee, Hostel & Scholarship Calculator 2027 | UniFeeWise",
+  title: "LPU Fee & Scholarship Calculator 2027 | UniFeeWise",
   description:
-    "Calculate your exact LPUNEST 2027 scholarship tier, semester tuition, hostel and mess fees in seconds with UniFeeWise.",
+    "Calculate your exact LPUNEST 2027 scholarship tier and semester tuition in seconds with UniFeeWise.",
 };
 
 export default function CalculatorPage() {
@@ -20,15 +20,15 @@ export default function CalculatorPage() {
           </div>
 
           <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-            LPU Fee, Hostel &amp; Scholarship{" "}
+            LPU Fee &amp; Scholarship{" "}
             <span className="bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent">
               Calculator 2027
             </span>
           </h1>
 
           <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-base text-slate-600">
-            Select your target course, scholarship basis, and hostel preferences to
-            instantly estimate your net payable cost and unlock an 80% application form discount.
+            Select your target course and scholarship basis to
+            instantly estimate your net payable cost and unlock a 20% application form discount.
           </p>
         </div>
       </section>
