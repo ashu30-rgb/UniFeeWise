@@ -1036,13 +1036,13 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
 
             {/* Quick Helpful Links */}
             <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800">
-              <a
-                href="#mock-test"
+              <Link
+                href="/mock-test"
                 className="inline-flex items-center gap-1 font-semibold text-emerald-400 hover:text-emerald-300 transition"
               >
                 <Sparkles className="h-3 w-3" />
                 <span>Attempt Free Mock Tests →</span>
-              </a>
+              </Link>
               <Link
                 href="/btech-previous-year-paper"
                 className="inline-flex items-center gap-1 font-semibold text-orange-400 hover:text-orange-300 transition"

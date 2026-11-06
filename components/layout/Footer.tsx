@@ -91,11 +91,11 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#mock-test"
+                  href="/mock-test"
                   className="inline-flex items-center gap-1 font-bold text-orange-400 transition hover:text-orange-300"
                 >
                   <Sparkles className="h-3 w-3" />
-                  Free Mock Test Hub
+                  Free CBT Mock Test Simulator
                 </Link>
               </li>
               <li>

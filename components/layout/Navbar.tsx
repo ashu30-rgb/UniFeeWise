@@ -12,7 +12,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Fee Calculator", href: "/#calculator" },
-    { label: "Mock Tests", href: "/#mock-test", badge: "Free" },
+    { label: "Mock Tests", href: "/mock-test", badge: "Free" },
     { label: "Scholarship Cutoffs", href: "/#cutoffs" },
     { label: "LPUNEST Discount", href: "/#discount" },
     { label: "FAQs", href: "/#faq" },
