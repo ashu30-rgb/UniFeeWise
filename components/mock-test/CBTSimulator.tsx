@@ -11,7 +11,12 @@ import {
   ChevronRight,
   ChevronLeft,
   Copy,
-  Check
+  Check,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
+  ShieldCheck,
+  ExternalLink
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { trackLeadConversion } from "@/lib/gtag";
@@ -31,13 +36,13 @@ type TestMode = "full" | "single_subject";
 export default function CBTSimulator() {
   // Lobby State
   const [selectedCourseId, setSelectedCourseId] = useState<string>("btech");
-  const [btechElective, setBtechElective] = useState<string>("mathematics"); // "mathematics" or "biology"
   const [bcaElectives, setBcaElectives] = useState<string[]>([
     "computer-science",
     "aptitude"
   ]);
   const [testMode, setTestMode] = useState<TestMode>("full");
   const [singleSubjectId, setSingleSubjectId] = useState<string>("physics");
+  const [scheduleAccordionOpen, setScheduleAccordionOpen] = useState(true);
 
   // Exam Active State
   const [phase, setPhase] = useState<ExamPhase>("lobby");
@@ -71,7 +76,10 @@ export default function CBTSimulator() {
       return [singleSubjectId];
     }
     if (selectedCourseId === "btech") {
-      return ["physics", "chemistry", "english", btechElective];
+      return ["physics", "chemistry", "mathematics", "english"];
+    }
+    if (selectedCourseId === "btech_bio") {
+      return ["physics", "chemistry", "biology", "english"];
     }
     if (selectedCourseId === "mba") {
       return ["english", "aptitude", "general-awareness", "computer-science"];
@@ -79,8 +87,8 @@ export default function CBTSimulator() {
     if (selectedCourseId === "bca_bba") {
       return ["english", ...bcaElectives];
     }
-    return ["physics", "chemistry", "english", "mathematics"];
-  }, [testMode, singleSubjectId, selectedCourseId, btechElective, bcaElectives]);
+    return ["physics", "chemistry", "mathematics", "english"];
+  }, [testMode, singleSubjectId, selectedCourseId, bcaElectives]);
 
   // Group questions by subject
   const questionsBySubject: Record<string, CBTQuestion[]> = useMemo(() => {
@@ -340,7 +348,7 @@ export default function CBTSimulator() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {COURSES_CONFIG.map((course) => {
               const isSelected = selectedCourseId === course.id;
               return (
@@ -348,95 +356,47 @@ export default function CBTSimulator() {
                   key={course.id}
                   type="button"
                   onClick={() => setSelectedCourseId(course.id)}
-                  className={`text-left rounded-2xl border p-5 transition-all cursor-pointer relative ${
+                  className={`text-left rounded-3xl border p-5 sm:p-6 transition-all cursor-pointer relative flex flex-col justify-between ${
                     isSelected
                       ? "border-orange-500 bg-orange-50/60 shadow-md ring-2 ring-orange-500/20"
                       : "border-slate-200 hover:border-slate-300 hover:bg-slate-50/50"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-orange-600">
-                      {course.badge}
-                    </span>
-                    {isSelected && (
-                      <CheckCircle2 className="h-5 w-5 text-orange-600" />
-                    )}
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-orange-600">
+                        {course.badge}
+                      </span>
+                      {isSelected && (
+                        <CheckCircle2 className="h-5 w-5 text-orange-600 shrink-0" />
+                      )}
+                    </div>
+                    <h3 className="mt-2 text-base sm:text-lg font-extrabold text-slate-900">
+                      {course.name}
+                    </h3>
+
+                    {/* Official Eligibility Pill */}
+                    <div className="mt-2.5 rounded-xl border border-orange-200/90 bg-orange-100/60 px-3 py-1.5 text-[11px] font-bold text-orange-950 leading-snug">
+                      {course.eligibility}
+                    </div>
+
+                    <p className="mt-2.5 text-xs text-slate-600 leading-relaxed">
+                      {course.description}
+                    </p>
                   </div>
-                  <h3 className="mt-2 text-base font-extrabold text-slate-900">
-                    {course.name}
-                  </h3>
-                  <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-                    {course.description}
-                  </p>
-                  <div className="mt-3 flex items-center gap-3 text-[11px] font-semibold text-slate-600">
+
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-500">
                     <span className="inline-flex items-center gap-1">
-                      <Clock className="h-3 w-3 text-slate-400" />
+                      <Clock className="h-3.5 w-3.5 text-slate-400" />
                       {course.totalDurationMinutes} Mins
                     </span>
-                    <span>•</span>
-                    <span>{course.totalMarks} Marks</span>
+                    <span className="font-bold text-slate-700">{course.totalMarks} Marks</span>
+                    <span className="text-emerald-600 font-bold">0 Negative</span>
                   </div>
                 </button>
               );
             })}
           </div>
-
-          {/* Program-specific Elective Selector */}
-          {selectedCourseId === "btech" && (
-            <div className="rounded-2xl border border-orange-200/80 bg-orange-50/40 p-4 sm:p-5 space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-orange-800">
-                Step 1B: Choose 4th Subject (PCM vs PCB Stream)
-              </span>
-              <p className="text-xs text-slate-600">
-                Physics, Chemistry, and English are compulsory. Select your 4th subject:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setBtechElective("mathematics")}
-                  className={`flex items-center justify-between rounded-xl border p-3.5 transition cursor-pointer text-left ${
-                    btechElective === "mathematics"
-                      ? "border-orange-600 bg-white shadow-sm ring-2 ring-orange-500/30"
-                      : "border-slate-200 bg-white/70 hover:bg-white"
-                  }`}
-                >
-                  <div>
-                    <span className="text-sm font-bold text-slate-900 block">
-                      Mathematics (PCM Stream)
-                    </span>
-                    <span className="text-[11px] text-slate-500">
-                      20 MCQs + 5 Numerical FIBs • 100 Marks
-                    </span>
-                  </div>
-                  {btechElective === "mathematics" && (
-                    <CheckCircle2 className="h-4 w-4 text-orange-600 shrink-0" />
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setBtechElective("biology")}
-                  className={`flex items-center justify-between rounded-xl border p-3.5 transition cursor-pointer text-left ${
-                    btechElective === "biology"
-                      ? "border-orange-600 bg-white shadow-sm ring-2 ring-orange-500/30"
-                      : "border-slate-200 bg-white/70 hover:bg-white"
-                  }`}
-                >
-                  <div>
-                    <span className="text-sm font-bold text-slate-900 block">
-                      Biology (PCB / Biotech Stream)
-                    </span>
-                    <span className="text-[11px] text-slate-500">
-                      25 NCERT Grade MCQs • 100 Marks
-                    </span>
-                  </div>
-                  {btechElective === "biology" && (
-                    <CheckCircle2 className="h-4 w-4 text-orange-600 shrink-0" />
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
 
           {selectedCourseId === "bca_bba" && (
             <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 sm:p-5 space-y-3">
@@ -611,6 +571,161 @@ export default function CBTSimulator() {
             <span>Start LPUNEST Mock Exam Now</span>
             <ArrowRight className="h-4 w-4" />
           </button>
+        </div>
+
+        {/* =====================================================================
+            OFFICIAL 2027 ELIGIBILITY & IMPORTANT DATES INFO ACCORDION
+            ===================================================================== */}
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+          <button
+            type="button"
+            onClick={() => setScheduleAccordionOpen(!scheduleAccordionOpen)}
+            className="w-full flex items-center justify-between gap-4 text-left cursor-pointer group"
+          >
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-orange-600">
+                <Calendar className="h-4 w-4 text-orange-500" />
+                <span>Official University Admission Guidelines</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 group-hover:text-orange-600 transition">
+                LPUNEST 2027 Official Eligibility Rules &amp; Important Phase 1 Dates
+              </h3>
+            </div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-600 group-hover:bg-orange-50 group-hover:text-orange-600 transition shrink-0">
+              {scheduleAccordionOpen ? (
+                <ChevronUp className="h-5 w-5" />
+              ) : (
+                <ChevronDown className="h-5 w-5" />
+              )}
+            </div>
+          </button>
+
+          {scheduleAccordionOpen && (
+            <div className="space-y-6 pt-2 border-t border-slate-100 animate-fadeIn">
+              {/* 5% Relaxation Alert Box */}
+              <div className="rounded-2xl border border-blue-200 bg-blue-50/60 p-4 sm:p-5 flex items-start gap-3.5">
+                <ShieldCheck className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-900 block">
+                    Official 5% Marks Relaxation Policy
+                  </span>
+                  <p className="text-xs text-blue-950 leading-relaxed font-medium">
+                    5% relaxation in 12th/Graduation aggregate marks is applicable for candidates from North-East states, Sikkim, Defence personnel/dependents, and Kashmiri migrants.
+                  </p>
+                </div>
+              </div>
+
+              {/* Phase 1 Schedule Timeline Cards */}
+              <div className="space-y-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-900 block">
+                  Official Phase 1 Schedule (2027 Admissions Batch):
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                  {[
+                    {
+                      label: "Slot Booking Opens",
+                      date: "10 Dec 2026",
+                      desc: "Online self-booking opens on admission.lpu.in",
+                      color: "border-slate-200 bg-slate-50 text-slate-900"
+                    },
+                    {
+                      label: "Last Date to Apply",
+                      date: "15 Jan 2027",
+                      desc: "Final registration deadline for Phase 1 kit",
+                      color: "border-orange-200 bg-orange-50/50 text-orange-950"
+                    },
+                    {
+                      label: "Online Proctored Exam",
+                      date: "10 Jan – 5 Feb 2027",
+                      desc: "Remote exam from home with webcam AI proctor",
+                      color: "border-emerald-200 bg-emerald-50/50 text-emerald-950"
+                    },
+                    {
+                      label: "Test Centre Window",
+                      date: "20 Jan – 5 Feb 2027",
+                      desc: "Official physical test centre exam window",
+                      color: "border-blue-200 bg-blue-50/50 text-blue-950"
+                    },
+                    {
+                      label: "Result & Counselling",
+                      date: "8 Feb 2027",
+                      desc: "Scholarship allocation & seat locking begins",
+                      color: "border-purple-200 bg-purple-50/50 text-purple-950 font-bold"
+                    }
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className={`rounded-2xl border p-4 flex flex-col justify-between space-y-2 ${item.color}`}
+                    >
+                      <div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+                          {item.label}
+                        </span>
+                        <span className="text-base font-black tracking-tight block mt-1">
+                          {item.date}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-snug">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Direct 20% Form Discount Promotion Card */}
+              <div className="rounded-2xl border border-slate-900 bg-slate-950 p-5 sm:p-6 text-white flex flex-col md:flex-row items-center justify-between gap-5">
+                <div className="space-y-1.5 text-center md:text-left">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400">
+                    <Sparkles className="h-3 w-3 text-emerald-400" />
+                    <span>Official University Application Coupon</span>
+                  </div>
+                  <h4 className="text-base sm:text-lg font-black text-white">
+                    Save 20% on Your Official LPUNEST 2027 Form
+                  </h4>
+                  <p className="text-xs text-slate-400 max-w-xl">
+                    Use verified coupon code <strong className="text-white">LPUMZW722</strong> on the official portal to reduce the application kit fee from ₹1,000 to ₹800 (Boys) and from ₹500 to ₹400 (Girls).
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+                  {/* One Click Copy Badge */}
+                  <button
+                    type="button"
+                    onClick={handleCopyCoupon}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:border-orange-500 transition cursor-pointer"
+                  >
+                    <span className="font-mono text-sm tracking-wider text-orange-400">
+                      {DISCOUNT_CODE}
+                    </span>
+                    {copiedCode ? (
+                      <span className="inline-flex items-center gap-1 text-emerald-400 font-bold">
+                        <Check className="h-3.5 w-3.5" />
+                        <span>Copied!</span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-slate-300">
+                        <Copy className="h-3.5 w-3.5" />
+                        <span>Copy Code</span>
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Direct Apply Portal Button */}
+                  <a
+                    href="https://admission.lpu.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackLeadConversion(30.0, "INR")}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 px-5 py-2.5 text-xs font-black text-white shadow-md shadow-orange-600/30 transition text-center"
+                  >
+                    <span>Apply on admission.lpu.in</span>
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -92,45 +92,38 @@ export const ALL_SUBJECTS_MAP: Record<string, SubjectMeta> = {
 export const COURSES_CONFIG: CourseConfig[] = [
   {
     id: "btech",
-    name: "B.Tech (Engineering)",
-    title: "LPUNEST 2027 B.Tech Engineering CBT Exam",
-    badge: "Official 400 Marks Pattern",
+    name: "B.Tech (CSE, AI/ML, ECE, ME, Core)",
+    title: "LPUNEST 2027 B.Tech Engineering CBT Exam (PCM)",
+    badge: "400 Marks • PCM Mandatory",
+    eligibility: "Eligibility: 60% in 10+2 with Physics, Mathematics & English (PCM Mandatory)",
     totalMarks: 400,
     totalDurationMinutes: 150,
     description:
-      "Physics (25 Qs), Chemistry (25 Qs), English (25 Qs), plus your choice of Mathematics (PCM) or Biology (PCB). 4 Marks per correct answer, 0 Negative Marking.",
-    mandatorySubjectIds: ["physics", "chemistry", "english"],
-    electiveGroups: [
-      {
-        name: "Choose 4th Elective (Mathematics or Biology)",
-        chooseCount: 1,
-        options: [
-          { id: "mathematics", name: "Mathematics (PCM Stream)", questionsCount: 25, marks: 100 },
-          { id: "biology", name: "Biology (PCB / Biotechnology Stream)", questionsCount: 25, marks: 100 }
-        ]
-      }
-    ]
+      "Physics (25 Qs: 20 MCQs + 5 Numericals), Chemistry (25 Qs: 20 MCQs + 5 Numericals), Mathematics (25 Qs: 20 MCQs + 5 Numericals), and English (25 MCQs). Total 100 Qs • 400 Marks • 150 Mins • Zero Negative Marking.",
+    mandatorySubjectIds: ["physics", "chemistry", "mathematics", "english"]
   },
   {
-    id: "mba",
-    name: "MBA (Management)",
-    title: "LPUNEST 2027 MBA Management CBT Exam",
-    badge: "Official 400 Marks Pattern",
+    id: "btech_bio",
+    name: "B.Tech Biotech / Food Tech / Biomedical (PCB Stream)",
+    title: "LPUNEST 2027 B.Tech Biotech & Biomedical CBT Exam (PCB)",
+    badge: "400 Marks • PCB Stream",
+    eligibility: "Eligibility: 60% in 10+2 with Physics, Chemistry, English & Biology/Biotech",
     totalMarks: 400,
     totalDurationMinutes: 150,
     description:
-      "4 Comprehensive Management Sections: English (VARC), Quantitative Aptitude & DILR, General Awareness & Business Economics, and Logical IT Systems. 4 Marks per Q, 0 Negative Marking.",
-    mandatorySubjectIds: ["english", "aptitude", "general-awareness", "computer-science"]
+      "Physics (25 Qs), Chemistry (25 Qs), Biology (25 Qs), and English (25 Qs). Auto-configured for PCB Biotechnology applicants. Total 100 Qs • 400 Marks • 150 Mins • Zero Negative Marking.",
+    mandatorySubjectIds: ["physics", "chemistry", "biology", "english"]
   },
   {
     id: "bca_bba",
-    name: "BCA / BBA (Under-Graduate)",
+    name: "BCA / BBA (Under-Graduate — Commerce, Arts & Science)",
     title: "LPUNEST 2027 BCA / BBA CBT Exam",
-    badge: "Under-Graduate 100 Marks Pattern",
+    badge: "100 Marks • Any Stream",
+    eligibility: "Eligibility: 50% in 10+2 (Any Stream) with English • LPUNEST unlocks up to 70% Scholarship",
     totalMarks: 100,
     totalDurationMinutes: 90,
     description:
-      "Mandatory English + 2 Electives of your choice from Computer Science, Quant/DILR, General Awareness, or Mathematics. 0 Negative Marking.",
+      "Compulsory English (25 Qs) + Interactive choice of any 2 Electives (Computer Science & IT, Quant/DILR, General Awareness, or Mathematics). Zero Negative Marking.",
     mandatorySubjectIds: ["english"],
     electiveGroups: [
       {
@@ -144,6 +137,18 @@ export const COURSES_CONFIG: CourseConfig[] = [
         ]
       }
     ]
+  },
+  {
+    id: "mba",
+    name: "MBA (Management — Post-Graduate)",
+    title: "LPUNEST 2027 MBA Management CBT Exam",
+    badge: "400 Marks • Post-Graduate",
+    eligibility: "Eligibility: 55% in Graduation (Any Discipline) + LPUNEST + Video Essay & Interview",
+    totalMarks: 400,
+    totalDurationMinutes: 150,
+    description:
+      "4 Management Sections: Verbal Ability & Reading Comprehension (English), Quantitative Aptitude & DILR, General Awareness & Business Economics, and Logical IT Systems. Total 100 Qs • 400 Marks • 150 Mins • Zero Negative Marking.",
+    mandatorySubjectIds: ["english", "aptitude", "general-awareness", "computer-science"]
   }
 ];
 
@@ -260,3 +265,4 @@ export function evaluateCBTExam(
     subjectBreakdown: Object.values(subjectStats)
   };
 }
+

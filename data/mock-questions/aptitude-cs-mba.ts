@@ -1168,3 +1168,4 @@ export const generalAwarenessQuestions: CBTQuestion[] = [
       "The Companies Act 2013 mandates that eligible companies spend at least 2% of their average net profits of the past three consecutive financial years on qualifying CSR initiatives."
   }
 ];
+

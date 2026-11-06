@@ -15,13 +15,14 @@ export interface CBTQuestion {
   topic?: string;
 }
 
-export type CourseId = "btech" | "mba" | "bca_bba";
+export type CourseId = "btech" | "btech_bio" | "bca_bba" | "mba";
 
 export interface CourseConfig {
   id: CourseId;
   name: string;
   title: string;
   badge: string;
+  eligibility: string;
   totalMarks: number;
   totalDurationMinutes: number;
   description: string;
@@ -65,3 +66,4 @@ export interface ExamResult {
     maxScore: number;
   }[];
 }
+

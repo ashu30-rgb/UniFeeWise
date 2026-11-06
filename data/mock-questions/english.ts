@@ -408,3 +408,4 @@ export const englishQuestions: CBTQuestion[] = [
       "The author impartially compares historical transitions with modern developments while noting both optimistic potentials and cautionary economic imperatives, reflecting an analytical and objective tone."
   }
 ];
+

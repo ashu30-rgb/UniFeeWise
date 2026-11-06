@@ -347,3 +347,4 @@ export const physicsQuestions: CBTQuestion[] = [
       "In a purely inductive circuit, the alternating voltage leads the alternating current by a phase angle of π/2 radians, which equals 90 degrees."
   }
 ];
+

@@ -422,3 +422,4 @@ export const biologyQuestions: CBTQuestion[] = [
       "Both hemophilia A and red-green color blindness are X-linked recessive traits that occur far more frequently in males (hemizygous XY) and are transmitted through carrier mothers."
   }
 ];
+

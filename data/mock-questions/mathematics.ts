@@ -352,3 +352,4 @@ export const mathematicsQuestions: CBTQuestion[] = [
       "Differentiate the curve: dy/dx = 4x + 3 cos x. At x = 0: dy/dx = 4(0) + 3 cos(0) = 3 (this is the tangent slope). The slope of the normal is -1 / (dy/dx) = -1/3. Comparing with -1/m, we find m = 3."
   }
 ];
+

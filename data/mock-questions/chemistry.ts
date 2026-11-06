@@ -407,3 +407,4 @@ export const chemistryQuestions: CBTQuestion[] = [
       "The general SI unit of rate constant is (mol/L)^(1-n) · s⁻¹. For unit mol⁻¹ · L · s⁻¹, we have 1 - n = -1  =>  n = 2. Thus, it is a second-order reaction."
   }
 ];
+
