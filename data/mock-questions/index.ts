@@ -236,7 +236,15 @@ export function evaluateCBTExam(
         isCorrect = parseInt(userAnswer, 10) === q.correctOptionIndex;
       } else if (q.type === "numerical") {
         const expected = q.numericalAnswer?.toString().trim();
-        isCorrect = userAnswer.toLowerCase() === expected?.toLowerCase();
+        const userClean = userAnswer.trim().toLowerCase();
+        const expectedClean = expected?.toLowerCase();
+        const userNum = parseFloat(userClean);
+        const expectedNum = parseFloat(expectedClean || "");
+        const isNumericMatch =
+          !isNaN(userNum) &&
+          !isNaN(expectedNum) &&
+          Math.abs(userNum - expectedNum) < 0.0001;
+        isCorrect = userClean === expectedClean || isNumericMatch;
       }
 
       if (isCorrect) {

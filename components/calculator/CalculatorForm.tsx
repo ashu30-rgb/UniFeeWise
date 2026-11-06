@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ChangeEvent } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
 import {
   Copy,
@@ -568,6 +568,42 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
   const [selectedTier, setSelectedTier] = useState<ScholarshipTierKey>("CATEGORY_A");
   const [expectedScore, setExpectedScore] = useState<number | "">(340);
   const [copiedCode, setCopiedCode] = useState(false);
+
+  // Safely parse URL params (?score=328&tier=Tier+1#calculator) after client mount without hydration mismatch
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const scoreParam = params.get("score");
+      const tierParam = params.get("tier");
+
+      if (scoreParam !== null) {
+        const parsed = Number(scoreParam);
+        if (!Number.isNaN(parsed) && parsed >= 0 && parsed <= 400) {
+          setExpectedScore(parsed);
+          setBasisMode("lpunest");
+          if (parsed >= 300) setSelectedTier("CATEGORY_A");
+          else if (parsed >= 212) setSelectedTier("CATEGORY_B");
+          else if (parsed >= 150) setSelectedTier("CATEGORY_C");
+          else setSelectedTier("NONE");
+        }
+      } else if (tierParam !== null) {
+        const cleanTier = tierParam.toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (cleanTier.includes("1") || cleanTier === "categorya") {
+          setSelectedTier("CATEGORY_A");
+          setExpectedScore(340);
+        } else if (cleanTier.includes("2") || cleanTier === "categoryb") {
+          setSelectedTier("CATEGORY_B");
+          setExpectedScore(250);
+        } else if (cleanTier.includes("3") || cleanTier === "categoryc") {
+          setSelectedTier("CATEGORY_C");
+          setExpectedScore(180);
+        }
+      }
+    } catch {
+      // Safe fallback if URLSearchParams fails
+    }
+  }, []);
 
   // Calculated values
   const branchInfo = BRANCH_CONFIG[targetBranch];

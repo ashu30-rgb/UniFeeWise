@@ -24,28 +24,24 @@ export function trackLeadConversion(value = 50.0, currency = "INR") {
   const conversionLabel = GOOGLE_ADS_CONVERSION_LABEL;
 
   if (typeof (window as any).gtag === "function") {
-    if (adsId && conversionLabel) {
-      (window as any).gtag("event", "conversion", {
-        send_to: `${adsId}/${conversionLabel}`,
-        value: value,
-        currency: currency,
-      });
-      console.log(
-        `[Google Ads] Conversion event fired to ${adsId}/${conversionLabel}:`,
-        {
-          value,
-          currency,
+    try {
+      if (adsId && conversionLabel) {
+        (window as any).gtag("event", "conversion", {
+          send_to: `${adsId}/${conversionLabel}`,
+          value: value,
+          currency: currency,
+        });
+        if (process.env.NODE_ENV === "development") {
+          console.log(
+            `[Google Ads] Conversion event fired to ${adsId}/${conversionLabel}:`,
+            { value, currency }
+          );
         }
-      );
-    } else {
-      // Graceful fallback for development / unconfigured environments
-      console.log(
-        "[Google Ads] Conversion event simulated (IDs not configured):",
-        {
-          value,
-          currency,
-        }
-      );
+      }
+    } catch (err) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[Google Ads] Conversion tracking suppressed by client:", err);
+      }
     }
   } else {
     // gtag not loaded yet or blocked by user extensions

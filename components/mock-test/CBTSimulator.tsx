@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Link from "next/link";
 import {
   Clock,
@@ -35,6 +35,23 @@ import {
 
 type ExamPhase = "lobby" | "in_test" | "result";
 type TestMode = "full" | "single_subject";
+
+function isUserAnswerCorrect(q: CBTQuestion, rawAns?: string): boolean {
+  if (rawAns === undefined || rawAns === "") return false;
+  const uAns = rawAns.trim();
+  if (q.type === "mcq") {
+    return parseInt(uAns, 10) === q.correctOptionIndex;
+  }
+  const userTrimmed = uAns.toLowerCase();
+  const expectedTrimmed = q.numericalAnswer?.toString().trim().toLowerCase();
+  if (userTrimmed === expectedTrimmed) return true;
+  const userNum = parseFloat(userTrimmed);
+  const expectedNum = parseFloat(expectedTrimmed || "");
+  if (!isNaN(userNum) && !isNaN(expectedNum)) {
+    return Math.abs(userNum - expectedNum) < 0.0001;
+  }
+  return false;
+}
 
 export default function CBTSimulator() {
   // Lobby State
@@ -122,23 +139,32 @@ export default function CBTSimulator() {
     return currentSubjectQuestions[currentQuestionIndex];
   }, [currentSubjectQuestions, currentQuestionIndex]);
 
+  const currentQuestionId = currentQuestion?.id;
+  const currentQuestionAnswer = currentQuestionId ? userAnswers[currentQuestionId] : "";
+
   // Sync numerical input with stored answer whenever current question changes
   useEffect(() => {
-    if (currentQuestion) {
-      setNumericalInput(userAnswers[currentQuestion.id] || "");
+    if (currentQuestionId) {
+      setNumericalInput(currentQuestionAnswer || "");
       // Mark as visited
-      setVisitedQuestions((prev) => ({ ...prev, [currentQuestion.id]: true }));
+      setVisitedQuestions((prev) => ({ ...prev, [currentQuestionId]: true }));
     }
-  }, [currentQuestion, userAnswers]);
+  }, [currentQuestionId, currentQuestionAnswer]);
+
+  // Keep references to prevent recreating handleFinishExam on every keystroke/answer
+  const allActiveQuestionsRef = useRef(allActiveQuestions);
+  allActiveQuestionsRef.current = allActiveQuestions;
+  const userAnswersRef = useRef(userAnswers);
+  userAnswersRef.current = userAnswers;
 
   // Submit & Evaluate Exam
   const handleFinishExam = useCallback(() => {
-    const result = evaluateCBTExam(allActiveQuestions, userAnswers);
+    const result = evaluateCBTExam(allActiveQuestionsRef.current, userAnswersRef.current);
     setExamResult(result);
     setPhase("result");
     trackLeadConversion(30.0, "INR");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [allActiveQuestions, userAnswers]);
+  }, []);
 
   // Countdown Timer
   useEffect(() => {
@@ -278,8 +304,21 @@ export default function CBTSimulator() {
   };
 
   // Copy Coupon Code
-  const handleCopyCoupon = () => {
-    navigator.clipboard.writeText(DISCOUNT_CODE);
+  const handleCopyCoupon = async () => {
+    try {
+      await navigator.clipboard.writeText(DISCOUNT_CODE);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = DISCOUNT_CODE;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        // ignore
+      }
+      document.body.removeChild(textarea);
+    }
     setCopiedCode(true);
     trackLeadConversion(30.0, "INR");
     setTimeout(() => setCopiedCode(false), 3000);
@@ -1064,15 +1103,7 @@ export default function CBTSimulator() {
     const filteredQuestions = allActiveQuestions.filter((q) => {
       const uAns = userAnswers[q.id]?.trim();
       const isAttempted = uAns !== undefined && uAns !== "";
-
-      let isCorrect = false;
-      if (isAttempted) {
-        if (q.type === "mcq") {
-          isCorrect = parseInt(uAns, 10) === q.correctOptionIndex;
-        } else {
-          isCorrect = uAns.toLowerCase() === q.numericalAnswer?.toString().trim().toLowerCase();
-        }
-      }
+      const isCorrect = isUserAnswerCorrect(q, userAnswers[q.id]);
 
       if (solutionFilter === "correct") return isCorrect;
       if (solutionFilter === "incorrect") return isAttempted && !isCorrect;
@@ -1341,15 +1372,7 @@ export default function CBTSimulator() {
               filteredQuestions.map((q, idx) => {
                 const uAns = userAnswers[q.id]?.trim();
                 const isAttempted = uAns !== undefined && uAns !== "";
-
-                let isCorrect = false;
-                if (isAttempted) {
-                  if (q.type === "mcq") {
-                    isCorrect = parseInt(uAns, 10) === q.correctOptionIndex;
-                  } else {
-                    isCorrect = uAns.toLowerCase() === q.numericalAnswer?.toString().trim().toLowerCase();
-                  }
-                }
+                const isCorrect = isUserAnswerCorrect(q, userAnswers[q.id]);
 
                 return (
                   <div
