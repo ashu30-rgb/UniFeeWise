@@ -35,3 +35,4 @@ export const LPUNEST_CONFIG = {
     messStandardAnnual: 45000,
   },
 } as const;
+
