@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Calculator, ShieldAlert, Sparkles } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export default function Footer() {
   return (
@@ -80,7 +81,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-xs">
               <li>
                 <a
-                  href="https://chat.whatsapp.com/HVj67QWkaXZAy55FmP1IrL"
+                  href={LPUNEST_CONFIG.links.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 font-bold text-emerald-400 transition hover:text-emerald-300"
@@ -203,7 +204,7 @@ export default function Footer() {
                 Official admissions and form payments must be processed directly on
                 the official university portal (
                 <a
-                  href="https://admission.lpu.in"
+                  href={LPUNEST_CONFIG.links.affiliate}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-orange-400 hover:underline"

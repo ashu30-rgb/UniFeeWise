@@ -20,7 +20,10 @@ import {
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { trackLeadConversion } from "@/lib/gtag";
-import { DISCOUNT_CODE, WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
+
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+const WHATSAPP_COMMUNITY_URL = LPUNEST_CONFIG.links.whatsapp;
 import {
   CBTQuestion,
   COURSES_CONFIG,
@@ -624,31 +627,31 @@ export default function CBTSimulator() {
                   {[
                     {
                       label: "Slot Booking Opens",
-                      date: "10 Dec 2026",
-                      desc: "Online self-booking opens on admission.lpu.in",
+                      date: LPUNEST_CONFIG.dates.slotBookingStart,
+                      desc: "Online self-booking opens on official portal",
                       color: "border-slate-200 bg-slate-50 text-slate-900"
                     },
                     {
                       label: "Last Date to Apply",
-                      date: "15 Jan 2027",
+                      date: LPUNEST_CONFIG.dates.lastDateToApply,
                       desc: "Final registration deadline for Phase 1 kit",
                       color: "border-orange-200 bg-orange-50/50 text-orange-950"
                     },
                     {
                       label: "Online Proctored Exam",
-                      date: "10 Jan – 5 Feb 2027",
+                      date: LPUNEST_CONFIG.dates.examWindowOnline,
                       desc: "Remote exam from home with webcam AI proctor",
                       color: "border-emerald-200 bg-emerald-50/50 text-emerald-950"
                     },
                     {
                       label: "Test Centre Window",
-                      date: "20 Jan – 5 Feb 2027",
+                      date: LPUNEST_CONFIG.dates.examWindowCentre,
                       desc: "Official physical test centre exam window",
                       color: "border-blue-200 bg-blue-50/50 text-blue-950"
                     },
                     {
                       label: "Result & Counselling",
-                      date: "8 Feb 2027",
+                      date: LPUNEST_CONFIG.dates.resultDate,
                       desc: "Scholarship allocation & seat locking begins",
                       color: "border-purple-200 bg-purple-50/50 text-purple-950 font-bold"
                     }
@@ -713,7 +716,7 @@ export default function CBTSimulator() {
 
                   {/* Direct Apply Portal Button */}
                   <a
-                    href="https://admission.lpu.in"
+                    href={LPUNEST_CONFIG.links.affiliate}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackLeadConversion(30.0, "INR")}
@@ -1252,7 +1255,7 @@ export default function CBTSimulator() {
                 </p>
               </div>
               <a
-                href="https://admission.lpu.in"
+                href={LPUNEST_CONFIG.links.affiliate}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => {

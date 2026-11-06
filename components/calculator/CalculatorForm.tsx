@@ -12,14 +12,11 @@ import {
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import {
-  DISCOUNT_CODE,
-  AFFILIATE_URL,
-  WHATSAPP_COMMUNITY_URL as SHARED_WHATSAPP_URL,
-} from "@/lib/constants";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
-const WHATSAPP_COMMUNITY_URL =
-  process.env.NEXT_PUBLIC_WHATSAPP_COMMUNITY_URL || SHARED_WHATSAPP_URL;
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
+const WHATSAPP_COMMUNITY_URL = LPUNEST_CONFIG.links.whatsapp;
 
 const STANDARD_WAIVERS: Record<ScholarshipTierKey, number> = {
   CATEGORY_A: 0.5,
@@ -545,7 +542,7 @@ export const SCHOLARSHIP_TIERS: Record<ScholarshipTierKey, TierInfo> = {
 
 type BasisMode = "lpunest" | "jee" | "boards";
 
-const EXAM_FEE_PER_SEM = 4500;
+const EXAM_FEE_PER_SEM = LPUNEST_CONFIG.fees.examFeeSemester;
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {

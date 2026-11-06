@@ -3,6 +3,7 @@
 import { useState } from "react";
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
 import { trackLeadConversion } from "@/lib/gtag";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export interface ScholarshipResultData {
   tier: string;
@@ -16,8 +17,8 @@ interface ScholarshipResultsProps {
   data: ScholarshipResultData;
 }
 
-const DISCOUNT_CODE = "LPUMZW722";
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {

@@ -17,10 +17,11 @@ import {
 import { MOCK_COURSES, type PracticeSubject } from "@/lib/mockTestDataExpanded";
 import { trackLeadConversion } from "@/lib/gtag";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
-const DISCOUNT_CODE = "LPUMZW722";
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
+const WHATSAPP_COMMUNITY_URL = LPUNEST_CONFIG.links.whatsapp;
 
 export default function MockTestHub() {
   const [selectedCourseId, setSelectedCourseId] = useState<string>("btech");

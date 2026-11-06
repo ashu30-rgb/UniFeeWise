@@ -2,8 +2,7 @@
 
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
 import { trackLeadConversion } from "@/lib/gtag";
-
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 interface AffiliateApplyButtonProps {
   text: string;
@@ -16,7 +15,7 @@ export default function AffiliateApplyButton({
 }: AffiliateApplyButtonProps) {
   const handleClick = () => {
     trackLeadConversion(50.0, "INR");
-    window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
+    window.open(LPUNEST_CONFIG.links.affiliate, "_blank", "noopener,noreferrer");
   };
 
   return (

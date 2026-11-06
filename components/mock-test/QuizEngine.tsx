@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import GlowingCtaButton from "@/components/ui/GlowingCtaButton";
 import type { MockSubjectTest } from "@/lib/mockTestTypes";
 import { trackLeadConversion } from "@/lib/gtag";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 interface QuizEngineProps {
   test: MockSubjectTest;
@@ -11,8 +12,8 @@ interface QuizEngineProps {
 
 type AnswersMap = Record<string, number | null>;
 
-const DISCOUNT_CODE = "LPUMZW722";
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
 
 function formatTime(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);

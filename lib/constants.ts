@@ -1,7 +1,8 @@
-export const WHATSAPP_COMMUNITY_URL =
-  "https://chat.whatsapp.com/HVj67QWkaXZAy55FmP1IrL";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
-export const DISCOUNT_CODE = "LPUMZW722";
+export const WHATSAPP_COMMUNITY_URL = LPUNEST_CONFIG.links.whatsapp;
 
-export const AFFILIATE_URL = "https://admission.lpu.in/?coupon=LPUMZW722";
+export const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+
+export const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
 

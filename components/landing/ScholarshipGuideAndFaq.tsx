@@ -15,10 +15,10 @@ import {
 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
-const AFFILIATE_URL = "https://sms.lpu.in/r96ebAmny";
-const DISCOUNT_CODE = "LPUMZW722";
+const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
 
 const FAQS = [
   {
@@ -58,7 +58,7 @@ export default function ScholarshipGuideAndFaq() {
 
   const handleWhatsAppClick = () => {
     trackLeadConversion(30.0, "INR");
-    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
+    window.open(LPUNEST_CONFIG.links.whatsapp, "_blank", "noopener,noreferrer");
   };
 
   const handleCopyBannerCode = async () => {

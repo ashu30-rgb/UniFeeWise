@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldAlert } from "lucide-react";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export const metadata: Metadata = {
   title: "Terms of Service | UniFeeWise",
@@ -92,7 +93,7 @@ export default function TermsOfServicePage() {
                   The discount is applied strictly at the checkout stage on the
                   official university portal (
                   <a
-                    href="https://admission.lpu.in"
+                    href={LPUNEST_CONFIG.links.affiliate}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-orange-600 underline hover:text-orange-700"

@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { Download, Copy, Check, ExternalLink, FileText } from "lucide-react";
 import { trackLeadConversion } from "@/lib/gtag";
-import { DISCOUNT_CODE, AFFILIATE_URL } from "@/lib/constants";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 const PDF_HREF = "/assets/lpunest-btech-previous-year.pdf";
 const PDF_DOWNLOAD_NAME = "LPUNEST_BTech_Paper.pdf";
+const DISCOUNT_CODE = LPUNEST_CONFIG.coupon.code;
+const AFFILIATE_URL = LPUNEST_CONFIG.links.affiliate;
 
 export default function GatedPdfDownload() {
   const [copiedCode, setCopiedCode] = useState(false);

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Sparkles, Menu, X, ArrowRight, Calculator } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { trackLeadConversion } from "@/lib/gtag";
-import { WHATSAPP_COMMUNITY_URL } from "@/lib/constants";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function Navbar() {
 
   const handleWhatsAppClick = () => {
     trackLeadConversion(30.0, "INR");
-    window.open(WHATSAPP_COMMUNITY_URL, "_blank", "noopener,noreferrer");
+    window.open(LPUNEST_CONFIG.links.whatsapp, "_blank", "noopener,noreferrer");
   };
 
   return (

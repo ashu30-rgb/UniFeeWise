@@ -1,7 +1,7 @@
 import type { MockSubjectSlug } from "@/lib/mockTestTypes";
+import { LPUNEST_CONFIG } from "@/config/lpunest";
 
-const OFFICIAL_SAMPLE_PAPERS_URL =
-  "https://www.lpu.in/nest/under-graduate/sample-questions.php";
+const OFFICIAL_SAMPLE_PAPERS_URL = LPUNEST_CONFIG.links.affiliate;
 
 const SUBJECT_LINKS: Array<{
   slug: MockSubjectSlug;
