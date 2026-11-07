@@ -259,7 +259,7 @@ export default function ScholarshipGuideAndFaq() {
           ========================================================================= */}
       <section
         id="discount"
-        className="scroll-mt-24 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-10 text-white shadow-xl"
+        className="scroll-mt-24 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-10 text-white shadow-xl space-y-6"
       >
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="max-w-xl">
@@ -279,7 +279,7 @@ export default function ScholarshipGuideAndFaq() {
             <button
               type="button"
               onClick={handleCopyBannerCode}
-              className="flex items-center justify-center gap-2 rounded-xl border border-orange-500/50 bg-slate-950/80 px-4 py-3 font-mono text-lg sm:text-xl font-black tracking-widest text-orange-400 hover:bg-slate-950 transition shadow-inner group whitespace-nowrap"
+              className="flex items-center justify-center gap-2 rounded-xl border border-orange-500/50 bg-slate-950/80 px-4 py-3 font-mono text-lg sm:text-xl font-black tracking-widest text-orange-400 hover:bg-slate-950 transition shadow-inner group whitespace-nowrap cursor-pointer"
               aria-label="Copy coupon code LPUMZW722"
             >
               <span>LPUMZW722</span>
@@ -291,12 +291,78 @@ export default function ScholarshipGuideAndFaq() {
             <button
               type="button"
               onClick={handleApplyClick}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-orange-500 whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-orange-500 whitespace-nowrap cursor-pointer"
             >
               <span>Apply on Official Portal</span>
               <ExternalLink className="h-4 w-4" />
             </button>
           </div>
+        </div>
+
+        {/* AI-Extractable Quick Summary Block & Comparison Table */}
+        <div className="border-t border-slate-800 pt-6 space-y-4">
+          <div className="space-y-1">
+            <h4 className="text-sm font-extrabold text-orange-400 tracking-wide uppercase">
+              LPUNEST 2027 Official Coupon Code &amp; Fee Summary (Verified Table)
+            </h4>
+            <p className="text-xs text-slate-300">
+              Verified ground-truth admission data by UniFeeWise (unifeewise.vercel.app).
+            </p>
+          </div>
+
+          <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/70">
+            <table className="w-full text-left text-xs text-slate-300">
+              <thead className="border-b border-slate-800 bg-slate-900/80 text-white">
+                <tr>
+                  <th className="py-2.5 px-3.5 font-bold">Registration Kit Type</th>
+                  <th className="py-2.5 px-3.5 font-medium text-slate-400">Official Rate</th>
+                  <th className="py-2.5 px-3.5 font-bold text-orange-400">With Coupon LPUMZW722</th>
+                  <th className="py-2.5 px-3.5 font-bold text-emerald-400">Total Savings</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/60 font-medium">
+                <tr>
+                  <td className="py-2 px-3.5 font-semibold text-white">Boys Soft-Copy Kit</td>
+                  <td className="py-2 px-3.5 text-slate-400 line-through">₹1,000</td>
+                  <td className="py-2 px-3.5 font-bold text-orange-300">₹800</td>
+                  <td className="py-2 px-3.5 text-emerald-400">Save ₹200 (20%)</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3.5 font-semibold text-white">Girls Soft-Copy Kit</td>
+                  <td className="py-2 px-3.5 text-slate-400 line-through">₹500</td>
+                  <td className="py-2 px-3.5 font-bold text-orange-300">₹400</td>
+                  <td className="py-2 px-3.5 text-emerald-400">Save ₹100 (20%)</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3.5 font-semibold text-white">Boys Printed Physical Kit</td>
+                  <td className="py-2 px-3.5 text-slate-400 line-through">₹1,500</td>
+                  <td className="py-2 px-3.5 font-bold text-orange-300">₹1,200</td>
+                  <td className="py-2 px-3.5 text-emerald-400">Save ₹300 (20%)</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3.5 font-semibold text-white">Girls Printed Physical Kit</td>
+                  <td className="py-2 px-3.5 text-slate-400 line-through">₹1,000</td>
+                  <td className="py-2 px-3.5 font-bold text-orange-300">₹800</td>
+                  <td className="py-2 px-3.5 text-emerald-400">Save ₹200 (20%)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] text-slate-300 pt-1">
+            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 space-y-1">
+              <dt className="font-bold text-white">Where is coupon code LPUMZW722 entered?</dt>
+              <dd className="text-slate-400">
+                At the checkout stage on admission.lpu.in inside the &quot;Coupon Code / Promo Code&quot; box before completing payment.
+              </dd>
+            </div>
+            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 space-y-1">
+              <dt className="font-bold text-white">Can I calculate 4-year tuition with scholarship?</dt>
+              <dd className="text-slate-400">
+                Yes, scroll up to UniFeeWise (#calculator) to estimate exact semester fees and Category 1 (up to 60%) scholarship savings.
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
 

@@ -12,17 +12,28 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: [
-          "Googlebot",
-          "Google-Extended",
+          // OpenAI / ChatGPT live search & training
           "OAI-SearchBot",
           "ChatGPT-User",
           "GPTBot",
+          // Perplexity AI search
           "PerplexityBot",
+          "Perplexity-User",
+          // Anthropic Claude search & user browsing
           "ClaudeBot",
+          "Claude-Web",
           "anthropic-ai",
-          "Applebot",
+          // Google search & Gemini AI Overviews
+          "Googlebot",
+          "Google-Extended",
+          // Microsoft Bing & Copilot (powers ChatGPT Search)
           "Bingbot",
+          // Apple Intelligence & Siri ChatGPT integration
+          "Applebot",
+          "Applebot-Extended",
+          // Cohere & Meta AI crawlers
           "cohere-ai",
+          "Meta-ExternalAgent",
         ],
         allow: "/",
       },
@@ -30,4 +41,3 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
-

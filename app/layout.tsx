@@ -102,6 +102,12 @@ export default function RootLayout({
           content="KHFkR-oJ0SPQIinQJS6iNf0j6BMAHfOqptG2vMS_v5M"
         />
         <link rel="help" type="text/markdown" href="/llms.txt" title="LLM Context" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="https://unifeewise.vercel.app/llms.txt"
+          title="LLM Summary & Verified LPUNEST 2027 Data"
+        />
         {/* Google tag (gtag.js) */}
         <script
           async
