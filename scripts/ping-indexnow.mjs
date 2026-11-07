@@ -14,6 +14,8 @@ const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
 const ENDPOINTS = [
   { name: "IndexNow Central (api.indexnow.org)", url: "https://api.indexnow.org/indexnow" },
   { name: "Microsoft Bing (www.bing.com)", url: "https://www.bing.com/indexnow" },
+  { name: "Yandex (yandex.com)", url: "https://yandex.com/indexnow" },
+  { name: "Seznam (search.seznam.cz)", url: "https://search.seznam.cz/indexnow" },
 ];
 
 const URL_LIST = [

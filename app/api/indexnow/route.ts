@@ -8,8 +8,10 @@ const HOST = "unifeewise.vercel.app";
 const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
 
 const ENDPOINTS = [
-  { name: "IndexNow (api.indexnow.org)", url: "https://api.indexnow.org/indexnow" },
+  { name: "IndexNow Central (api.indexnow.org)", url: "https://api.indexnow.org/indexnow" },
   { name: "Microsoft Bing (www.bing.com)", url: "https://www.bing.com/indexnow" },
+  { name: "Yandex (yandex.com)", url: "https://yandex.com/indexnow" },
+  { name: "Seznam (search.seznam.cz)", url: "https://search.seznam.cz/indexnow" },
 ];
 
 const PROGRAM_SLUGS = [
@@ -91,16 +93,18 @@ async function submitToAllEndpoints(urls: string[] = ALL_SITE_URLS) {
 export async function GET() {
   try {
     const endpointResults = await submitToAllEndpoints();
-    const allSuccessful = endpointResults.every((r) => r.ok);
+    const anySuccessful = endpointResults.some((r) => r.ok);
+    const acceptedEndpoints = endpointResults.filter((r) => r.ok).map((r) => r.endpoint);
 
     return NextResponse.json({
-      success: allSuccessful,
-      message: allSuccessful
-        ? "Successfully submitted URLs to Microsoft Bing and IndexNow protocol endpoints"
-        : "Some IndexNow endpoints returned warnings or non-200 status",
+      success: anySuccessful,
+      message: anySuccessful
+        ? `Successfully submitted to IndexNow network (accepted by ${acceptedEndpoints.join(", ")})`
+        : "All IndexNow endpoints returned errors",
       host: HOST,
       keyLocation: KEY_LOCATION,
       submittedUrlsCount: ALL_SITE_URLS.length,
+      acceptedEndpoints,
       endpoints: endpointResults,
       urlList: ALL_SITE_URLS,
     });
@@ -129,16 +133,18 @@ export async function POST(request: Request) {
     }
 
     const endpointResults = await submitToAllEndpoints(urlsToSubmit);
-    const allSuccessful = endpointResults.every((r) => r.ok);
+    const anySuccessful = endpointResults.some((r) => r.ok);
+    const acceptedEndpoints = endpointResults.filter((r) => r.ok).map((r) => r.endpoint);
 
     return NextResponse.json({
-      success: allSuccessful,
-      message: allSuccessful
-        ? "Successfully submitted custom URLs to Microsoft Bing and IndexNow endpoints"
-        : "Some IndexNow endpoints returned warnings or non-200 status",
+      success: anySuccessful,
+      message: anySuccessful
+        ? `Successfully submitted to IndexNow network (accepted by ${acceptedEndpoints.join(", ")})`
+        : "All IndexNow endpoints returned errors",
       host: HOST,
       keyLocation: KEY_LOCATION,
       submittedUrlsCount: urlsToSubmit.length,
+      acceptedEndpoints,
       endpoints: endpointResults,
       urlList: urlsToSubmit,
     });
