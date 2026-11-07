@@ -34,5 +34,8 @@ export const LPUNEST_CONFIG = {
     hostel4SeaterNonAcAnnual: 83700,
     messStandardAnnual: 45000,
   },
+  seo: {
+    indexNowKey: "a8f4c2e9d1b7603459e8a2c4f6b1d0e3",
+  },
 } as const;
 
