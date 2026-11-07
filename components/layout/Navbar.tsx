@@ -13,8 +13,9 @@ export default function Navbar() {
   const navLinks = [
     { label: "Fee Calculator", href: "/#calculator" },
     { label: "Mock Tests", href: "/mock-test", badge: "Free" },
+    { label: "Solved Papers", href: "/lpunest-previous-year-papers" },
+    { label: "Coupon Code", href: "/lpunest-coupon-code", badge: "20% Off" },
     { label: "Scholarship Cutoffs", href: "/#cutoffs" },
-    { label: "LPUNEST Discount", href: "/#discount" },
     { label: "FAQs", href: "/#faq" },
   ];
 

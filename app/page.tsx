@@ -2,10 +2,17 @@ import Link from "next/link";
 import { Sparkles, ShieldCheck, Zap, CheckCircle2, BookOpen, Clock, Award } from "lucide-react";
 import CalculatorForm from "@/components/calculator/CalculatorForm";
 import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq";
+import StructuredData from "@/components/StructuredData";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      <StructuredData
+        pageType="home"
+        pageTitle="LPUNEST 2027 Fee Calculator, Free Mock Test & Coupon Code LPUMZW722"
+        pageDescription="Calculate your exact 4-year LPU tuition and scholarship bracket in 30 seconds. Practice 100-question free CBT mock tests and unlock 20% off LPUNEST form with coupon LPUMZW722."
+        pageUrl="https://unifeewise.vercel.app"
+      />
       {/* =========================================================================
           HERO SECTION (Above the Fold)
           ========================================================================= */}
@@ -109,11 +116,11 @@ export default function Home() {
               </Link>
 
               <Link
-                href="/btech-previous-year-paper"
+                href="/lpunest-previous-year-papers"
                 className="w-full inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-800 bg-slate-950 px-5 py-3 text-xs font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition text-center"
               >
                 <BookOpen className="h-3.5 w-3.5 text-orange-400" />
-                <span>Download Sample Question Paper (PDF)</span>
+                <span>Solved Previous Year Papers (PDF)</span>
               </Link>
             </div>
           </div>

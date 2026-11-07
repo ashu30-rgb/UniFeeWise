@@ -35,7 +35,7 @@ export default function Footer() {
           {/* Quick Tools */}
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-white">
-              Calculators &amp; Tools
+              Calculators &amp; Discounts
             </h3>
             <ul className="mt-3 space-y-2 text-xs">
               <li>
@@ -44,6 +44,14 @@ export default function Footer() {
                   className="transition hover:text-orange-400"
                 >
                   Fee &amp; ROI Calculator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/lpunest-coupon-code"
+                  className="font-semibold text-orange-400 transition hover:text-orange-300"
+                >
+                  LPUNEST Coupon Code (LPUMZW722)
                 </Link>
               </li>
               <li>
@@ -80,17 +88,6 @@ export default function Footer() {
             </h3>
             <ul className="mt-3 space-y-2 text-xs">
               <li>
-                <a
-                  href={LPUNEST_CONFIG.links.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-bold text-emerald-400 transition hover:text-emerald-300"
-                >
-                  <WhatsAppIcon className="h-3 w-3 fill-current" />
-                  <span>LPUNEST WhatsApp Community Desk</span>
-                </a>
-              </li>
-              <li>
                 <Link
                   href="/mock-test"
                   className="inline-flex items-center gap-1 font-bold text-orange-400 transition hover:text-orange-300"
@@ -101,18 +98,37 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/lpunest-previous-year-papers"
+                  className="font-semibold text-slate-300 transition hover:text-orange-400"
+                >
+                  Solved Previous Year Papers (PDF)
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/btech-previous-year-paper"
                   className="transition hover:text-orange-400"
                 >
-                  B.Tech Previous Year Paper (PDF)
+                  B.Tech Previous Year Paper
                 </Link>
+              </li>
+              <li>
+                <a
+                  href={LPUNEST_CONFIG.links.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-bold text-emerald-400 transition hover:text-emerald-300"
+                >
+                  <WhatsAppIcon className="h-3 w-3 fill-current" />
+                  <span>LPUNEST WhatsApp Desk</span>
+                </a>
               </li>
               <li>
                 <Link
                   href="/mock-test/physics"
                   className="transition hover:text-orange-400"
                 >
-                  Physics Subject Mock Test
+                  Physics Mock Test
                 </Link>
               </li>
               <li>
@@ -121,14 +137,6 @@ export default function Footer() {
                   className="transition hover:text-orange-400"
                 >
                   Mathematics Mock Test
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/mock-test/chemistry"
-                  className="transition hover:text-orange-400"
-                >
-                  Chemistry Mock Test
                 </Link>
               </li>
             </ul>
