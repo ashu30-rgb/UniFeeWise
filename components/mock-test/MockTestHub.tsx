@@ -149,28 +149,28 @@ export default function MockTestHub() {
   return (
     <div id="mock-test" className="scroll-mt-24 space-y-8 py-10">
       {/* Header Title & Pitch */}
-      <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3.5 py-1 text-xs font-semibold text-orange-700 shadow-sm">
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-orange-200/80 bg-orange-50/80 px-4 py-1.5 text-xs font-semibold text-orange-800 shadow-xs backdrop-blur-sm">
           <Sparkles className="h-3.5 w-3.5 text-orange-600" />
           <span>Interactive Exam Simulator • 2027 Admission Edition</span>
         </div>
-        <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 sm:text-4xl">
+        <h2 className="text-2xl sm:text-4xl font-black tracking-[-0.03em] text-slate-950">
           LPUNEST Practice &amp; Free Mock Test Hub
         </h2>
-        <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
           Master real LPUNEST test patterns with instant explanations. 
           <span className="font-semibold text-slate-900"> Zero negative marking</span> means every question you attempt can boost your score into the Category 1 (50%–60% waiver) bracket.
         </p>
       </div>
 
-      {/* Main Workbench Card */}
-      <div className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm">
+      {/* Main Workbench Card — Apple Frosted Card */}
+      <div className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-9 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl">
         {/* Step 1: Course Selector Tabs */}
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Step 1: Select Your Target Stream
           </span>
-          <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
             {MOCK_COURSES.map((course) => {
               const isActive = course.id === selectedCourseId;
               return (
@@ -178,16 +178,16 @@ export default function MockTestHub() {
                   key={course.id}
                   type="button"
                   onClick={() => handleCourseChange(course.id)}
-                  className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all whitespace-nowrap ${
+                  className={`flex flex-col items-start rounded-2xl border p-4 text-left transition-all cursor-pointer active:scale-[0.98] ${
                     isActive
-                      ? "border-orange-600 bg-orange-50/70 shadow-sm ring-1 ring-orange-500"
-                      : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60"
+                      ? "border-orange-500 bg-orange-50/70 shadow-xs ring-1 ring-orange-500/50"
+                      : "border-black/[0.06] bg-white hover:border-black/[0.12] hover:bg-slate-50/60"
                   }`}
                 >
                   <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600">
                     {course.badge}
                   </span>
-                  <span className="mt-0.5 text-xs sm:text-sm font-extrabold text-slate-900 truncate w-full">
+                  <span className="mt-1 text-xs sm:text-sm font-bold text-slate-900 truncate w-full">
                     {course.title}
                   </span>
                 </button>
@@ -196,12 +196,12 @@ export default function MockTestHub() {
           </div>
         </div>
 
-        {/* Step 2: Subject-Wise Filter Pills */}
-        <div className="mt-6 border-t border-slate-100 pt-5">
+        {/* Step 2: Subject-Wise Filter Pills — Apple Segmented Control */}
+        <div className="mt-7 border-t border-black/[0.05] pt-6">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Step 2: Choose Subject / Section
           </span>
-          <div className="mt-2.5 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {currentCourse.subjects.map((sub) => {
               const isActive = sub.id === currentSubject.id;
               return (
@@ -209,15 +209,15 @@ export default function MockTestHub() {
                   key={sub.id}
                   type="button"
                   onClick={() => handleSubjectChange(sub.id)}
-                  className={`inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap ${
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-bold transition-all whitespace-nowrap cursor-pointer active:scale-95 ${
                     isActive
                       ? "border-orange-600 bg-orange-600 text-white shadow-sm"
-                      : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
+                      : "border-black/[0.06] bg-slate-50/80 text-slate-700 hover:border-black/[0.12] hover:bg-slate-100"
                   }`}
                 >
                   <span>{sub.name}</span>
                   <span
-                    className={`rounded-full px-1.5 py-0.2 text-[10px] font-extrabold ${
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
                       isActive ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
                     }`}
                   >
@@ -230,21 +230,21 @@ export default function MockTestHub() {
         </div>
 
         {/* Quiz Arena */}
-        <div className="mt-8 rounded-2xl border border-slate-200/90 bg-slate-50/50 p-5 sm:p-7">
+        <div className="mt-8 rounded-2xl border border-black/[0.06] bg-slate-50/50 p-5 sm:p-7 backdrop-blur-md">
           {!isTestFinished ? (
             /* ACTIVE QUESTION VIEW */
             <div>
               {/* Question Meta Header */}
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/[0.05] pb-4">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-orange-600 text-xs font-black text-white">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-orange-600 text-xs font-bold text-white shadow-xs">
                     {currentQuestionIndex + 1}
                   </span>
-                  <span className="text-xs font-bold text-slate-700">
+                  <span className="text-xs font-bold text-slate-800">
                     Question {currentQuestionIndex + 1} of {totalQuestions}
                   </span>
                   <span className="hidden sm:inline-block text-slate-300">•</span>
-                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full">
                     <ShieldCheck className="h-3 w-3 text-emerald-600" />
                     Zero Negative Marking
                   </span>
@@ -258,7 +258,7 @@ export default function MockTestHub() {
               </div>
 
               {/* Progress Bar */}
-              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200/80">
                 <div
                   className="h-full rounded-full bg-orange-600 transition-all duration-300"
                   style={{
@@ -280,7 +280,7 @@ export default function MockTestHub() {
                   const isSelected = userSelectedOption === idx;
                   const isCorrectAnswer = currentQuestion.correctAnswer === idx;
                   let optionStyles =
-                    "border-slate-200 bg-white text-slate-800 hover:border-slate-300 hover:bg-slate-50";
+                    "border-black/[0.06] bg-white text-slate-800 hover:border-black/[0.12] hover:bg-slate-50";
 
                   if (showExplanation) {
                     if (isCorrectAnswer) {
@@ -300,7 +300,7 @@ export default function MockTestHub() {
                       key={option}
                       type="button"
                       onClick={() => handleSelectOption(idx)}
-                      className={`w-full flex items-center justify-between rounded-xl border p-3.5 text-left text-xs sm:text-sm transition-all ${optionStyles}`}
+                      className={`w-full flex items-center justify-between rounded-2xl border p-4 text-left text-xs sm:text-sm transition-all cursor-pointer active:scale-[0.99] ${optionStyles}`}
                     >
                       <div className="flex items-center gap-3">
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-700">
@@ -322,7 +322,7 @@ export default function MockTestHub() {
 
               {/* Instant Explanation Box */}
               {showExplanation && (
-                <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4 text-xs leading-relaxed text-slate-700 space-y-1 shadow-sm">
+                <div className="mt-5 rounded-2xl border border-black/[0.06] bg-white p-4 text-xs leading-relaxed text-slate-700 space-y-1 shadow-xs">
                   <div className="flex items-center gap-1.5 font-bold text-slate-900">
                     <HelpCircle className="h-4 w-4 text-orange-600" />
                     <span>Correct Answer &amp; Explanation:</span>
@@ -335,12 +335,12 @@ export default function MockTestHub() {
               )}
 
               {/* Navigation Actions */}
-              <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4">
+              <div className="mt-6 flex items-center justify-between border-t border-black/[0.05] pt-4">
                 <button
                   type="button"
                   disabled={currentQuestionIndex === 0}
                   onClick={handlePrev}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100 disabled:opacity-40 transition"
+                  className="rounded-full border border-black/[0.08] bg-white px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-100 disabled:opacity-40 transition active:scale-95"
                 >
                   ← Previous
                 </button>
@@ -350,7 +350,7 @@ export default function MockTestHub() {
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="rounded-xl bg-orange-600 px-5 py-2 text-xs font-bold text-white shadow-sm hover:bg-orange-500 transition"
+                      className="rounded-full bg-slate-950 px-6 py-2.5 text-xs font-bold text-white shadow-sm border-t border-white/20 hover:bg-slate-800 transition active:scale-95"
                     >
                       Next Question →
                     </button>
@@ -358,7 +358,7 @@ export default function MockTestHub() {
                     <button
                       type="button"
                       onClick={() => setIsTestFinished(true)}
-                      className="rounded-xl bg-emerald-600 px-5 py-2 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 transition"
+                      className="rounded-full bg-emerald-600 px-6 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 transition active:scale-95"
                     >
                       Finish Test &amp; View Score
                     </button>
@@ -367,14 +367,14 @@ export default function MockTestHub() {
               </div>
             </div>
           ) : (
-            /* SCORE CARD VIEW */
-            <div className="text-center py-4 space-y-6">
+            /* SCORE CARD VIEW — Apple Pro Glass */
+            <div className="text-center py-6 space-y-6">
               <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 shadow-sm">
                 <Award className="h-8 w-8" />
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                   {currentSubject.name} Practice Completed!
                 </h3>
                 <p className="mt-1 text-xs sm:text-sm text-slate-600">
@@ -384,7 +384,7 @@ export default function MockTestHub() {
               </div>
 
               {/* Contextual Scholarship Helper Banner */}
-              <div className="mx-auto max-w-xl rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-5 text-left text-xs sm:text-sm text-emerald-950 shadow-sm space-y-3">
+              <div className="mx-auto max-w-xl rounded-2xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-6 text-left text-xs sm:text-sm text-emerald-950 shadow-sm space-y-3.5 backdrop-blur-md">
                 <div className="flex items-center gap-2 font-bold text-emerald-900 text-sm sm:text-base">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
                   <span>
@@ -393,11 +393,11 @@ export default function MockTestHub() {
                       : "Great Practice Run: Build Consistency for LPUNEST!"}
                   </span>
                 </div>
-                <p className="leading-relaxed text-emerald-800 text-xs sm:text-[13px]">
+                <p className="leading-relaxed text-emerald-800 text-xs sm:text-[13px] font-normal">
                   Scored {percentageScore}%? In the official exam, LPUNEST has{" "}
                   <strong>zero negative marking</strong>. Lock in your Phase 1 application on{" "}
                   <strong>admission.lpu.in</strong> with code{" "}
-                  <strong className="font-mono text-orange-600 bg-white px-1.5 py-0.5 rounded border border-orange-200">
+                  <strong className="font-mono text-orange-600 bg-white px-2 py-0.5 rounded-md border border-orange-200">
                     LPUMZW722
                   </strong>{" "}
                   to get a <strong>flat 20% discount</strong> on the form fee (₹800 boys / ₹400 girls).
@@ -407,16 +407,16 @@ export default function MockTestHub() {
                   <button
                     type="button"
                     onClick={handleCopyCode}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-orange-300 bg-white px-3.5 py-2 text-xs font-bold text-orange-600 hover:bg-orange-50 transition shadow-sm"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-full border border-orange-300/80 bg-white px-4 py-2 text-xs font-bold text-orange-600 hover:bg-orange-50 transition shadow-xs active:scale-95 cursor-pointer"
                   >
-                    {copiedCode ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
                     <span>{copiedCode ? "Copied! Paste at admission.lpu.in" : "Copy Coupon LPUMZW722"}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleApplyPortalClick}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-orange-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-orange-500 transition"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-full bg-orange-600 px-5 py-2 text-xs font-bold text-white shadow-xs border-t border-white/20 hover:bg-orange-500 transition active:scale-95 cursor-pointer"
                   >
                     <span>Apply on Official LPU Portal (20% Off)</span>
                     <ExternalLink className="h-3.5 w-3.5" />
@@ -429,7 +429,7 @@ export default function MockTestHub() {
                 <button
                   type="button"
                   onClick={handleRestart}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm cursor-pointer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.08] bg-white px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-xs active:scale-95 cursor-pointer"
                 >
                   <RotateCcw className="h-3.5 w-3.5" />
                   <span>Retake Subject Test</span>
@@ -438,7 +438,7 @@ export default function MockTestHub() {
                 <button
                   type="button"
                   onClick={handleWhatsAppClick}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 transition shadow-sm cursor-pointer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 transition shadow-xs active:scale-95 cursor-pointer"
                 >
                   <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />
                   <span>Join WhatsApp Desk (Free Mock PDFs)</span>
@@ -446,7 +446,7 @@ export default function MockTestHub() {
 
                 <a
                   href="#calculator"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-slate-800 transition shadow-sm"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-slate-950 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-800 transition shadow-xs border-t border-white/20 active:scale-95 cursor-pointer"
                 >
                   <GraduationCap className="h-3.5 w-3.5" />
                   <span>Check Scholarship Fee in Calculator</span>

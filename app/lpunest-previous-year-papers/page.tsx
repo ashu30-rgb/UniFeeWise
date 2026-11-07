@@ -49,7 +49,7 @@ const pastPaperFaqs = [
 
 export default function PreviousYearPapersPage() {
   return (
-    <main className="min-h-screen bg-slate-50/50 pb-20">
+    <main className="min-h-screen bg-[#fbfbfd] text-[#1d1d1f] pb-24 font-sans selection:bg-orange-500/20 selection:text-orange-950">
       <StructuredData
         customFaqs={pastPaperFaqs}
         pageType="previous-year-papers"
@@ -58,12 +58,12 @@ export default function PreviousYearPapersPage() {
         pageUrl="https://unifeewise.vercel.app/lpunest-previous-year-papers"
       />
 
-      {/* Top Breadcrumb Nav */}
-      <div className="border-b border-slate-200/80 bg-white">
+      {/* Top Breadcrumb Nav — Apple Translucent Bar */}
+      <div className="border-b border-black/[0.06] bg-white/80 backdrop-blur-xl sticky top-16 z-40 print:hidden">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-orange-600 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-950 transition active:scale-95"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>Back to Fee Calculator</span>
@@ -71,7 +71,7 @@ export default function PreviousYearPapersPage() {
           <div className="flex items-center gap-3 text-xs font-semibold text-slate-500">
             <Link
               href="/mock-test"
-              className="text-orange-600 hover:text-orange-700 font-bold transition"
+              className="text-orange-600 hover:text-orange-700 font-bold transition active:scale-95"
             >
               Take Timed CBT Exam →
             </Link>
@@ -80,21 +80,25 @@ export default function PreviousYearPapersPage() {
       </div>
 
       {/* Hero Header */}
-      <section className="bg-gradient-to-b from-white to-slate-50 border-b border-slate-200/80 px-4 pt-8 pb-10 sm:pt-12 sm:pb-14">
-        <div className="mx-auto max-w-4xl text-center space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-800">
+      <section className="bg-gradient-to-b from-white via-[#fafafc] to-[#fbfbfd] border-b border-black/[0.05] px-4 pt-10 pb-12 sm:pt-16 sm:pb-16 print:hidden relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[380px] w-[680px] rounded-full bg-emerald-400/10 blur-[100px]"
+        />
+        <div className="relative mx-auto max-w-4xl text-center space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/80 bg-emerald-50/80 px-3.5 py-1 text-xs font-semibold text-emerald-800 shadow-xs backdrop-blur-md">
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
             <span>Memory-Based Question Bank • NCERT Class 11 &amp; 12 Syllabus</span>
           </div>
 
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl md:text-5xl leading-tight">
+          <h1 className="text-3xl font-extrabold tracking-[-0.035em] text-slate-950 sm:text-4xl md:text-5xl leading-[1.1]">
             LPUNEST Previous Year Question Papers{" "}
             <span className="bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent">
               with Solutions
             </span>
           </h1>
 
-          <p className="mx-auto max-w-2xl text-xs sm:text-base text-slate-600 leading-relaxed">
+          <p className="mx-auto max-w-2xl text-xs sm:text-base text-slate-600 leading-relaxed font-normal">
             Practice verified memory-based questions from recent LPUNEST test windows across
             Physics, Chemistry, Mathematics, Biology, English, and Aptitude. Each question includes step-by-step NCERT formula derivations.
           </p>
