@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalculatorForm from "@/components/calculator/CalculatorForm";
+import AcademicKnowledgeBase from "@/components/landing/AcademicKnowledgeBase";
 import MockTestHub from "@/components/mock-test/MockTestHub";
 import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq";
 import { ShieldCheck } from "lucide-react";
@@ -41,7 +42,9 @@ export default function CalculatorPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <CalculatorForm />
+        <CalculatorForm>
+          <AcademicKnowledgeBase />
+        </CalculatorForm>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">

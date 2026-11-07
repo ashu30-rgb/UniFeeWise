@@ -554,9 +554,10 @@ function formatINR(amount: number): string {
 
 interface CalculatorFormProps {
   initialBranch?: string;
+  children?: React.ReactNode;
 }
 
-export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
+export default function CalculatorForm({ initialBranch, children }: CalculatorFormProps) {
   const validInitialBranch: TargetBranch =
     initialBranch && initialBranch in BRANCH_CONFIG
       ? (initialBranch as TargetBranch)
@@ -680,10 +681,11 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
       {/* 12-Column Responsive Split-Pane Workbench */}
       <div className="grid grid-cols-1 gap-8 items-start lg:grid-cols-12">
         {/* =====================================================================
-            LEFT COLUMN (7 cols): Step-by-Step Interactive Inputs
+            LEFT COLUMN (7 cols): Step-by-Step Interactive Inputs + Below-Calculator Slot
             ===================================================================== */}
-        <div className="lg:col-span-7 bg-white/95 rounded-[2.25rem] border border-black/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl p-6 sm:p-9 space-y-8">
-          {/* Open Coupon Direct Conversion Banner */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="bg-white/95 rounded-[2.25rem] border border-black/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl p-6 sm:p-9 space-y-8">
+            {/* Open Coupon Direct Conversion Banner */}
           <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-2xl border border-orange-200/90 bg-gradient-to-r from-orange-50/90 via-white to-amber-50/60 px-4 py-3 text-xs shadow-xs">
             <div className="flex items-center gap-2">
               <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-orange-600 text-white shadow-xs">
@@ -910,6 +912,9 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             )}
           </div>
         </div>
+
+        {children}
+      </div>
 
         {/* =====================================================================
             RIGHT COLUMN (5 cols, sticky): Live Summary & Instant Action Card

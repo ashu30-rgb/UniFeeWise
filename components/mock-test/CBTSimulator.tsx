@@ -36,6 +36,55 @@ import {
 type ExamPhase = "lobby" | "in_test" | "result";
 type TestMode = "full" | "single_subject";
 
+const CBT_STORAGE_KEY = "unifeewise_cbt_simulator_state_v1";
+
+interface CBTStoredState {
+  version: 1;
+  phase: ExamPhase;
+  selectedCourseId: string;
+  bcaElectives: string[];
+  testMode: TestMode;
+  singleSubjectId: string;
+  activeSubjectId: string;
+  currentQuestionIndex: number;
+  secondsRemaining: number;
+  savedAt: number;
+  userAnswers: Record<string, string>;
+  visitedQuestions: Record<string, boolean>;
+  markedForReview: Record<string, boolean>;
+  numericalInput: string;
+  examResult: ExamResult | null;
+}
+
+function getQuestionsForConfig(
+  testMode: TestMode,
+  singleSubjectId: string,
+  selectedCourseId: string,
+  bcaElectives: string[]
+): CBTQuestion[] {
+  let subIds: string[] = [];
+  if (testMode === "single_subject") {
+    subIds = [singleSubjectId];
+  } else if (selectedCourseId === "btech") {
+    subIds = ["physics", "chemistry", "mathematics", "english"];
+  } else if (selectedCourseId === "btech_bio") {
+    subIds = ["physics", "chemistry", "biology", "english"];
+  } else if (selectedCourseId === "mba") {
+    subIds = ["english", "aptitude", "general-awareness", "computer-science"];
+  } else if (selectedCourseId === "bca_bba") {
+    subIds = ["english", ...bcaElectives];
+  } else {
+    subIds = ["physics", "chemistry", "mathematics", "english"];
+  }
+
+  const list: CBTQuestion[] = [];
+  for (const sId of subIds) {
+    const qList = ALL_SUBJECTS_MAP[sId]?.questions || [];
+    list.push(...qList);
+  }
+  return list;
+}
+
 function isUserAnswerCorrect(q: CBTQuestion, rawAns?: string): boolean {
   if (rawAns === undefined || rawAns === "") return false;
   const uAns = rawAns.trim();
@@ -82,6 +131,10 @@ export default function CBTSimulator() {
   const [examResult, setExamResult] = useState<ExamResult | null>(null);
   const [solutionFilter, setSolutionFilter] = useState<"all" | "incorrect" | "correct" | "unattempted">("all");
   const [copiedCode, setCopiedCode] = useState(false);
+
+  // Browser State Preservation Alerts
+  const [sessionRestoredBanner, setSessionRestoredBanner] = useState(false);
+  const [savedSessionAvailable, setSavedSessionAvailable] = useState<CBTStoredState | null>(null);
 
   // Active course config
   const activeCourse: CourseConfig = useMemo(() => {
@@ -151,22 +204,224 @@ export default function CBTSimulator() {
     }
   }, [currentQuestionId, currentQuestionAnswer]);
 
-  // Keep references to prevent recreating handleFinishExam on every keystroke/answer
+  // Keep references to prevent recreating handlers on every keystroke/answer
   const allActiveQuestionsRef = useRef(allActiveQuestions);
   allActiveQuestionsRef.current = allActiveQuestions;
   const userAnswersRef = useRef(userAnswers);
   userAnswersRef.current = userAnswers;
+  const visitedQuestionsRef = useRef(visitedQuestions);
+  visitedQuestionsRef.current = visitedQuestions;
+  const markedForReviewRef = useRef(markedForReview);
+  markedForReviewRef.current = markedForReview;
+  const secondsRemainingRef = useRef(secondsRemaining);
+  secondsRemainingRef.current = secondsRemaining;
+  const phaseRef = useRef(phase);
+  phaseRef.current = phase;
+
+  // Persist State to LocalStorage Helper
+  const persistState = useCallback(
+    (override?: Partial<CBTStoredState>) => {
+      if (typeof window === "undefined") return;
+      try {
+        const currentPhase = override?.phase ?? phaseRef.current;
+        if (currentPhase === "lobby" && !override) return;
+
+        const state: CBTStoredState = {
+          version: 1,
+          phase: currentPhase,
+          selectedCourseId,
+          bcaElectives,
+          testMode,
+          singleSubjectId,
+          activeSubjectId,
+          currentQuestionIndex,
+          secondsRemaining: override?.secondsRemaining ?? secondsRemainingRef.current,
+          savedAt: Date.now(),
+          userAnswers: override?.userAnswers ?? userAnswersRef.current,
+          visitedQuestions: override?.visitedQuestions ?? visitedQuestionsRef.current,
+          markedForReview: override?.markedForReview ?? markedForReviewRef.current,
+          numericalInput,
+          examResult: override?.examResult ?? examResult,
+          ...override,
+        };
+        localStorage.setItem(CBT_STORAGE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.warn("Failed saving CBT state", err);
+      }
+    },
+    [
+      selectedCourseId,
+      bcaElectives,
+      testMode,
+      singleSubjectId,
+      activeSubjectId,
+      currentQuestionIndex,
+      numericalInput,
+      examResult,
+    ]
+  );
+
+  // Restore State from Browser LocalStorage on Mount
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      const raw = localStorage.getItem(CBT_STORAGE_KEY);
+      if (!raw) return;
+
+      const parsed: CBTStoredState = JSON.parse(raw);
+      if (!parsed || parsed.version !== 1) {
+        localStorage.removeItem(CBT_STORAGE_KEY);
+        return;
+      }
+
+      if (parsed.phase === "in_test") {
+        const elapsed = Math.max(
+          0,
+          Math.floor((Date.now() - (parsed.savedAt || Date.now())) / 1000)
+        );
+        const remaining = Math.max(0, parsed.secondsRemaining - elapsed);
+
+        // Populate configuration
+        if (parsed.selectedCourseId) setSelectedCourseId(parsed.selectedCourseId);
+        if (Array.isArray(parsed.bcaElectives)) setBcaElectives(parsed.bcaElectives);
+        if (parsed.testMode) setTestMode(parsed.testMode);
+        if (parsed.singleSubjectId) setSingleSubjectId(parsed.singleSubjectId);
+        if (parsed.activeSubjectId) setActiveSubjectId(parsed.activeSubjectId);
+        if (typeof parsed.currentQuestionIndex === "number") {
+          setCurrentQuestionIndex(parsed.currentQuestionIndex);
+        }
+        if (parsed.userAnswers) setUserAnswers(parsed.userAnswers);
+        if (parsed.visitedQuestions) setVisitedQuestions(parsed.visitedQuestions);
+        if (parsed.markedForReview) setMarkedForReview(parsed.markedForReview);
+        if (parsed.numericalInput) setNumericalInput(parsed.numericalInput);
+
+        if (remaining <= 0) {
+          // Time expired while away — evaluate automatically
+          setSecondsRemaining(0);
+          const activeQuestions = getQuestionsForConfig(
+            parsed.testMode,
+            parsed.singleSubjectId,
+            parsed.selectedCourseId,
+            parsed.bcaElectives || []
+          );
+          const result = evaluateCBTExam(activeQuestions, parsed.userAnswers || {});
+          setExamResult(result);
+          setPhase("result");
+          localStorage.setItem(
+            CBT_STORAGE_KEY,
+            JSON.stringify({
+              ...parsed,
+              phase: "result",
+              secondsRemaining: 0,
+              examResult: result,
+              savedAt: Date.now(),
+            })
+          );
+        } else {
+          setSecondsRemaining(remaining);
+          setPhase("in_test");
+          setSessionRestoredBanner(true);
+        }
+      } else if (parsed.phase === "result" && parsed.examResult) {
+        if (parsed.selectedCourseId) setSelectedCourseId(parsed.selectedCourseId);
+        if (parsed.testMode) setTestMode(parsed.testMode);
+        if (parsed.userAnswers) setUserAnswers(parsed.userAnswers);
+        setExamResult(parsed.examResult);
+        setPhase("result");
+      } else if (parsed.phase === "lobby") {
+        if (parsed.userAnswers && Object.keys(parsed.userAnswers).length > 0) {
+          setSavedSessionAvailable(parsed);
+        }
+      }
+    } catch (e) {
+      console.error("Failed to restore CBT simulator state", e);
+      try {
+        localStorage.removeItem(CBT_STORAGE_KEY);
+      } catch {}
+    }
+  }, []);
+
+  // Continuous Auto-Save on Answer / Flag / Navigation Changes
+  useEffect(() => {
+    if (phase === "in_test") {
+      persistState();
+    }
+  }, [
+    userAnswers,
+    visitedQuestions,
+    markedForReview,
+    currentQuestionIndex,
+    activeSubjectId,
+    phase,
+    persistState,
+  ]);
 
   // Submit & Evaluate Exam
   const handleFinishExam = useCallback(() => {
     const result = evaluateCBTExam(allActiveQuestionsRef.current, userAnswersRef.current);
     setExamResult(result);
     setPhase("result");
+    setSessionRestoredBanner(false);
     trackLeadConversion(30.0, "INR");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    try {
+      localStorage.setItem(
+        CBT_STORAGE_KEY,
+        JSON.stringify({
+          version: 1,
+          phase: "result",
+          selectedCourseId,
+          bcaElectives,
+          testMode,
+          singleSubjectId,
+          activeSubjectId,
+          currentQuestionIndex,
+          secondsRemaining: 0,
+          savedAt: Date.now(),
+          userAnswers: userAnswersRef.current,
+          visitedQuestions: visitedQuestionsRef.current,
+          markedForReview: markedForReviewRef.current,
+          numericalInput,
+          examResult: result,
+        })
+      );
+    } catch {}
+  }, [
+    selectedCourseId,
+    bcaElectives,
+    testMode,
+    singleSubjectId,
+    activeSubjectId,
+    currentQuestionIndex,
+    numericalInput,
+  ]);
+
+  // Robust Reset Exam Handler
+  const handleResetExam = useCallback(() => {
+    const confirmed = window.confirm(
+      "Are you sure you want to reset your mock test? All your responses, review flags, and timer progress will be cleared from this browser."
+    );
+    if (!confirmed) return;
+
+    try {
+      localStorage.removeItem(CBT_STORAGE_KEY);
+    } catch {}
+
+    setUserAnswers({});
+    setVisitedQuestions({});
+    setMarkedForReview({});
+    setNumericalInput("");
+    setExamResult(null);
+    setCurrentQuestionIndex(0);
+    setPhase("lobby");
+    setSavedSessionAvailable(null);
+    setSessionRestoredBanner(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Countdown Timer
+  // Countdown Timer & Periodic LocalStorage Sync
   useEffect(() => {
     if (phase !== "in_test") return;
 
@@ -177,12 +432,74 @@ export default function CBTSimulator() {
           handleFinishExam();
           return 0;
         }
-        return prev - 1;
+
+        const nextSec = prev - 1;
+        secondsRemainingRef.current = nextSec;
+
+        // Periodic checkpoint every 5 seconds to minimize disk writes while ensuring precision
+        if (nextSec % 5 === 0) {
+          persistState({ secondsRemaining: nextSec });
+        }
+        return nextSec;
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [phase, handleFinishExam]);
+  }, [phase, handleFinishExam, persistState]);
+
+  // Refresh & Tab Close Guard (beforeunload + visibilitychange)
+  useEffect(() => {
+    if (phase !== "in_test") return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      persistState();
+      e.preventDefault();
+      e.returnValue = "Your CBT mock test is running. Are you sure you want to exit?";
+      return e.returnValue;
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        persistState();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [phase, persistState]);
+
+  // Back Button / PopState Accidental Navigation Interceptor
+  useEffect(() => {
+    if (phase !== "in_test") return;
+
+    window.history.pushState({ cbtInTest: true }, "", window.location.href);
+
+    const handlePopState = () => {
+      persistState();
+      const shouldExit = window.confirm(
+        "Your mock test is currently running. Do you want to pause and return to the lobby? Your time remaining and answers are safely preserved in your browser."
+      );
+      if (!shouldExit) {
+        window.history.pushState({ cbtInTest: true }, "", window.location.href);
+      } else {
+        setPhase("lobby");
+        try {
+          const raw = localStorage.getItem(CBT_STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            setSavedSessionAvailable(parsed);
+          }
+        } catch {}
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [phase, persistState]);
 
   // Format time (MM:SS or HH:MM:SS)
   const formatTime = (secs: number) => {
@@ -209,12 +526,39 @@ export default function CBTSimulator() {
       durationMins = activeCourse.totalDurationMinutes;
       setActiveSubjectId(activeSubjectIds[0] || "physics");
     }
-    setSecondsRemaining(durationMins * 60);
+    const initialSeconds = durationMins * 60;
+    setSecondsRemaining(initialSeconds);
+    secondsRemainingRef.current = initialSeconds;
     setCurrentQuestionIndex(0);
     setUserAnswers({});
     setVisitedQuestions({});
     setMarkedForReview({});
+    setExamResult(null);
     setPhase("in_test");
+    setSavedSessionAvailable(null);
+
+    // Initial write
+    try {
+      const initialState: CBTStoredState = {
+        version: 1,
+        phase: "in_test",
+        selectedCourseId,
+        bcaElectives,
+        testMode,
+        singleSubjectId,
+        activeSubjectId: testMode === "single_subject" ? singleSubjectId : (activeSubjectIds[0] || "physics"),
+        currentQuestionIndex: 0,
+        secondsRemaining: initialSeconds,
+        savedAt: Date.now(),
+        userAnswers: {},
+        visitedQuestions: {},
+        markedForReview: {},
+        numericalInput: "",
+        examResult: null,
+      };
+      localStorage.setItem(CBT_STORAGE_KEY, JSON.stringify(initialState));
+    } catch {}
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -378,6 +722,51 @@ export default function CBTSimulator() {
             </p>
           </div>
         </div>
+
+        {/* Saved Session Resume Prompt */}
+        {savedSessionAvailable && (
+          <div className="rounded-[2.25rem] border border-orange-500/30 bg-gradient-to-r from-orange-950/40 via-slate-900 to-slate-950 p-6 sm:p-7 text-white shadow-xl backdrop-blur-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="flex h-2 w-2 rounded-full bg-orange-400 animate-ping" />
+                <span className="text-xs font-bold uppercase tracking-wider text-orange-400">
+                  In-Progress Exam Saved
+                </span>
+              </div>
+              <h2 className="text-base sm:text-lg font-extrabold text-white">
+                You have a saved test for{" "}
+                {COURSES_CONFIG.find((c) => c.id === savedSessionAvailable.selectedCourseId)?.name || "LPUNEST"}
+              </h2>
+              <p className="text-xs text-slate-300">
+                {Object.keys(savedSessionAvailable.userAnswers || {}).length} questions answered •{" "}
+                {formatTime(savedSessionAvailable.secondsRemaining)} time remaining
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={() => {
+                  setPhase("in_test");
+                  setSessionRestoredBanner(true);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 px-5 py-2.5 text-xs font-bold text-white shadow-md active:scale-[0.98] transition cursor-pointer"
+              >
+                <span>Resume Exam →</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleResetExam}
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-4 py-2.5 text-xs font-bold text-slate-300 active:scale-[0.98] transition cursor-pointer"
+              >
+                <RotateCcw className="h-3.5 w-3.5" />
+                <span>Discard / Reset</span>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Step 1: Select Course */}
         <div className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-9 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl space-y-6">
@@ -798,7 +1187,7 @@ export default function CBTSimulator() {
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Live Countdown Timer */}
             <div
               className={`flex items-center gap-1.5 rounded-xl border px-3 py-1 font-mono text-sm sm:text-base font-black tabular-nums ${
@@ -810,6 +1199,18 @@ export default function CBTSimulator() {
               <Clock className="h-4 w-4" />
               <span>{formatTime(secondsRemaining)}</span>
             </div>
+
+            {/* Reset Exam Button */}
+            <button
+              type="button"
+              onClick={handleResetExam}
+              className="flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 active:scale-[0.97] px-3 py-1.5 text-xs font-bold text-rose-300 transition-all duration-150 cursor-pointer"
+              title="Reset mock test and clear progress"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Reset Test</span>
+              <span className="sm:hidden">Reset</span>
+            </button>
 
             {/* Submit Exam Button */}
             <button
@@ -829,6 +1230,23 @@ export default function CBTSimulator() {
             </button>
           </div>
         </div>
+
+        {/* Session Restored Alert Banner */}
+        {sessionRestoredBanner && (
+          <div className="flex items-center justify-between gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-xs font-bold text-emerald-400 backdrop-blur-md animate-fadeIn">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+              <span>Exam session restored from browser storage. Your answers and timer are running.</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSessionRestoredBanner(false)}
+              className="text-emerald-400 hover:text-white text-xs px-2 py-0.5 rounded cursor-pointer"
+            >
+              Dismiss ✕
+            </button>
+          </div>
+        )}
 
         {/* Subject Switcher Tabs (if multiple subjects) */}
         {activeSubjectIds.length > 1 && (
@@ -1127,8 +1545,21 @@ export default function CBTSimulator() {
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => setPhase("lobby")}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-bold text-slate-200 hover:bg-slate-700 transition cursor-pointer"
+                onClick={() => {
+                  try {
+                    localStorage.removeItem(CBT_STORAGE_KEY);
+                  } catch {}
+                  setPhase("lobby");
+                  setExamResult(null);
+                  setUserAnswers({});
+                  setVisitedQuestions({});
+                  setMarkedForReview({});
+                  setNumericalInput("");
+                  setSavedSessionAvailable(null);
+                  setSessionRestoredBanner(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-bold text-slate-200 hover:bg-slate-700 active:scale-[0.98] transition cursor-pointer"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 <span>Configure Another Test</span>

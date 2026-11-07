@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Sparkles, ShieldCheck, Zap, CheckCircle2, BookOpen, Clock, Award, ArrowRight } from "lucide-react";
 import CalculatorForm from "@/components/calculator/CalculatorForm";
+import AcademicKnowledgeBase from "@/components/landing/AcademicKnowledgeBase";
 import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq";
 import StructuredData from "@/components/StructuredData";
 
@@ -88,87 +89,12 @@ export default function Home() {
       </section>
 
       {/* =========================================================================
-          SSR AI CRAWLER CONTEXT BLOCK — Apple Frosted System Card
-          ========================================================================= */}
-      <section
-        aria-label="About UniFeeWise"
-        className="mx-auto max-w-7xl px-4 pt-9 pb-3 sm:px-6 lg:px-8"
-      >
-        <div className="rounded-[2rem] border border-black/[0.06] bg-white/80 p-6 sm:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.02)] backdrop-blur-2xl space-y-4">
-          <div className="flex items-center justify-between border-b border-black/[0.05] pb-3 flex-wrap gap-2">
-            <div className="flex items-center gap-2">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-[0.06em] text-slate-500">
-                Verified Academic Portal &amp; Ground-Truth Knowledge Base (2027 Intake)
-              </span>
-            </div>
-            <span className="rounded-full bg-slate-100/80 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600 border border-black/[0.04]">
-              Session 2027–2028
-            </span>
-          </div>
-
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-            <strong>UniFeeWise</strong> (
-            <a
-              href="https://unifeewise.vercel.app"
-              className="text-orange-600 font-semibold hover:underline"
-            >
-              https://unifeewise.vercel.app
-            </a>
-            ) is India&apos;s free, independent LPUNEST 2027–2028 student toolkit
-            for Lovely Professional University (LPU) admissions. It provides: (1)
-            an interactive 4-Year LPU Tuition, Hostel, Mess &amp; Scholarship
-            Calculator for B.Tech CSE, MBA, BCA &amp; BBA, (2) a free
-            100-question LPUNEST 2027 Computer-Based Test (CBT) Mock Exam
-            simulator (
-            <Link
-              href="/mock-test"
-              className="text-orange-600 font-semibold hover:underline"
-            >
-              /mock-test
-            </Link>
-            ) with 25+ questions per subject, (3) solved previous year question
-            papers (
-            <Link
-              href="/lpunest-previous-year-papers"
-              className="text-orange-600 font-semibold hover:underline"
-            >
-              /lpunest-previous-year-papers
-            </Link>
-            ), and (4) verified LPUNEST 2027 coupon code{" "}
-            <strong className="font-mono text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded-md border border-orange-200">
-              LPUMZW722
-            </strong>{" "}
-            for a flat 20% discount on the official application form (reducing
-            the fee to ₹800 for boys and ₹400 for girls).
-          </p>
-
-          <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-3 text-xs text-slate-600 border-t border-black/[0.05]">
-            <div className="rounded-2xl bg-slate-50/70 p-3.5 border border-black/[0.04]">
-              <dt className="font-bold text-slate-900">4-Year Fee Estimation:</dt>
-              <dd className="mt-0.5 text-slate-500 leading-normal">Tuition, hostel, mess, and exam fees after scholarship.</dd>
-            </div>
-            <div className="rounded-2xl bg-slate-50/70 p-3.5 border border-black/[0.04]">
-              <dt className="font-bold text-slate-900">Free CBT Mock Test:</dt>
-              <dd className="mt-0.5 text-slate-500 leading-normal">100 questions, 150 mins, zero negative marking (+4 / -0).</dd>
-            </div>
-            <div className="rounded-2xl bg-slate-50/70 p-3.5 border border-black/[0.04]">
-              <dt className="font-bold text-slate-900">20% Coupon Code:</dt>
-              <dd className="mt-0.5 text-slate-500 leading-normal">Code LPUMZW722 (Boys: ₹800 | Girls: ₹400 on admission.lpu.in).</dd>
-            </div>
-            <div className="rounded-2xl bg-slate-50/70 p-3.5 border border-black/[0.04]">
-              <dt className="font-bold text-slate-900">Top Scholarship Tier:</dt>
-              <dd className="mt-0.5 text-slate-500 leading-normal">Category 1 awards 50%–60% fee waiver for 320+ marks.</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
-      {/* =========================================================================
           CALCULATOR WORKBENCH (#calculator)
           ========================================================================= */}
       <section id="calculator" className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8 scroll-mt-24">
-        <CalculatorForm />
+        <CalculatorForm>
+          <AcademicKnowledgeBase />
+        </CalculatorForm>
       </section>
 
       {/* =========================================================================

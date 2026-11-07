@@ -27,6 +27,8 @@ export default function QuizEngine({ test }: QuizEngineProps) {
     [test]
   );
 
+  const storageKey = `unifeewise_quiz_${test.subjectName.toLowerCase().replace(/\s+/g, "-")}_v1`;
+
   const [hasStarted, setHasStarted] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,6 +37,74 @@ export default function QuizEngine({ test }: QuizEngineProps) {
     Math.max(1, test.timeLimitMinutes) * 60
   );
   const [copied, setCopied] = useState(false);
+
+  // Restore State from Browser Storage on Mount
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (!parsed) return;
+
+      if (parsed.hasStarted) {
+        if (parsed.isSubmitted) {
+          setIsSubmitted(true);
+          setAnswers(parsed.answers || {});
+          setHasStarted(false);
+        } else {
+          const elapsed = Math.max(
+            0,
+            Math.floor((Date.now() - (parsed.savedAt || Date.now())) / 1000)
+          );
+          const remaining = Math.max(0, parsed.secondsLeft - elapsed);
+          setAnswers(parsed.answers || {});
+          setCurrentIndex(parsed.currentIndex || 0);
+
+          if (remaining <= 0) {
+            setIsSubmitted(true);
+            setHasStarted(false);
+            setSecondsLeft(0);
+          } else {
+            setSecondsLeft(remaining);
+            setHasStarted(true);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Failed restoring quiz state", e);
+    }
+  }, [storageKey]);
+
+  // Persist State to LocalStorage
+  const persistQuiz = useCallback(
+    (override?: Record<string, unknown>) => {
+      if (typeof window === "undefined") return;
+      try {
+        if (!hasStarted && !isSubmitted && !override) return;
+        const state = {
+          hasStarted,
+          isSubmitted,
+          currentIndex,
+          answers,
+          secondsLeft,
+          savedAt: Date.now(),
+          ...override,
+        };
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch {
+        // ignore
+      }
+    },
+    [hasStarted, isSubmitted, currentIndex, answers, secondsLeft, storageKey]
+  );
+
+  // Auto-sync answers & index
+  useEffect(() => {
+    if (hasStarted && !isSubmitted) {
+      persistQuiz();
+    }
+  }, [answers, currentIndex, hasStarted, isSubmitted, persistQuiz]);
 
   const handleCopyCode = async () => {
     try {
@@ -61,8 +131,22 @@ export default function QuizEngine({ test }: QuizEngineProps) {
   const handleSubmit = useCallback(() => {
     setIsSubmitted(true);
     setHasStarted(false);
-  }, []);
+    try {
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify({
+          hasStarted: false,
+          isSubmitted: true,
+          currentIndex,
+          answers,
+          secondsLeft: 0,
+          savedAt: Date.now(),
+        })
+      );
+    } catch {}
+  }, [storageKey, currentIndex, answers]);
 
+  // Timer & Periodic Sync
   useEffect(() => {
     if (!hasStarted || isSubmitted) {
       return;
@@ -74,11 +158,37 @@ export default function QuizEngine({ test }: QuizEngineProps) {
     }
 
     const timer = window.setInterval(() => {
-      setSecondsLeft((prev) => prev - 1);
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleSubmit();
+          return 0;
+        }
+        const next = prev - 1;
+        if (next % 5 === 0) {
+          persistQuiz({ secondsLeft: next });
+        }
+        return next;
+      });
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [hasStarted, isSubmitted, secondsLeft, handleSubmit]);
+  }, [hasStarted, isSubmitted, secondsLeft, handleSubmit, persistQuiz]);
+
+  // Unload warning
+  useEffect(() => {
+    if (!hasStarted || isSubmitted) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      persistQuiz();
+      e.preventDefault();
+      e.returnValue = "Your mock test is currently running. Are you sure you want to exit?";
+      return e.returnValue;
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [hasStarted, isSubmitted, persistQuiz]);
 
   const handleSelectOption = (optionIndex: number) => {
     if (!currentQuestion || isSubmitted) {
@@ -92,6 +202,9 @@ export default function QuizEngine({ test }: QuizEngineProps) {
   };
 
   const handleRestart = () => {
+    try {
+      localStorage.removeItem(storageKey);
+    } catch {}
     setHasStarted(false);
     setIsSubmitted(false);
     setCurrentIndex(0);
@@ -236,14 +349,32 @@ export default function QuizEngine({ test }: QuizEngineProps) {
             Question {currentIndex + 1} of {totalQuestions}
           </p>
         </div>
-        <div
-          className={`rounded-lg border px-3 py-1.5 font-mono text-sm font-semibold ${
-            secondsLeft <= 60
-              ? "border-red-500/40 bg-red-500/10 text-red-400"
-              : "border-orange-500/30 bg-orange-500/10 text-orange-300"
-          }`}
-        >
-          {formatTime(secondsLeft)}
+        <div className="flex items-center gap-2">
+          <div
+            className={`rounded-lg border px-3 py-1.5 font-mono text-sm font-semibold ${
+              secondsLeft <= 60
+                ? "border-red-500/40 bg-red-500/10 text-red-400"
+                : "border-orange-500/30 bg-orange-500/10 text-orange-300"
+            }`}
+          >
+            {formatTime(secondsLeft)}
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Are you sure you want to reset this mock test? All your responses and timer progress will be cleared."
+                )
+              ) {
+                handleRestart();
+              }
+            }}
+            className="rounded-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 active:scale-[0.97] px-2.5 py-1.5 text-xs font-semibold text-red-300 transition cursor-pointer"
+            title="Reset Quiz"
+          >
+            Reset
+          </button>
         </div>
       </div>
 
