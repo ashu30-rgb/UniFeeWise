@@ -101,6 +101,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="KHFkR-oJ0SPQIinQJS6iNf0j6BMAHfOqptG2vMS_v5M"
         />
+        <link rel="help" type="text/markdown" href="/llms.txt" title="LLM Context" />
         {/* Google tag (gtag.js) */}
         <script
           async
