@@ -12,6 +12,7 @@
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
+    "indexnow": "node scripts/ping-indexnow.mjs",
     "ping:indexnow": "node scripts/ping-indexnow.mjs"
   },
   "dependencies": {

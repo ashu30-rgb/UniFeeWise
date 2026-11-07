@@ -27,3 +27,8 @@ Search all `.tsx` and `.ts` files for any `href=` or `window.open`:
 
 ### 4. Build Verification
 Run `npm run build` to ensure all static pages compile with zero errors, and print a summary table of the updated dates.
+
+### 5. Microsoft Bing & IndexNow Notification
+Trigger an instant indexing notification so Bing, Microsoft Copilot, and ChatGPT Search pick up updated dates, coupon codes, and fee slabs immediately:
+- Run `npm run indexnow` (or ping `https://unifeewise.vercel.app/api/indexnow`).
+

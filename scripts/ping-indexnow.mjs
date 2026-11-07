@@ -1,18 +1,25 @@
 /**
- * Microsoft Bing / IndexNow Protocol Ping Script
- * Notifies Bing, Microsoft Copilot, and OpenAI's ChatGPT Search indexer of all site URLs.
+ * Microsoft Bing & IndexNow Protocol Submission Script
+ * Pushes all site URLs directly to Microsoft Bing, Copilot, and OpenAI ChatGPT Search indexers.
  *
- * Usage: node scripts/ping-indexnow.mjs
+ * Usage:
+ *   npm run indexnow
+ *   node scripts/ping-indexnow.mjs
  */
 
 const INDEXNOW_KEY = "a8f4c2e9d1b7603459e8a2c4f6b1d0e3";
 const HOST = "unifeewise.vercel.app";
 const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
 
+const ENDPOINTS = [
+  { name: "IndexNow Central (api.indexnow.org)", url: "https://api.indexnow.org/indexnow" },
+  { name: "Microsoft Bing (www.bing.com)", url: "https://www.bing.com/indexnow" },
+];
+
 const URL_LIST = [
   `https://${HOST}/`,
-  `https://${HOST}/lpunest-coupon-code`,
   `https://${HOST}/mock-test`,
+  `https://${HOST}/lpunest-coupon-code`,
   `https://${HOST}/lpunest-previous-year-papers`,
   `https://${HOST}/llms.txt`,
   `https://${HOST}/llms-full.txt`,
@@ -35,7 +42,13 @@ const URL_LIST = [
 ];
 
 async function pingIndexNow() {
-  console.log(`[IndexNow] Submitting ${URL_LIST.length} URLs to api.indexnow.org...`);
+  console.log(`\n======================================================`);
+  console.log(`🚀 Microsoft Bing & IndexNow Live Push`);
+  console.log(`Host: ${HOST}`);
+  console.log(`Key:  ${INDEXNOW_KEY}`);
+  console.log(`Key Location: ${KEY_LOCATION}`);
+  console.log(`Submitting ${URL_LIST.length} URLs across ${ENDPOINTS.length} search endpoints...`);
+  console.log(`======================================================\n`);
 
   const payload = {
     host: HOST,
@@ -44,28 +57,35 @@ async function pingIndexNow() {
     urlList: URL_LIST,
   };
 
-  try {
-    const response = await fetch("https://api.indexnow.org/indexnow", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(payload),
-    });
+  for (const endpoint of ENDPOINTS) {
+    try {
+      console.log(`📡 Pinging ${endpoint.name} (${endpoint.url})...`);
+      const response = await fetch(endpoint.url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    if (response.ok || response.status === 200 || response.status === 202) {
-      console.log(
-        `✅ [IndexNow] Success! Response Status: ${response.status} (${response.statusText || "Accepted"})`
-      );
-      console.log(`Submitted URLs for immediate Bing & ChatGPT Search indexing:`);
-      URL_LIST.forEach((u) => console.log(`  - ${u}`));
-    } else {
-      const errorText = await response.text();
-      console.warn(`⚠️ [IndexNow] Received status ${response.status}: ${errorText}`);
+      if (response.ok || response.status === 200 || response.status === 202) {
+        console.log(
+          `   ✅ SUCCESS! Status: ${response.status} (${response.statusText || "Accepted"})\n`
+        );
+      } else {
+        const errorText = await response.text();
+        console.warn(
+          `   ⚠️ Warning: Received HTTP ${response.status} from ${endpoint.name}: ${errorText}\n`
+        );
+      }
+    } catch (err) {
+      console.error(`   ❌ Failed to connect to ${endpoint.name}:`, err.message || err);
     }
-  } catch (err) {
-    console.error(`❌ [IndexNow] Failed to ping IndexNow API:`, err);
   }
+
+  console.log(`\nSubmitted URLs for immediate Bing & ChatGPT Search indexing:`);
+  URL_LIST.forEach((u) => console.log(`  • ${u}`));
+  console.log(`\n🎉 IndexNow push complete!\n`);
 }
 
 pingIndexNow();
