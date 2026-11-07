@@ -12,7 +12,7 @@ import StructuredData from "@/components/StructuredData";
 import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export const metadata: Metadata = {
-  title: "LPUNEST Coupon Code 2027: Flat 20% Discount (Code: LPUMZW722) | UniFeeWise",
+  title: "LPUNEST Coupon Code 2027: Flat 20% Discount (Code: LPUMZW722)",
   description:
     "Use verified LPUNEST 2027 coupon code LPUMZW722 for a flat 20% discount on LPU application form. Boys pay ₹800 (instead of ₹1,000), Girls pay ₹400 (instead of ₹500). Active for all courses.",
   keywords: [

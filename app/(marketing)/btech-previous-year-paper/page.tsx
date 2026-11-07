@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import GatedPdfDownload from "@/components/lead-magnets/GatedPdfDownload";
 
 export const metadata: Metadata = {
-  title: "Download LPUNEST B.Tech Previous Year Question Paper | UniFeeWise",
+  title: "Download LPUNEST B.Tech Previous Year Question Paper",
   description:
     "Download the free LPUNEST B.Tech previous year question paper. Practice authentic exam questions to improve your score and unlock up to a 60% Category A scholarship.",
   openGraph: {

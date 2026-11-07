@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ShieldCheck, CheckCircle2, Lock, EyeOff, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | UniFeeWise",
+  title: "Privacy Policy",
   description:
     "UniFeeWise runs 100% privately in your browser with zero database storage of personal phone numbers or emails.",
 };

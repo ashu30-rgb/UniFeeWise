@@ -5,7 +5,7 @@ import PreviousYearViewer from "@/components/previous-year/PreviousYearViewer";
 import StructuredData from "@/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: "LPUNEST Previous Year Question Paper with Solutions PDF (2024–2026) | UniFeeWise",
+  title: "LPUNEST Previous Year Question Paper with Solutions PDF (2024–2026)",
   description:
     "Download and practice solved memory-based LPUNEST previous year question papers with answer keys for Physics, Chemistry, Mathematics, Biology, English & Aptitude. Unlock 20% discount on LPUNEST form with code LPUMZW722.",
   keywords: [

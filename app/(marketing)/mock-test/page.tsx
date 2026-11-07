@@ -6,7 +6,7 @@ import StructuredData from "@/components/StructuredData";
 import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export const metadata: Metadata = {
-  title: "Free LPUNEST 2027 Mock Test & Previous Year Sample Paper Simulator | UniFeeWise",
+  title: "Free LPUNEST 2027 Mock Test & Previous Year Sample Paper Simulator",
   description:
     "Attempt the free LPUNEST 2027 online CBT mock test for B.Tech (PCM/PCB), MBA, BCA & BBA. Practice 25+ solved previous year questions per subject, predict your Category 1 scholarship, and get 20% off your LPUNEST form with code LPUMZW722.",
   keywords: [

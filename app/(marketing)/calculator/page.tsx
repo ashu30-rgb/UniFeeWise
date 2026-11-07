@@ -5,7 +5,7 @@ import ScholarshipGuideAndFaq from "@/components/landing/ScholarshipGuideAndFaq"
 import { ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "LPU Fee & Scholarship Calculator 2027 | UniFeeWise",
+  title: "LPU Fee & Scholarship Calculator 2027",
   description:
     "Calculate your exact LPUNEST 2027 scholarship tier and semester tuition in seconds with UniFeeWise.",
 };

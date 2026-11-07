@@ -26,13 +26,13 @@ export async function generateMetadata({
   params,
 }: MockTestPageProps): Promise<Metadata> {
   if (!isMockSubjectSlug(params.subject)) {
-    return { title: "LPUNEST Mock Test | UniFeeWise" };
+    return { title: "LPUNEST Mock Test" };
   }
 
   const test = tests[params.subject];
 
   return {
-    title: `${test.title} | UniFeeWise`,
+    title: test.title,
     description: `Practice free interactive ${test.subjectName} questions for LPUNEST 2027 with instant scoring and scholarship advice.`,
   };
 }

@@ -4,7 +4,7 @@ import { ShieldAlert } from "lucide-react";
 import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | UniFeeWise",
+  title: "Terms of Service",
   description:
     "Read the Terms of Service for UniFeeWise. Educational fee calculations, scholarship estimates, and LPUNEST application discount terms.",
 };
