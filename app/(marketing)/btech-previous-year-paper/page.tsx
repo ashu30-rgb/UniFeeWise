@@ -4,7 +4,7 @@ import GatedPdfDownload from "@/components/lead-magnets/GatedPdfDownload";
 export const metadata: Metadata = {
   title: "LPUNEST B.Tech Previous Year Paper PDF",
   description:
-    "Download free LPUNEST B.Tech previous year question paper with solutions. Practice authentic exam questions and unlock up to 60% Category A scholarship at LPU.",
+    "Download free LPUNEST B.Tech previous year question paper with solutions. Practice authentic exam questions and qualify for up to 60% LPU scholarship.",
   openGraph: {
     title: "LPUNEST B.Tech Previous Year Paper PDF",
     description:

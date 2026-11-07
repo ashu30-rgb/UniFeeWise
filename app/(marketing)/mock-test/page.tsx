@@ -8,7 +8,7 @@ import { LPUNEST_CONFIG } from "@/config/lpunest";
 export const metadata: Metadata = {
   title: "Free LPUNEST 2027 Mock Test & CBT Exam Simulator",
   description:
-    "Take free LPUNEST 2027 CBT mock tests for B.Tech, MBA & BCA. Practice real questions, predict your scholarship tier, and save 20% on form with code LPUMZW722.",
+    "Take free LPUNEST 2027 CBT mock tests for B.Tech, MBA & BCA. Practice real questions, predict your scholarship, and save 20% with code LPUMZW722.",
   keywords: [
     "LPUNEST mock test 2027",
     "LPUNEST sample paper",

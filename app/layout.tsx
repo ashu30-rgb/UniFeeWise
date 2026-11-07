@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 const SITE_DESCRIPTION =
-  "Calculate LPU 2027 B.Tech & MBA fees with scholarship, take free CBT mock tests, and get 20% off LPUNEST form using coupon LPUMZW722 (₹800 Boys / ₹400 Girls).";
+  "Calculate LPU 2027 B.Tech & MBA fees with scholarship, practice free CBT mock tests, and get 20% off LPUNEST form with coupon LPUMZW722.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://unifeewise.vercel.app"),

@@ -10,7 +10,7 @@ export default function Home() {
       <StructuredData
         pageType="home"
         pageTitle="LPUNEST 2027 Fee Calculator, Free Mock Test & Coupon Code LPUMZW722"
-        pageDescription="Calculate your exact 4-year LPU tuition and scholarship bracket in 30 seconds. Practice 100-question free CBT mock tests and unlock 20% off LPUNEST form with coupon LPUMZW722."
+        pageDescription="Calculate LPU 2027 B.Tech & MBA fees with scholarship, practice free CBT mock tests, and get 20% off LPUNEST form with coupon LPUMZW722."
         pageUrl="https://unifeewise.vercel.app"
       />
 

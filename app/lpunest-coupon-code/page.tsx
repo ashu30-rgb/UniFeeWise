@@ -14,7 +14,7 @@ import { LPUNEST_CONFIG } from "@/config/lpunest";
 export const metadata: Metadata = {
   title: "LPUNEST Coupon Code 2027 (20% Off: LPUMZW722)",
   description:
-    "Get 20% off LPUNEST 2027 application form with code LPUMZW722. Boys pay ₹800 (was ₹1000), Girls pay ₹400 (was ₹500). Valid for B.Tech, MBA & all LPU courses.",
+    "Get 20% off LPUNEST 2027 application form with code LPUMZW722. Boys pay ₹800, Girls pay ₹400. Valid for B.Tech, MBA and all LPU courses.",
   keywords: [
     "lpunest coupon code 2027",
     "lpunest discount code",

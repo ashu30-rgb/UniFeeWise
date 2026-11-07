@@ -7,7 +7,7 @@ import StructuredData from "@/components/StructuredData";
 export const metadata: Metadata = {
   title: "LPUNEST Previous Year Papers & Solutions PDF",
   description:
-    "Download solved LPUNEST previous year question papers with solutions for PCM, PCB & English. Practice real papers and save 20% on forms with code LPUMZW722.",
+    "Download solved LPUNEST previous year question papers with solutions for PCM, PCB and English. Practice real tests and save 20% with code LPUMZW722.",
   keywords: [
     "lpunest previous year question paper with solutions pdf",
     "lpunest previous year papers",
