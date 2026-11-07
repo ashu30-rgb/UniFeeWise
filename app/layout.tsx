@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+    google: "KHFkR-oJ0SPQIinQJS6iNf0j6BMAHfOqptG2vMS_v5M",
   },
 };
 
@@ -97,6 +97,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta
+          name="google-site-verification"
+          content="KHFkR-oJ0SPQIinQJS6iNf0j6BMAHfOqptG2vMS_v5M"
+        />
         {/* Google tag (gtag.js) */}
         <script
           async
