@@ -682,14 +682,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
         {/* =====================================================================
             LEFT COLUMN (7 cols): Step-by-Step Interactive Inputs
             ===================================================================== */}
-        <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 space-y-7">
+        <div className="lg:col-span-7 bg-white/95 rounded-[2.25rem] border border-black/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl p-6 sm:p-9 space-y-8">
           {/* Open Coupon Direct Conversion Banner */}
-          <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-2xl border border-orange-200 bg-orange-50/80 px-4 py-3 text-xs shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-2xl border border-orange-200/90 bg-gradient-to-r from-orange-50/90 via-white to-amber-50/60 px-4 py-3 text-xs shadow-xs">
             <div className="flex items-center gap-2">
               <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-orange-600 text-white shadow-xs">
                 <Tag className="h-3.5 w-3.5" />
               </span>
-              <span className="font-extrabold text-orange-950">
+              <span className="font-bold text-orange-950">
                 Official LPUNEST 20% Form Discount:
               </span>
             </div>
@@ -697,7 +697,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={handleCopyCode}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-orange-300 bg-white px-3 py-1 font-mono font-black text-orange-600 hover:bg-orange-50 active:scale-[0.97] transition-all duration-150 shadow-sm whitespace-nowrap cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-orange-300/80 bg-white px-3.5 py-1 font-mono font-bold text-orange-600 hover:bg-orange-50 active:scale-[0.97] transition-all duration-150 shadow-xs whitespace-nowrap cursor-pointer"
                 aria-label="Copy coupon code LPUMZW722"
               >
                 <span>{DISCOUNT_CODE}</span>
@@ -706,7 +706,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={handleApplyPortalClick}
-                className="hidden sm:inline-flex items-center gap-1 rounded-xl bg-orange-600 px-3 py-1 font-bold text-white hover:bg-orange-500 active:scale-[0.97] transition-all duration-150 shadow-sm whitespace-nowrap cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1 rounded-full bg-orange-600 px-3.5 py-1 font-bold text-white hover:bg-orange-500 active:scale-[0.97] transition-all duration-150 shadow-xs whitespace-nowrap cursor-pointer"
               >
                 <span>Apply (20% Off)</span>
                 <span aria-hidden="true">↗</span>
@@ -720,13 +720,13 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
           </div>
 
           {/* STEP 1: Program & Stream Selection */}
-          <div>
+          <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white shadow-sm">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white shadow-xs">
                 1
               </span>
               <div>
-                <h3 className="text-base font-extrabold tracking-tight text-slate-900 sm:text-lg">
+                <h3 className="text-base font-bold tracking-tight text-slate-900 sm:text-lg">
                   Select Program &amp; Stream
                 </h3>
                 <p className="text-xs text-slate-500">
@@ -736,7 +736,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             </div>
 
             {/* Quick Pills for Common Programs */}
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
               {QUICK_POPULAR_BRANCHES.map((branch) => {
                 const isSelected = targetBranch === branch;
                 return (
@@ -744,10 +744,10 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     key={branch}
                     type="button"
                     onClick={() => setTargetBranch(branch)}
-                    className={`rounded-xl border px-3 py-2 text-xs font-bold text-center cursor-pointer active:scale-[0.97] transition-all duration-150 ${
+                    className={`rounded-2xl border px-3 py-2.5 text-xs font-semibold text-center cursor-pointer active:scale-[0.97] transition-all duration-150 ${
                       isSelected
-                        ? "border-orange-600 bg-orange-50 text-orange-900 shadow-sm ring-1 ring-orange-500"
-                        : "border-slate-200 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
+                        ? "border-orange-600 bg-orange-50/90 text-orange-950 shadow-xs ring-1 ring-orange-500/50"
+                        : "border-black/[0.06] bg-slate-50/70 text-slate-700 hover:border-black/[0.12] hover:bg-slate-100"
                     }`}
                   >
                     {BRANCH_CONFIG[branch].short}
@@ -757,12 +757,12 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             </div>
 
             {/* Detailed Select Dropdown Grouped by Official Category */}
-            <div className="mt-3">
+            <div>
               <select
                 id="calc-course"
                 value={targetBranch}
                 onChange={(e) => setTargetBranch(e.target.value as TargetBranch)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs font-semibold text-slate-800 outline-none transition hover:border-slate-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-2xl border border-black/[0.08] bg-slate-50/70 px-4 py-3 text-xs font-semibold text-slate-800 outline-none transition hover:border-black/[0.15] focus:border-orange-500 focus:bg-white focus:ring-4 focus:ring-orange-500/10"
               >
                 {COURSE_GROUPS.map((grp) => (
                   <optgroup key={grp.group} label={grp.group}>
@@ -778,14 +778,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
           </div>
 
           {/* STEP 2: Expected Scholarship Basis */}
-          <div className="border-t border-slate-100 pt-7">
+          <div className="border-t border-black/[0.05] pt-8 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white shadow-sm">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white shadow-xs">
                   2
                 </span>
                 <div>
-                  <h3 className="text-base font-extrabold tracking-tight text-slate-900 sm:text-lg">
+                  <h3 className="text-base font-bold tracking-tight text-slate-900 sm:text-lg">
                     Expected Scholarship Basis
                   </h3>
                   <p className="text-xs text-slate-500">
@@ -793,17 +793,17 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   </p>
                 </div>
               </div>
-              <span className="hidden rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 sm:inline-block">
+              <span className="hidden rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 border border-emerald-200/60 sm:inline-block">
                 {activeWaiver > 0 ? `${Math.round(activeWaiver * 100)}% Waiver Active` : "Standard Slabs"}
               </span>
             </div>
 
-            {/* Segmented Mode Tabs */}
-            <div className="mt-4 flex rounded-xl bg-slate-100 p-1 text-xs font-semibold text-slate-600">
+            {/* Segmented Mode Tabs — Apple iOS Style */}
+            <div className="flex rounded-full bg-slate-100/90 p-1 text-xs font-semibold text-slate-600 border border-black/[0.04]">
               <button
                 type="button"
                 onClick={() => setBasisMode("lpunest")}
-                className={`flex-1 rounded-lg py-1.5 transition-all duration-150 text-center cursor-pointer active:scale-[0.98] ${
+                className={`flex-1 rounded-full py-1.5 transition-all duration-150 text-center cursor-pointer active:scale-[0.98] ${
                   basisMode === "lpunest"
                     ? "bg-white font-bold text-slate-950 shadow-sm"
                     : "hover:text-slate-900"
@@ -814,7 +814,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={() => setBasisMode("jee")}
-                className={`flex-1 rounded-lg py-1.5 transition-all duration-150 text-center cursor-pointer active:scale-[0.98] ${
+                className={`flex-1 rounded-full py-1.5 transition-all duration-150 text-center cursor-pointer active:scale-[0.98] ${
                   basisMode === "jee"
                     ? "bg-white font-bold text-slate-950 shadow-sm"
                     : "hover:text-slate-900"
@@ -825,7 +825,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
               <button
                 type="button"
                 onClick={() => setBasisMode("boards")}
-                className={`flex-1 rounded-lg py-1.5 transition-all duration-150 text-center cursor-pointer active:scale-[0.98] ${
+                className={`flex-1 rounded-full py-1.5 transition-all duration-150 text-center cursor-pointer active:scale-[0.98] ${
                   basisMode === "boards"
                     ? "bg-white font-bold text-slate-950 shadow-sm"
                     : "hover:text-slate-900"
@@ -836,7 +836,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             </div>
 
             {/* Tier Selectable Radio Cards */}
-            <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
               {(Object.keys(SCHOLARSHIP_TIERS) as ScholarshipTierKey[]).map((key) => {
                 const tier = SCHOLARSHIP_TIERS[key];
                 const isSelected = selectedTier === key;
@@ -845,21 +845,21 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     key={key}
                     type="button"
                     onClick={() => handleTierSelect(key)}
-                    className={`flex flex-col items-start rounded-2xl border p-3.5 text-left transition-all duration-150 cursor-pointer active:scale-[0.98] ${
+                    className={`flex flex-col items-start rounded-2xl border p-4 text-left transition-all duration-150 cursor-pointer active:scale-[0.98] ${
                       isSelected
-                        ? "border-orange-600 bg-orange-50/70 shadow-sm ring-1 ring-orange-500"
-                        : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60"
+                        ? "border-orange-600 bg-orange-50/70 shadow-xs ring-1 ring-orange-500/50"
+                        : "border-black/[0.06] bg-white hover:border-black/[0.12] hover:bg-slate-50/60"
                     }`}
                   >
                     <div className="flex w-full items-center justify-between">
-                      <span className="text-xs font-black text-slate-900">
+                      <span className="text-xs font-bold text-slate-900">
                         {tier.categoryNumber}
                       </span>
                       {isSelected && (
                         <CheckCircle2 className="h-4 w-4 text-orange-600" />
                       )}
                     </div>
-                    <span className="mt-1 text-sm font-black text-slate-950 tabular-nums">
+                    <span className="mt-1.5 text-sm font-black text-slate-950 tabular-nums">
                       {branchInfo.waivers[key] > 0 ? `${Math.round(branchInfo.waivers[key] * 100)}% Off` : "0% Off"}
                     </span>
                     <span className="mt-1 text-[11px] font-medium text-slate-500">
@@ -876,7 +876,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
 
             {/* Interactive LPUNEST Score Input Slider */}
             {basisMode === "lpunest" && (
-              <div className="mt-4 rounded-2xl border border-slate-100 bg-slate-50/70 p-4">
+              <div className="rounded-2xl border border-black/[0.05] bg-slate-50/70 p-4">
                 <div className="flex items-center justify-between text-xs">
                   <label htmlFor="calc-score" className="font-bold text-slate-700">
                     Exact LPUNEST Score (0–400):
@@ -885,7 +885,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     {expectedScore === "" ? 0 : expectedScore} / 400
                   </span>
                 </div>
-                <div className="mt-2.5 flex items-center gap-4">
+                <div className="mt-3 flex items-center gap-4">
                   <input
                     type="range"
                     min={0}
@@ -893,7 +893,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     step={5}
                     value={expectedScore === "" ? 0 : expectedScore}
                     onChange={handleScoreChange}
-                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-orange-600"
+                    className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-orange-600"
                   />
                   <input
                     id="calc-score"
@@ -903,7 +903,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                     value={expectedScore}
                     onChange={handleScoreChange}
                     placeholder="Score"
-                    className="w-20 rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-center text-xs font-bold text-slate-900 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                    className="w-20 rounded-xl border border-black/[0.08] bg-white px-2.5 py-1.5 text-center text-xs font-bold text-slate-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
                   />
                 </div>
               </div>
@@ -914,7 +914,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
         {/* =====================================================================
             RIGHT COLUMN (5 cols, sticky): Live Summary & Instant Action Card
             ===================================================================== */}
-        <div className="lg:col-span-5 lg:sticky lg:top-24 rounded-3xl bg-slate-900 p-6 sm:p-7 text-white shadow-2xl space-y-6 border border-slate-800">
+        <div className="lg:col-span-5 lg:sticky lg:top-24 rounded-[2.25rem] bg-gradient-to-b from-slate-950 via-[#0a1122] to-slate-950 p-6 sm:p-7 text-white shadow-2xl space-y-6 border border-white/10 backdrop-blur-2xl">
           {/* Top Live Readout (Always Visible — Zero Gate) */}
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
@@ -966,10 +966,10 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
           {/* ===================================================================
               COMPLETE 4-YEAR / DEGREE NET PAYABLE BREAKDOWN (Always Open — Zero Gate)
               =================================================================== */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 shadow-inner space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-inner backdrop-blur-md space-y-3">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2">
               <div>
-                <h3 className="text-xs sm:text-sm font-extrabold text-white">
+                <h3 className="text-xs sm:text-sm font-bold text-white">
                   Complete {branchInfo.durationYears}-Year ({branchInfo.semesters} Semesters) Net Breakdown
                 </h3>
                 <p className="text-[10px] text-slate-400">
@@ -977,7 +977,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 </p>
               </div>
               {scholarshipAmount > 0 && (
-                <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold text-emerald-400 whitespace-nowrap tabular-nums">
+                <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400 whitespace-nowrap tabular-nums">
                   Save {formatINR(totalScholarshipSavings)} Total
                 </span>
               )}
@@ -992,7 +992,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 <span>Total Examination Fees ({branchInfo.semesters} Sems):</span>
                 <span className="font-semibold text-slate-200 tabular-nums">{formatINR(EXAM_FEE_PER_SEM * branchInfo.semesters)}</span>
               </div>
-              <div className="border-t border-slate-800 pt-2.5 flex items-baseline justify-between text-white">
+              <div className="border-t border-white/10 pt-2.5 flex items-baseline justify-between text-white">
                 <div>
                   <span className="text-xs font-bold text-slate-300">Grand Total Net Payable:</span>
                   <p className="text-[10px] text-slate-500">Official indicative {branchInfo.durationYears}-year total</p>
@@ -1019,7 +1019,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                   handleCopyCode();
                 }
               }}
-              className="group relative cursor-pointer rounded-2xl border-2 border-dashed border-orange-500/60 bg-slate-950/80 p-4 text-center transition-all duration-150 hover:border-orange-400 hover:bg-slate-900 active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="group relative cursor-pointer rounded-2xl border-2 border-dashed border-orange-500/50 bg-slate-950/80 p-4 text-center transition-all duration-150 hover:border-orange-400 hover:bg-slate-900 active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-orange-500"
               aria-label="Click to copy coupon code LPUMZW722"
             >
               <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-orange-400 uppercase tracking-wider">
@@ -1031,7 +1031,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
                 <span className="font-mono text-2xl font-black tracking-widest text-white">
                   {DISCOUNT_CODE}
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-lg bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-all duration-150 group-hover:bg-orange-500 active:scale-95">
+                <span className="inline-flex items-center gap-1 rounded-full bg-orange-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm transition-all duration-150 group-hover:bg-orange-500 active:scale-95">
                   {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />}
                   <span>{copiedCode ? "Copied!" : "Click to Copy"}</span>
                 </span>
@@ -1052,7 +1052,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             <button
               type="button"
               onClick={handleApplyPortalClick}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-3 text-sm font-black text-white shadow-lg shadow-orange-600/25 transition-all duration-150 hover:from-orange-600 hover:to-amber-600 hover:shadow-orange-600/40 active:scale-[0.98] cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-600/25 border-t border-white/20 transition-all duration-150 hover:from-orange-600 hover:to-amber-600 hover:shadow-orange-600/40 active:scale-[0.98] cursor-pointer"
             >
               <span>Apply on Official LPU Portal (20% Off) ↗</span>
             </button>
@@ -1061,14 +1061,14 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
             <button
               type="button"
               onClick={handleWhatsAppCommunityClick}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] text-white px-4 py-2.5 text-xs font-bold shadow-md shadow-emerald-950/40 transition-all duration-150 text-center cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] text-white px-4 py-3 text-xs font-bold shadow-md shadow-emerald-950/40 transition-all duration-150 text-center cursor-pointer"
             >
               <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
               <span>Join LPUNEST 2027 WhatsApp Prep &amp; Cutoff Desk</span>
             </button>
 
             {/* Quick Helpful Links */}
-            <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
               <Link
                 href="/mock-test"
                 className="inline-flex items-center gap-1 font-semibold text-emerald-400 hover:text-emerald-300 transition"
@@ -1087,7 +1087,7 @@ export default function CalculatorForm({ initialBranch }: CalculatorFormProps) {
           </div>
 
           {/* Diplomatic Fee Accuracy Disclaimer Note */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-[11px] leading-relaxed text-slate-400 space-y-1">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-[11px] leading-relaxed text-slate-400 space-y-1">
             <span className="font-bold text-slate-300 block">
               Note on Fee Estimates:
             </span>

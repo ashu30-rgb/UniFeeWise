@@ -44,19 +44,19 @@ export default function CouponActionCard() {
   };
 
   return (
-    <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-8 text-white shadow-2xl space-y-6">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-5 text-center sm:text-left">
+    <div className="rounded-[2.25rem] border border-white/10 bg-gradient-to-br from-slate-950 via-[#0a1122] to-slate-950 p-6 sm:p-9 text-white shadow-2xl space-y-6 backdrop-blur-2xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-white/10 pb-5 text-center sm:text-left">
         <div>
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1 text-xs font-bold text-orange-400">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-bold text-orange-400 backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" />
             <span>Active for 2027 Admission Session</span>
           </div>
-          <h2 className="mt-2 text-xl sm:text-2xl font-black text-white">
+          <h2 className="mt-3 text-xl sm:text-2xl font-black text-white tracking-tight">
             1-Click Coupon Code Activation
           </h2>
         </div>
 
-        <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 text-xs font-bold text-emerald-400">
+        <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3.5 py-1 text-xs font-bold text-emerald-400">
           Verified 20% Off
         </span>
       </div>
@@ -64,7 +64,7 @@ export default function CouponActionCard() {
       {/* Copy Code Interactive Box */}
       <div
         onClick={handleCopyCode}
-        className="group relative flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border-2 border-dashed border-orange-500/50 bg-slate-900/90 p-5 sm:p-6 transition-all duration-150 hover:border-orange-500 hover:bg-slate-900 active:scale-[0.99] cursor-pointer"
+        className="group relative flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border-2 border-dashed border-orange-500/50 bg-white/[0.03] p-5 sm:p-6 transition-all duration-150 hover:border-orange-400 hover:bg-white/[0.05] active:scale-[0.99] cursor-pointer backdrop-blur-md"
       >
         <div className="text-center sm:text-left space-y-1">
           <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
@@ -82,7 +82,7 @@ export default function CouponActionCard() {
 
         <button
           type="button"
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3.5 text-xs font-extrabold text-white shadow-lg shadow-orange-600/30 group-hover:bg-orange-500 active:scale-95 transition-all duration-150 cursor-pointer"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-orange-600/30 group-hover:bg-orange-500 active:scale-95 transition-all duration-150 cursor-pointer border-t border-white/20 whitespace-nowrap"
         >
           {copied ? (
             <>
@@ -98,32 +98,31 @@ export default function CouponActionCard() {
         </button>
       </div>
 
-      {/* Primary & Secondary Action CTAs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+      {/* Action Buttons Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         <button
           type="button"
           onClick={handleApplyPortal}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-4 text-xs font-black uppercase tracking-wider text-white shadow-md hover:from-orange-600 hover:to-amber-600 active:scale-[0.98] transition-all duration-150 cursor-pointer"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-4 text-sm font-bold text-white shadow-lg shadow-orange-600/25 border-t border-white/20 transition-all duration-150 hover:from-orange-600 hover:to-amber-600 hover:shadow-orange-600/40 active:scale-[0.98] cursor-pointer"
         >
-          <span>Apply on Official LPU Portal (20% Off)</span>
+          <span>Apply on admission.lpu.in (20% Off)</span>
           <ExternalLink className="h-4 w-4" />
         </button>
 
         <button
           type="button"
           onClick={handleWhatsApp}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-800 bg-emerald-950/80 px-6 py-4 text-xs font-bold text-emerald-300 hover:bg-emerald-900/90 active:scale-[0.98] transition-all duration-150 cursor-pointer"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-5 py-4 text-sm font-bold text-white shadow-md shadow-emerald-950/40 transition-all duration-150 hover:bg-emerald-500 active:scale-[0.98] cursor-pointer"
         >
-          <WhatsAppIcon className="h-4 w-4 fill-current text-emerald-400" />
-          <span>Join WhatsApp Desk for Form Help</span>
+          <WhatsAppIcon className="h-4 w-4 fill-current text-white" />
+          <span>Join WhatsApp Cutoff Desk</span>
         </button>
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-center text-xs text-slate-400 pt-1">
+      <div className="flex items-center justify-center gap-2 text-xs text-slate-400 pt-2 border-t border-white/10">
         <ShieldCheck className="h-4 w-4 text-emerald-400" />
-        <span>100% Guaranteed Official LPU Discount • Tested &amp; Active Daily</span>
+        <span>Valid for all 2027 Admissions (B.Tech, MBA, BCA, Law, Agriculture)</span>
       </div>
     </div>
   );
 }
-

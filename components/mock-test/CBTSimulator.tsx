@@ -360,18 +360,18 @@ export default function CBTSimulator() {
   if (phase === "lobby") {
     return (
       <div className="space-y-8">
-        {/* Lobby Header */}
-        <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden">
+        {/* Lobby Header — Apple Pro Dark Glass */}
+        <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-slate-950 via-[#0a1122] to-slate-950 p-7 sm:p-11 text-white shadow-2xl relative overflow-hidden backdrop-blur-2xl">
           <div className="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-orange-600/10 blur-3xl pointer-events-none" />
-          <div className="relative z-10 space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1 text-xs font-bold text-orange-400">
+          <div className="relative z-10 space-y-3.5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-bold text-orange-400 backdrop-blur-md">
               <Sparkles className="h-3.5 w-3.5 text-orange-400" />
               <span>Official LPUNEST 2027 CBT Simulator</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+            <h1 className="text-2xl sm:text-4xl font-black tracking-[-0.03em] text-white">
               LPUNEST 2027 Computer-Based Mock Exam &amp; Scholarship Predictor
             </h1>
-            <p className="max-w-3xl text-sm sm:text-base text-slate-300 leading-relaxed">
+            <p className="max-w-3xl text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Experience the authentic TCS-iON exam pattern with Sectional Switches,
               Zero Negative Marking (+4 / -0), Numerical Fill-in-the-Blanks, and
               instant automated LPU Scholarship Bracket qualification.
@@ -380,12 +380,12 @@ export default function CBTSimulator() {
         </div>
 
         {/* Step 1: Select Course */}
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-9 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl space-y-6">
           <div className="flex items-center gap-3">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white shadow-xs">
               1
             </span>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
               Select Your Target Academic Program
             </h2>
           </div>
@@ -398,10 +398,10 @@ export default function CBTSimulator() {
                   key={course.id}
                   type="button"
                   onClick={() => setSelectedCourseId(course.id)}
-                  className={`text-left rounded-3xl border p-5 sm:p-6 transition-all cursor-pointer relative flex flex-col justify-between ${
+                  className={`text-left rounded-[1.75rem] border p-6 transition-all cursor-pointer relative flex flex-col justify-between active:scale-[0.98] ${
                     isSelected
-                      ? "border-orange-500 bg-orange-50/60 shadow-md ring-2 ring-orange-500/20"
-                      : "border-slate-200 hover:border-slate-300 hover:bg-slate-50/50"
+                      ? "border-orange-500 bg-orange-50/70 shadow-xs ring-1 ring-orange-500/50"
+                      : "border-black/[0.06] hover:border-black/[0.12] hover:bg-slate-50/50"
                   }`}
                 >
                   <div>
@@ -413,7 +413,7 @@ export default function CBTSimulator() {
                         <CheckCircle2 className="h-5 w-5 text-orange-600 shrink-0" />
                       )}
                     </div>
-                    <h3 className="mt-2 text-base sm:text-lg font-extrabold text-slate-900">
+                    <h3 className="mt-2 text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
                       {course.name}
                     </h3>
 
@@ -494,12 +494,12 @@ export default function CBTSimulator() {
         </div>
 
         {/* Step 2: Choose Test Mode */}
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-9 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl space-y-6">
           <div className="flex items-center gap-3">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white shadow-xs">
               2
             </span>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
               Select Exam Format &amp; Duration
             </h2>
           </div>
@@ -508,24 +508,24 @@ export default function CBTSimulator() {
             <button
               type="button"
               onClick={() => setTestMode("full")}
-              className={`text-left rounded-2xl border p-5 transition cursor-pointer relative ${
+              className={`text-left rounded-[1.75rem] border p-6 transition-all cursor-pointer relative active:scale-[0.98] ${
                 testMode === "full"
-                  ? "border-emerald-500 bg-emerald-50/50 shadow-md ring-2 ring-emerald-500/20"
-                  : "border-slate-200 hover:border-slate-300 hover:bg-slate-50/50"
+                  ? "border-emerald-500 bg-emerald-50/60 shadow-xs ring-1 ring-emerald-500/40"
+                  : "border-black/[0.06] hover:border-black/[0.12] hover:bg-slate-50/50"
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
                   Mode A: Comprehensive CBT Exam
                 </span>
                 {testMode === "full" && (
                   <CheckCircle2 className="h-5 w-5 text-emerald-600" />
                 )}
               </div>
-              <h3 className="mt-2 text-base font-extrabold text-slate-900">
+              <h3 className="mt-2 text-base font-extrabold text-slate-900 tracking-tight">
                 Full Multi-Section Mock Exam ({activeCourse.totalMarks} Marks)
               </h3>
-              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed font-normal">
                 Loads all {activeSubjectIds.length} chosen sections in tabs with the
                 official countdown timer ({activeCourse.totalDurationMinutes} mins),
                 real question palette, and full scholarship scorecard.
@@ -535,24 +535,24 @@ export default function CBTSimulator() {
             <button
               type="button"
               onClick={() => setTestMode("single_subject")}
-              className={`text-left rounded-2xl border p-5 transition cursor-pointer relative ${
+              className={`text-left rounded-[1.75rem] border p-6 transition-all cursor-pointer relative active:scale-[0.98] ${
                 testMode === "single_subject"
-                  ? "border-blue-500 bg-blue-50/50 shadow-md ring-2 ring-blue-500/20"
-                  : "border-slate-200 hover:border-slate-300 hover:bg-slate-50/50"
+                  ? "border-blue-500 bg-blue-50/60 shadow-xs ring-1 ring-blue-500/40"
+                  : "border-black/[0.06] hover:border-black/[0.12] hover:bg-slate-50/50"
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
+                <span className="text-xs font-bold uppercase tracking-wider text-blue-800">
                   Mode B: Single-Subject Sprint
                 </span>
                 {testMode === "single_subject" && (
                   <CheckCircle2 className="h-5 w-5 text-blue-600" />
                 )}
               </div>
-              <h3 className="mt-2 text-base font-extrabold text-slate-900">
+              <h3 className="mt-2 text-base font-extrabold text-slate-900 tracking-tight">
                 Single-Subject Deep Practice (25 Qs • 35 Mins)
               </h3>
-              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed font-normal">
                 Focus on a single high-weightage topic to test your speed and accuracy
                 with instant formula explanations.
               </p>
@@ -561,7 +561,7 @@ export default function CBTSimulator() {
 
           {/* Single Subject Picker */}
           {testMode === "single_subject" && (
-            <div className="rounded-2xl border border-blue-200 bg-blue-50/40 p-4 space-y-3">
+            <div className="rounded-2xl border border-blue-200/80 bg-blue-50/50 p-5 space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-blue-900">
                 Choose Subject to Practice:
               </span>
@@ -573,10 +573,10 @@ export default function CBTSimulator() {
                       key={sub.id}
                       type="button"
                       onClick={() => setSingleSubjectId(sub.id)}
-                      className={`rounded-xl border p-2.5 text-xs font-bold text-center transition cursor-pointer ${
+                      className={`rounded-2xl border p-3 text-xs font-bold text-center transition cursor-pointer active:scale-95 ${
                         isChosen
                           ? "border-blue-600 bg-white text-blue-700 shadow-xs ring-1 ring-blue-600"
-                          : "border-slate-200 bg-white/80 text-slate-700 hover:bg-white"
+                          : "border-black/[0.06] bg-white/80 text-slate-700 hover:bg-white"
                       }`}
                     >
                       {sub.shortName}
@@ -588,18 +588,18 @@ export default function CBTSimulator() {
           )}
         </div>
 
-        {/* Start Button & Summary Box */}
-        <div className="rounded-3xl border border-slate-900 bg-slate-900 p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Start Button & Summary Box — Apple Pro Dark Glass */}
+        <div className="rounded-[2.25rem] border border-white/10 bg-gradient-to-r from-slate-950 via-[#0a1122] to-slate-950 p-7 sm:p-10 text-white shadow-2xl backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1.5 text-center sm:text-left">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
               Ready to Test Your Rank?
             </span>
-            <h3 className="text-lg sm:text-2xl font-black">
+            <h3 className="text-lg sm:text-2xl font-black tracking-tight">
               {testMode === "full"
                 ? `${activeCourse.name} Full Simulator (${allActiveQuestions.length} Questions)`
                 : `${ALL_SUBJECTS_MAP[singleSubjectId]?.shortName} Practice Sprint (25 Questions)`}
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-300">
               Exam includes +4 marks per correct answer, 0 negative marking, and
               instant scholarship qualification upon submission.
             </p>
@@ -608,7 +608,7 @@ export default function CBTSimulator() {
           <button
             type="button"
             onClick={handleStartExam}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 px-8 py-4 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:from-orange-600 hover:to-amber-600 cursor-pointer shrink-0"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-orange-500/25 border-t border-white/20 transition hover:from-orange-600 hover:to-amber-600 active:scale-[0.98] cursor-pointer shrink-0"
           >
             <span>Start LPUNEST Mock Exam Now</span>
             <ArrowRight className="h-4 w-4" />
@@ -618,11 +618,11 @@ export default function CBTSimulator() {
         {/* =====================================================================
             OFFICIAL 2027 ELIGIBILITY & IMPORTANT DATES INFO ACCORDION
             ===================================================================== */}
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-9 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl space-y-6">
           <button
             type="button"
             onClick={() => setScheduleAccordionOpen(!scheduleAccordionOpen)}
-            className="w-full flex items-center justify-between gap-4 text-left cursor-pointer group"
+            className="w-full flex items-center justify-between gap-4 text-left cursor-pointer group active:scale-[0.99]"
           >
             <div className="space-y-1">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-orange-600">

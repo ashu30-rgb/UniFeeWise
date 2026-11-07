@@ -5,28 +5,28 @@ import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-slate-800 bg-slate-950 text-slate-400">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <footer className="mt-auto border-t border-white/10 bg-[#080c14] text-slate-400">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         {/* Top Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand & Purpose */}
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 space-y-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-lg font-black text-white transition hover:text-orange-400"
+              className="inline-flex items-center gap-2 text-lg font-black text-white transition hover:opacity-90 active:scale-95"
             >
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-600 text-white shadow-sm">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-600 text-white shadow-sm shadow-orange-500/25">
                 <Calculator className="h-4 w-4" />
               </span>
-              <span>
+              <span className="tracking-tight text-white">
                 Uni<span className="text-orange-500">Fee</span>Wise
               </span>
             </Link>
-            <p className="mt-3 text-xs leading-relaxed text-slate-400">
+            <p className="text-xs leading-relaxed text-slate-400 font-normal">
               Independent student fee calculation, scholarship bracket estimation,
               and LPUNEST 2027 preparation guidance built by alumni and students.
             </p>
-            <div className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-orange-500/20 bg-orange-500/10 px-3 py-1 text-xs font-semibold text-orange-400">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-semibold text-orange-400 backdrop-blur-md">
               <Sparkles className="h-3 w-3" />
               Coupon Code: <strong className="font-mono text-white">LPUMZW722</strong>
             </div>
@@ -34,14 +34,14 @@ export default function Footer() {
 
           {/* Quick Tools */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
               Calculators &amp; Discounts
             </h3>
-            <ul className="mt-3 space-y-2 text-xs">
+            <ul className="mt-4 space-y-2.5 text-xs font-medium">
               <li>
                 <Link
                   href="/calculator"
-                  className="transition hover:text-orange-400"
+                  className="transition hover:text-white"
                 >
                   Fee &amp; ROI Calculator
                 </Link>
@@ -49,7 +49,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/lpunest-coupon-code"
-                  className="font-semibold text-orange-400 transition hover:text-orange-300"
+                  className="font-bold text-orange-400 transition hover:text-orange-300"
                 >
                   LPUNEST Coupon Code (LPUMZW722)
                 </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/lpu-cse-fees"
-                  className="transition hover:text-orange-400"
+                  className="transition hover:text-white"
                 >
                   B.Tech CSE Fees &amp; Cutoff
                 </Link>
@@ -65,7 +65,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/lpu-ece-fees"
-                  className="transition hover:text-orange-400"
+                  className="transition hover:text-white"
                 >
                   B.Tech ECE Fees &amp; Cutoff
                 </Link>
@@ -73,7 +73,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/lpu-mba-fees"
-                  className="transition hover:text-orange-400"
+                  className="transition hover:text-white"
                 >
                   MBA Fees &amp; ROI
                 </Link>
@@ -83,10 +83,10 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
               Study Resources
             </h3>
-            <ul className="mt-3 space-y-2 text-xs">
+            <ul className="mt-4 space-y-2.5 text-xs font-medium">
               <li>
                 <Link
                   href="/mock-test"
@@ -99,7 +99,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/lpunest-previous-year-papers"
-                  className="font-semibold text-slate-300 transition hover:text-orange-400"
+                  className="font-semibold text-slate-300 transition hover:text-white"
                 >
                   Solved Previous Year Papers (PDF)
                 </Link>
@@ -107,7 +107,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/btech-previous-year-paper"
-                  className="transition hover:text-orange-400"
+                  className="transition hover:text-white"
                 >
                   B.Tech Previous Year Paper
                 </Link>
@@ -125,33 +125,25 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/mock-test/physics"
-                  className="transition hover:text-orange-400"
+                  href="/mock-test"
+                  className="transition hover:text-white"
                 >
-                  Physics Mock Test
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/mock-test/mathematics"
-                  className="transition hover:text-orange-400"
-                >
-                  Mathematics Mock Test
+                  All Subject Mock Tests
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Compliance & Contact */}
+          {/* Legal & Support */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
               Legal &amp; Support
             </h3>
-            <ul className="mt-3 space-y-2 text-xs">
+            <ul className="mt-4 space-y-2.5 text-xs font-medium">
               <li>
                 <Link
                   href="/privacy"
-                  className="font-medium text-slate-300 transition hover:text-orange-400"
+                  className="font-medium text-slate-300 transition hover:text-white"
                 >
                   Privacy Policy
                 </Link>
@@ -159,7 +151,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="font-medium text-slate-300 transition hover:text-orange-400"
+                  className="font-medium text-slate-300 transition hover:text-white"
                 >
                   Terms of Service
                 </Link>
@@ -177,8 +169,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Mandatory Independent Compliance Disclaimer Block (Anti-Suspension) */}
-        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-inner space-y-3">
+        {/* Mandatory Independent Compliance Disclaimer Block (Anti-Suspension) — Apple Frosted Card */}
+        <div className="mt-12 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-7 shadow-inner backdrop-blur-md space-y-3">
           <div className="flex items-start gap-3">
             <span
               className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-400"
@@ -226,18 +218,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-slate-900 pt-6 text-xs text-slate-500 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-6 text-xs text-slate-500 sm:flex-row font-medium">
           <p>© {new Date().getFullYear()} UniFeeWise. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-slate-300">
+            <Link href="/privacy" className="hover:text-slate-300 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-slate-300">
+            <Link href="/terms" className="hover:text-slate-300 transition-colors">
               Terms of Service
             </Link>
             <a
               href="mailto:support@unifeewise.com"
-              className="hover:text-slate-300"
+              className="hover:text-slate-300 transition-colors"
             >
               Support Desk
             </a>

@@ -56,7 +56,7 @@ const mockTestFaqs = [
 
 export default function MockTestPage() {
   return (
-    <main className="min-h-screen bg-slate-50/50 pb-20">
+    <main className="min-h-screen bg-[#fbfbfd] text-[#1d1d1f] pb-24 font-sans selection:bg-orange-500/20 selection:text-orange-950">
       <StructuredData
         customFaqs={mockTestFaqs}
         pageType="mock-test"
@@ -65,12 +65,12 @@ export default function MockTestPage() {
         pageUrl="https://unifeewise.vercel.app/mock-test"
       />
 
-      {/* Top Breadcrumb Nav */}
-      <div className="border-b border-slate-200/80 bg-white">
+      {/* Top Breadcrumb Nav — Apple Translucent Bar */}
+      <div className="border-b border-black/[0.06] bg-white/80 backdrop-blur-xl sticky top-16 z-40">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-orange-600 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-950 transition active:scale-95"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>Back to Fee Calculator</span>
@@ -78,7 +78,7 @@ export default function MockTestPage() {
           <div className="flex items-center gap-3 text-xs font-semibold text-slate-500">
             <Link
               href="/lpunest-previous-year-papers"
-              className="hidden sm:inline-flex items-center gap-1 text-slate-600 hover:text-orange-600 transition"
+              className="hidden sm:inline-flex items-center gap-1 text-slate-600 hover:text-slate-950 transition active:scale-95"
             >
               <FileText className="h-3.5 w-3.5 text-orange-500" />
               <span>Solved Past Papers</span>
@@ -93,23 +93,23 @@ export default function MockTestPage() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
         <CBTSimulator />
 
-        {/* Informational Guide & Pattern Breakdown */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+        {/* Informational Guide & Pattern Breakdown — Apple Frosted Card */}
+        <section className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl space-y-6">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-600">
             <Sparkles className="h-4 w-4 text-orange-500" />
             <span>Official LPUNEST 2027 Examination Blueprint</span>
           </div>
 
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
             How the LPUNEST 2027 CBT Exam &amp; Scholarship System Works
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 leading-relaxed">
-            <div className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5 space-y-2.5">
-              <div className="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-emerald-100 text-emerald-800 font-black text-sm">
+            <div className="rounded-2xl border border-black/[0.05] bg-slate-50/70 p-6 space-y-3">
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl bg-emerald-100 text-emerald-800 font-black text-sm shadow-xs">
                 +4
               </div>
-              <h3 className="font-extrabold text-slate-900 text-sm">
+              <h3 className="font-bold text-slate-900 text-sm">
                 1. Zero Negative Marking Policy
               </h3>
               <p>
@@ -119,11 +119,11 @@ export default function MockTestPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5 space-y-2.5">
-              <div className="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-orange-100 text-orange-800 font-black text-sm">
+            <div className="rounded-2xl border border-black/[0.05] bg-slate-50/70 p-6 space-y-3">
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl bg-orange-100 text-orange-800 font-black text-sm shadow-xs">
                 25
               </div>
-              <h3 className="font-extrabold text-slate-900 text-sm">
+              <h3 className="font-bold text-slate-900 text-sm">
                 2. MCQs &amp; Numerical Questions
               </h3>
               <p>
@@ -133,11 +133,11 @@ export default function MockTestPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5 space-y-2.5">
-              <div className="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-amber-100 text-amber-800 font-black text-sm">
+            <div className="rounded-2xl border border-black/[0.05] bg-slate-50/70 p-6 space-y-3">
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl bg-amber-100 text-amber-800 font-black text-sm shadow-xs">
                 60%
               </div>
-              <h3 className="font-extrabold text-slate-900 text-sm">
+              <h3 className="font-bold text-slate-900 text-sm">
                 3. Three Scholarship Brackets
               </h3>
               <p>
@@ -152,24 +152,24 @@ export default function MockTestPage() {
         {/* =========================================================================
             SEO-RICH: LPUNEST Previous Year Paper Analysis & High-Weightage Topics
             ========================================================================= */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-sm space-y-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
+        <section className="rounded-[2.25rem] border border-black/[0.06] bg-white/95 p-6 sm:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-2xl space-y-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/[0.05] pb-5">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-800">
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-xs font-bold text-blue-800">
                 <TrendingUp className="h-3.5 w-3.5 text-blue-600" />
                 <span>Memory-Based Analysis 2024–2026 Batches</span>
               </div>
               <h2 className="mt-3 text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 LPUNEST Previous Year Paper Analysis &amp; High-Weightage Topics
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-3xl">
+              <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-3xl font-normal leading-relaxed">
                 Comprehensive chapter-by-chapter weightage breakdown gathered from students and exam memories to help you prioritize your study schedule for LPUNEST 2027 Phase 1 and Phase 2.
               </p>
             </div>
 
             <Link
               href="/lpunest-previous-year-papers"
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-slate-800 transition"
+              className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-800 active:scale-95 transition shadow-sm border-t border-white/20"
             >
               <FileText className="h-4 w-4 text-orange-400" />
               <span>View Solved Past Question Bank →</span>
@@ -178,86 +178,86 @@ export default function MockTestPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Subject 1: Physics */}
-            <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-5 space-y-3">
+            <div className="rounded-2xl border border-black/[0.06] bg-slate-50/60 p-6 space-y-3.5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-extrabold text-slate-900">Physics (25 Qs • 100 M)</h3>
-                <span className="text-[11px] font-bold text-orange-600 bg-orange-50 border border-orange-200 rounded-md px-2 py-0.5">
+                <h3 className="text-base font-bold text-slate-900">Physics (25 Qs • 100 M)</h3>
+                <span className="text-[11px] font-bold text-orange-700 bg-orange-100/70 border border-orange-200 rounded-full px-2.5 py-0.5">
                   High Focus
                 </span>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed font-normal">
                 Direct NCERT formula substitutions dominate numerical questions 21–25.
               </p>
-              <ul className="space-y-1.5 text-xs text-slate-700">
+              <ul className="space-y-2 text-xs text-slate-700">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Current &amp; Resistance:</strong> Ohm&apos;s law, temperature coefficient (3–4 Qs)</span>
+                  <span><strong>Current &amp; Resistance:</strong> Ohm&apos;s law, temp coefficient (3–4 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Modern Physics:</strong> de Broglie, photoelectric effect, Bohr model (4–5 Qs)</span>
+                  <span><strong>Modern Physics:</strong> de Broglie, photoelectric, Bohr model (4–5 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Electrostatics:</strong> Coulomb&apos;s law, parallel plate capacitors (3 Qs)</span>
+                  <span><strong>Electrostatics:</strong> Coulomb&apos;s law, capacitors (3 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Ray &amp; Wave Optics:</strong> Lens maker&apos;s formula, Snell&apos;s law (2–3 Qs)</span>
+                  <span><strong>Optics:</strong> Lens maker&apos;s formula, Snell&apos;s law (2–3 Qs)</span>
                 </li>
               </ul>
             </div>
 
             {/* Subject 2: Chemistry */}
-            <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-5 space-y-3">
+            <div className="rounded-2xl border border-black/[0.06] bg-slate-50/60 p-6 space-y-3.5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-extrabold text-slate-900">Chemistry (25 Qs • 100 M)</h3>
-                <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-md px-2 py-0.5">
+                <h3 className="text-base font-bold text-slate-900">Chemistry (25 Qs • 100 M)</h3>
+                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100/70 border border-emerald-200 rounded-full px-2.5 py-0.5">
                   High Scoring
                 </span>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed font-normal">
                 Fastest section to solve. Almost 70% questions are direct NCERT theory.
               </p>
-              <ul className="space-y-1.5 text-xs text-slate-700">
+              <ul className="space-y-2 text-xs text-slate-700">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Coordination Compounds:</strong> IUPAC naming, Werner theory, VBT (3–4 Qs)</span>
+                  <span><strong>Coordination Compounds:</strong> IUPAC naming, Werner theory (3–4 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Chemical Kinetics:</strong> First order integrated rate, Arrhenius equation (3 Qs)</span>
+                  <span><strong>Chemical Kinetics:</strong> First order rate, Arrhenius (3 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Organic Conversions:</strong> Aldehydes, Ketones, Carboxylic Acids (4–5 Qs)</span>
+                  <span><strong>Organic Conversions:</strong> Aldehydes, Ketones, Acids (4–5 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Electrochemistry:</strong> Nernst equation, molar conductivity (2–3 Qs)</span>
+                  <span><strong>Electrochemistry:</strong> Nernst eq, molar conductivity (2–3 Qs)</span>
                 </li>
               </ul>
             </div>
 
             {/* Subject 3: Mathematics */}
-            <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-5 space-y-3">
+            <div className="rounded-2xl border border-black/[0.06] bg-slate-50/60 p-6 space-y-3.5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-extrabold text-slate-900">Mathematics (25 Qs • 100 M)</h3>
-                <span className="text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-2 py-0.5">
+                <h3 className="text-base font-bold text-slate-900">Mathematics (25 Qs • 100 M)</h3>
+                <span className="text-[11px] font-bold text-amber-700 bg-amber-100/70 border border-amber-200 rounded-full px-2.5 py-0.5">
                   Calculation Focus
                 </span>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed font-normal">
                 Numericals 21–25 reward clean step-by-step arithmetic without negative marks.
               </p>
-              <ul className="space-y-1.5 text-xs text-slate-700">
+              <ul className="space-y-2 text-xs text-slate-700">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Matrices &amp; Determinants:</strong> Adjoint, Cramer&apos;s rule, inverse (3–4 Qs)</span>
+                  <span><strong>Matrices &amp; Determinants:</strong> Adjoint, Cramer&apos;s rule (3–4 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Vectors &amp; 3D Geometry:</strong> Dot/cross products, shortest distance (4 Qs)</span>
+                  <span><strong>Vectors &amp; 3D:</strong> Dot/cross products, shortest distance (4 Qs)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
@@ -265,22 +265,22 @@ export default function MockTestPage() {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span><strong>Probability &amp; Statistics:</strong> Bayes theorem, binomial distribution (2–3 Qs)</span>
+                  <span><strong>Probability &amp; Stats:</strong> Bayes theorem, distribution (2–3 Qs)</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Promotion / Coupon CTA Callout */}
-          <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-1 text-center md:text-left">
-              <span className="text-xs font-bold uppercase tracking-wider text-orange-700">
+          {/* Promotion / Coupon CTA Callout — Apple Pro Dark Glass */}
+          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-slate-950 via-[#0a1122] to-slate-950 p-6 sm:p-8 text-white shadow-2xl backdrop-blur-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+            <div className="space-y-1.5 text-center md:text-left">
+              <span className="text-xs font-bold uppercase tracking-wider text-orange-400">
                 Official LPUNEST Registration Discount
               </span>
-              <h3 className="text-lg font-black text-slate-950">
-                Save 20% on Your Application Form with Coupon Code <span className="text-orange-600 font-mono">LPUMZW722</span>
+              <h3 className="text-lg sm:text-xl font-black text-white">
+                Save 20% on Your Application Form with Coupon Code <span className="text-orange-400 font-mono">LPUMZW722</span>
               </h3>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-slate-300">
                 Boys pay ₹800 instead of ₹1,000 • Girls pay ₹400 instead of ₹500 on the official LPU portal.
               </p>
             </div>
@@ -288,7 +288,7 @@ export default function MockTestPage() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/lpunest-coupon-code"
-                className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 transition"
+                className="rounded-full border border-white/15 bg-white/[0.08] px-5 py-2.5 text-xs font-bold text-white hover:bg-white/[0.12] active:scale-95 transition"
               >
                 Learn How to Apply Code →
               </Link>
@@ -296,7 +296,7 @@ export default function MockTestPage() {
                 href={LPUNEST_CONFIG.links.affiliate}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl bg-orange-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-orange-700 transition shadow-sm"
+                className="rounded-full bg-orange-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-orange-500 active:scale-95 transition shadow-sm border-t border-white/20"
               >
                 Apply on Official LPU Portal ↗
               </a>
