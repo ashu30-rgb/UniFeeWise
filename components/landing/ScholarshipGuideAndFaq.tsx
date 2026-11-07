@@ -104,16 +104,16 @@ export default function ScholarshipGuideAndFaq() {
         {/* 3-Card Grid */}
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Card 1: Category 1 */}
-          <div className="relative flex flex-col rounded-2xl border-2 border-orange-500 bg-gradient-to-b from-orange-50/50 via-white to-white p-6 shadow-md transition hover:shadow-lg">
-            <span className="absolute -top-3 right-5 rounded-full bg-orange-600 px-3 py-0.5 text-[11px] font-bold text-white shadow-sm">
+          <div className="relative flex flex-col rounded-[1.75rem] border-2 border-orange-500 bg-gradient-to-b from-orange-50/60 via-white to-white p-6 sm:p-7 shadow-[0_4px_20px_rgba(249,115,22,0.08)] transition-all duration-200 hover:shadow-[0_12px_32px_rgba(249,115,22,0.12)]">
+            <span className="absolute -top-3 right-6 rounded-full bg-orange-600 px-3 py-0.5 text-[11px] font-bold text-white shadow-sm">
               Highest Waiver
             </span>
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-100 text-orange-700">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-orange-100 text-orange-700 shadow-xs">
                 <Sparkles className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-lg font-extrabold text-slate-900">
+                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">
                   Category 1
                 </h3>
                 <span className="text-xs font-semibold text-orange-600">
@@ -122,39 +122,39 @@ export default function ScholarshipGuideAndFaq() {
               </div>
             </div>
 
-            <div className="my-5 rounded-xl bg-white p-4 border border-orange-100 shadow-inner">
-              <div className="text-3xl font-black text-slate-900">
+            <div className="my-5 rounded-2xl bg-white p-4 border border-orange-100/80 shadow-xs">
+              <div className="text-3xl font-black text-slate-900 tracking-tight tabular-nums">
                 50%–60% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
-              <div className="mt-1 text-xs font-medium text-emerald-600">
+              <div className="mt-1 text-xs font-semibold text-emerald-600 tabular-nums">
                 Saves up to ₹7,68,000 on 4-Yr B.Tech (₹96,000/sem)
               </div>
             </div>
 
-            <ul className="space-y-2.5 text-xs text-slate-600">
+            <ul className="space-y-2.5 text-xs text-slate-600 font-medium">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-                <span><strong>LPUNEST Score:</strong> 300 – 400 marks</span>
+                <span><strong>LPUNEST Score:</strong> <span className="tabular-nums">300 – 400</span> marks</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-                <span><strong>JEE Main:</strong> 90%+ Percentile</span>
+                <span><strong>JEE Main:</strong> <span className="tabular-nums">90%+</span> Percentile</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-                <span><strong>12th Board:</strong> 90%+ (95%+ for 60%)</span>
+                <span><strong>12th Board:</strong> <span className="tabular-nums">90%+</span> (<span className="tabular-nums">95%+</span> for 60%)</span>
               </li>
             </ul>
           </div>
 
           {/* Card 2: Category 2 */}
-          <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-slate-300 hover:shadow-md">
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          <div className="flex flex-col rounded-[1.75rem] border border-slate-200/90 bg-white p-6 sm:p-7 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-all duration-200 hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 shadow-xs">
                 <Award className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-lg font-extrabold text-slate-900">
+                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">
                   Category 2
                 </h3>
                 <span className="text-xs font-semibold text-slate-500">
@@ -163,39 +163,39 @@ export default function ScholarshipGuideAndFaq() {
               </div>
             </div>
 
-            <div className="my-5 rounded-xl bg-slate-50 p-4 border border-slate-100">
-              <div className="text-3xl font-black text-slate-900">
+            <div className="my-5 rounded-2xl bg-slate-50/80 p-4 border border-slate-100">
+              <div className="text-3xl font-black text-slate-900 tracking-tight tabular-nums">
                 40%–50% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
-              <div className="mt-1 text-xs font-medium text-emerald-600">
+              <div className="mt-1 text-xs font-semibold text-emerald-600 tabular-nums">
                 Saves up to ₹6,40,000 on 4-Yr B.Tech (₹80,000/sem)
               </div>
             </div>
 
-            <ul className="space-y-2.5 text-xs text-slate-600">
+            <ul className="space-y-2.5 text-xs text-slate-600 font-medium">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>LPUNEST Score:</strong> 212 – 299 marks</span>
+                <span><strong>LPUNEST Score:</strong> <span className="tabular-nums">212 – 299</span> marks</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>JEE Main:</strong> 80% – 89.9% Percentile</span>
+                <span><strong>JEE Main:</strong> <span className="tabular-nums">80% – 89.9%</span> Percentile</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>12th Board:</strong> 85% – 89.9% Aggregate</span>
+                <span><strong>12th Board:</strong> <span className="tabular-nums">85% – 89.9%</span> Aggregate</span>
               </li>
             </ul>
           </div>
 
           {/* Card 3: Category 3 */}
-          <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-slate-300 hover:shadow-md">
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          <div className="flex flex-col rounded-[1.75rem] border border-slate-200/90 bg-white p-6 sm:p-7 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-all duration-200 hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 shadow-xs">
                 <Award className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-lg font-extrabold text-slate-900">
+                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">
                   Category 3
                 </h3>
                 <span className="text-xs font-semibold text-slate-500">
@@ -204,42 +204,42 @@ export default function ScholarshipGuideAndFaq() {
               </div>
             </div>
 
-            <div className="my-5 rounded-xl bg-slate-50 p-4 border border-slate-100">
-              <div className="text-3xl font-black text-slate-900">
+            <div className="my-5 rounded-2xl bg-slate-50/80 p-4 border border-slate-100">
+              <div className="text-3xl font-black text-slate-900 tracking-tight tabular-nums">
                 30%–40% <span className="text-sm font-semibold text-slate-500">Tuition Waiver</span>
               </div>
-              <div className="mt-1 text-xs font-medium text-emerald-600">
+              <div className="mt-1 text-xs font-semibold text-emerald-600 tabular-nums">
                 Saves up to ₹5,12,000 on 4-Yr B.Tech (₹64,000/sem)
               </div>
             </div>
 
-            <ul className="space-y-2.5 text-xs text-slate-600">
+            <ul className="space-y-2.5 text-xs text-slate-600 font-medium">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>LPUNEST Score:</strong> 150 – 211 marks</span>
+                <span><strong>LPUNEST Score:</strong> <span className="tabular-nums">150 – 211</span> marks</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>JEE Main:</strong> 70% – 79.9% Percentile</span>
+                <span><strong>JEE Main:</strong> <span className="tabular-nums">70% – 79.9%</span> Percentile</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-400" />
-                <span><strong>12th Board:</strong> 75% – 84.9% Aggregate</span>
+                <span><strong>12th Board:</strong> <span className="tabular-nums">75% – 84.9%</span> Aggregate</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Phase 1 Advisory Callout */}
-        <div className="mt-8 flex flex-col items-start gap-4 rounded-2xl border border-amber-200 bg-amber-50/80 p-5 sm:flex-row sm:items-center sm:p-6">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white shadow-sm">
-            <Calendar className="h-6 w-6" />
+        {/* Phase 1 Advisory Callout — Apple Translucent Accent Card */}
+        <div className="mt-8 flex flex-col items-start gap-4 rounded-2xl border border-amber-200/80 bg-gradient-to-r from-amber-50/90 via-white to-amber-50/60 p-5 sm:flex-row sm:items-center sm:p-6 shadow-xs">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-xs">
+            <Calendar className="h-5 w-5" />
           </div>
           <div className="flex-1 text-xs sm:text-sm">
             <h4 className="font-bold text-amber-950">
               Why Apply in Phase 1?
             </h4>
-            <p className="mt-1 leading-relaxed text-amber-800">
+            <p className="mt-1 leading-relaxed text-amber-800 font-normal">
               Phase 1 carries the highest scholarship seat quotas. In subsequent
               phases (Phase 2 &amp; Phase 3), the university reduces scholarship percentage
               caps and increases fee slabs as intake quotas fill up.
@@ -247,7 +247,7 @@ export default function ScholarshipGuideAndFaq() {
           </div>
           <a
             href="#calculator"
-            className="shrink-0 rounded-xl bg-amber-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-amber-700 whitespace-nowrap"
+            className="shrink-0 rounded-full bg-amber-600 px-5 py-2.5 text-xs font-bold text-white shadow-xs transition-all duration-150 hover:bg-amber-700 active:scale-[0.98] whitespace-nowrap cursor-pointer"
           >
             Calculate Phase 1 Fee →
           </a>
@@ -259,39 +259,44 @@ export default function ScholarshipGuideAndFaq() {
           ========================================================================= */}
       <section
         id="discount"
-        className="scroll-mt-24 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-10 text-white shadow-xl space-y-6"
+        className="scroll-mt-24 rounded-[2.25rem] border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-7 sm:p-10 md:p-12 text-white shadow-2xl space-y-7 relative overflow-hidden"
       >
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 right-0 h-80 w-80 rounded-full bg-orange-600/10 blur-[90px]"
+        />
+
+        <div className="relative z-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/20 px-3 py-1 text-xs font-bold text-orange-400 whitespace-nowrap">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-orange-500/30 bg-orange-500/15 px-3.5 py-1 text-xs font-bold text-orange-400 backdrop-blur-md whitespace-nowrap">
               <Tag className="h-3 w-3" />
               Verified Official Coupon Code
             </span>
-            <h3 className="mt-3 text-2xl font-black text-white sm:text-3xl">
+            <h3 className="mt-3.5 text-2xl font-black text-white sm:text-3xl md:text-4xl tracking-tight leading-tight">
               Save 20% Instantly on Your Official LPUNEST Form
             </h3>
-            <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-sm">
+            <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-300 font-normal">
               Use verified code <strong className="font-mono text-orange-400">LPUMZW722</strong> on admission.lpu.in to reduce your Soft-Copy LPUNEST Kit fee from ₹1,000 to ₹800 for boys (and from ₹500 to ₹400 for girls).
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0">
             <button
               type="button"
               onClick={handleCopyBannerCode}
-              className="flex items-center justify-center gap-2 rounded-xl border border-orange-500/50 bg-slate-950/80 px-4 py-3 font-mono text-lg sm:text-xl font-black tracking-widest text-orange-400 hover:bg-slate-950 transition shadow-inner group whitespace-nowrap cursor-pointer"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-orange-500/50 bg-slate-950/80 px-4 py-3.5 font-mono text-lg sm:text-xl font-black tracking-widest text-orange-400 hover:bg-slate-950 active:scale-[0.98] transition-all duration-150 shadow-inner group whitespace-nowrap cursor-pointer"
               aria-label="Copy coupon code LPUMZW722"
             >
               <span>LPUMZW722</span>
-              <span className="flex items-center gap-1 rounded-md bg-orange-600/30 px-2 py-0.5 text-[10px] font-bold text-orange-200 group-hover:bg-orange-600/50">
+              <span className="flex items-center gap-1 rounded-lg bg-orange-600/30 px-2 py-0.5 text-[10px] font-bold text-orange-200 group-hover:bg-orange-600/50">
                 {bannerCopied ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
-                <span>{bannerCopied ? "Copied! Paste at admission.lpu.in" : "Copy"}</span>
+                <span>{bannerCopied ? "Copied!" : "Copy"}</span>
               </span>
             </button>
             <button
               type="button"
               onClick={handleApplyClick}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-orange-500 whitespace-nowrap cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-600 px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-150 hover:bg-orange-500 active:scale-[0.98] whitespace-nowrap cursor-pointer"
             >
               <span>Apply on Official Portal</span>
               <ExternalLink className="h-4 w-4" />
@@ -300,7 +305,7 @@ export default function ScholarshipGuideAndFaq() {
         </div>
 
         {/* AI-Extractable Quick Summary Block & Comparison Table */}
-        <div className="border-t border-slate-800 pt-6 space-y-4">
+        <div className="relative z-10 border-t border-slate-800 pt-6 space-y-4">
           <div className="space-y-1">
             <h4 className="text-sm font-extrabold text-orange-400 tracking-wide uppercase">
               LPUNEST 2027 Official Coupon Code &amp; Fee Summary (Verified Table)
@@ -310,55 +315,55 @@ export default function ScholarshipGuideAndFaq() {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/70">
+          <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950/70">
             <table className="w-full text-left text-xs text-slate-300">
               <thead className="border-b border-slate-800 bg-slate-900/80 text-white">
                 <tr>
-                  <th className="py-2.5 px-3.5 font-bold">Registration Kit Type</th>
-                  <th className="py-2.5 px-3.5 font-medium text-slate-400">Official Rate</th>
-                  <th className="py-2.5 px-3.5 font-bold text-orange-400">With Coupon LPUMZW722</th>
-                  <th className="py-2.5 px-3.5 font-bold text-emerald-400">Total Savings</th>
+                  <th className="py-3 px-4 font-bold">Registration Kit Type</th>
+                  <th className="py-3 px-4 font-medium text-slate-400">Official Rate</th>
+                  <th className="py-3 px-4 font-bold text-orange-400">With Coupon LPUMZW722</th>
+                  <th className="py-3 px-4 font-bold text-emerald-400">Total Savings</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 font-medium">
                 <tr>
-                  <td className="py-2 px-3.5 font-semibold text-white">Boys Soft-Copy Kit</td>
-                  <td className="py-2 px-3.5 text-slate-400 line-through">₹1,000</td>
-                  <td className="py-2 px-3.5 font-bold text-orange-300">₹800</td>
-                  <td className="py-2 px-3.5 text-emerald-400">Save ₹200 (20%)</td>
+                  <td className="py-2.5 px-4 font-semibold text-white">Boys Soft-Copy Kit</td>
+                  <td className="py-2.5 px-4 text-slate-400 line-through tabular-nums">₹1,000</td>
+                  <td className="py-2.5 px-4 font-bold text-orange-300 tabular-nums">₹800</td>
+                  <td className="py-2.5 px-4 text-emerald-400 tabular-nums">Save ₹200 (20%)</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-3.5 font-semibold text-white">Girls Soft-Copy Kit</td>
-                  <td className="py-2 px-3.5 text-slate-400 line-through">₹500</td>
-                  <td className="py-2 px-3.5 font-bold text-orange-300">₹400</td>
-                  <td className="py-2 px-3.5 text-emerald-400">Save ₹100 (20%)</td>
+                  <td className="py-2.5 px-4 font-semibold text-white">Girls Soft-Copy Kit</td>
+                  <td className="py-2.5 px-4 text-slate-400 line-through tabular-nums">₹500</td>
+                  <td className="py-2.5 px-4 font-bold text-orange-300 tabular-nums">₹400</td>
+                  <td className="py-2.5 px-4 text-emerald-400 tabular-nums">Save ₹100 (20%)</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-3.5 font-semibold text-white">Boys Printed Physical Kit</td>
-                  <td className="py-2 px-3.5 text-slate-400 line-through">₹1,500</td>
-                  <td className="py-2 px-3.5 font-bold text-orange-300">₹1,200</td>
-                  <td className="py-2 px-3.5 text-emerald-400">Save ₹300 (20%)</td>
+                  <td className="py-2.5 px-4 font-semibold text-white">Boys Printed Physical Kit</td>
+                  <td className="py-2.5 px-4 text-slate-400 line-through tabular-nums">₹1,500</td>
+                  <td className="py-2.5 px-4 font-bold text-orange-300 tabular-nums">₹1,200</td>
+                  <td className="py-2.5 px-4 text-emerald-400 tabular-nums">Save ₹300 (20%)</td>
                 </tr>
                 <tr>
-                  <td className="py-2 px-3.5 font-semibold text-white">Girls Printed Physical Kit</td>
-                  <td className="py-2 px-3.5 text-slate-400 line-through">₹1,000</td>
-                  <td className="py-2 px-3.5 font-bold text-orange-300">₹800</td>
-                  <td className="py-2 px-3.5 text-emerald-400">Save ₹200 (20%)</td>
+                  <td className="py-2.5 px-4 font-semibold text-white">Girls Printed Physical Kit</td>
+                  <td className="py-2.5 px-4 text-slate-400 line-through tabular-nums">₹1,000</td>
+                  <td className="py-2.5 px-4 font-bold text-orange-300 tabular-nums">₹800</td>
+                  <td className="py-2.5 px-4 text-emerald-400 tabular-nums">Save ₹200 (20%)</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] text-slate-300 pt-1">
-            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 space-y-1">
+          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-[11px] text-slate-300 pt-1">
+            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3.5 space-y-1">
               <dt className="font-bold text-white">Where is coupon code LPUMZW722 entered?</dt>
-              <dd className="text-slate-400">
+              <dd className="text-slate-400 leading-relaxed">
                 At the checkout stage on admission.lpu.in inside the &quot;Coupon Code / Promo Code&quot; box before completing payment.
               </dd>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 space-y-1">
+            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3.5 space-y-1">
               <dt className="font-bold text-white">Can I calculate 4-year tuition with scholarship?</dt>
-              <dd className="text-slate-400">
+              <dd className="text-slate-400 leading-relaxed">
                 Yes, scroll up to UniFeeWise (#calculator) to estimate exact semester fees and Category 1 (up to 60%) scholarship savings.
               </dd>
             </div>
@@ -389,25 +394,25 @@ export default function ScholarshipGuideAndFaq() {
             return (
               <div
                 key={faq.question}
-                className="rounded-2xl border border-slate-200 bg-white transition hover:border-slate-300"
+                className="rounded-2xl border border-slate-200/90 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-150 hover:border-slate-300"
               >
                 <button
                   type="button"
                   onClick={() => toggleFaq(index)}
-                  className="flex w-full items-center justify-between p-5 text-left transition"
+                  className="flex w-full items-center justify-between p-5 sm:p-6 text-left transition-colors duration-150 active:scale-[0.99] cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-sm font-bold text-slate-900 sm:text-base">
+                  <span className="text-sm font-extrabold text-slate-900 sm:text-base tracking-tight">
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-slate-500 transition-transform duration-200 ${
+                    className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ease-out ${
                       isOpen ? "rotate-180 text-orange-600" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="border-t border-slate-100 px-5 pb-5 pt-3 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                  <div className="border-t border-slate-100 px-5 pb-5 pt-3 text-xs leading-relaxed text-slate-600 sm:text-sm animate-in fade-in-50 duration-150">
                     {faq.answer}
                   </div>
                 )}
@@ -416,21 +421,21 @@ export default function ScholarshipGuideAndFaq() {
           })}
         </div>
 
-        {/* WhatsApp Prep Community Help Desk Banner */}
-        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-emerald-50/60 p-5 shadow-xs sm:flex sm:items-center sm:justify-between">
+        {/* WhatsApp Prep Community Help Desk Banner — Apple Frosted Glass Card */}
+        <div className="mx-auto mt-8 max-w-3xl rounded-[1.75rem] border border-emerald-200/80 bg-gradient-to-r from-emerald-50/90 via-white to-emerald-50/60 p-6 shadow-[0_4px_20px_rgba(16,185,129,0.06)] sm:flex sm:items-center sm:justify-between">
           <div className="space-y-1">
             <h4 className="text-sm font-bold text-emerald-950 flex items-center gap-2">
               <WhatsAppIcon className="h-4 w-4 fill-current text-emerald-600 shrink-0" />
               <span>Need Personal Cutoff Guidance or Syllabus PDFs?</span>
             </h4>
-            <p className="text-xs text-emerald-800 leading-relaxed">
+            <p className="text-xs text-emerald-800 leading-relaxed font-normal">
               Join applicants in our LPUNEST 2027 WhatsApp Desk for free mock PDFs, cutoff discussions &amp; slot alerts.
             </p>
           </div>
           <button
             type="button"
             onClick={handleWhatsAppClick}
-            className="mt-4 sm:mt-0 shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 transition cursor-pointer"
+            className="mt-4 sm:mt-0 shrink-0 inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white shadow-xs transition-all duration-150 hover:bg-emerald-500 active:scale-[0.98] cursor-pointer whitespace-nowrap"
           >
             <span>Join WhatsApp Desk →</span>
           </button>
