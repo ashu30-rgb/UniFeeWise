@@ -12,13 +12,12 @@ const inter = Inter({
 });
 
 const SITE_DESCRIPTION =
-  "UniFeeWise (unifeewise.vercel.app) is a free LPU 2027 admission toolkit: calculate exact 4-year B.Tech/MBA/BCA tuition, hostel & mess fees after LPUNEST or JEE scholarship, practice free 100-question CBT mock tests, and use verified coupon code LPUMZW722 for a flat 20% discount on the LPUNEST application form (₹800 Boys / ₹400 Girls).";
+  "Calculate LPU 2027 B.Tech & MBA fees with scholarship, take free CBT mock tests, and get 20% off LPUNEST form using coupon LPUMZW722 (₹800 Boys / ₹400 Girls).";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://unifeewise.vercel.app"),
   title: {
-    default:
-      "UniFeeWise — LPUNEST 2027 Fee Calculator, Free CBT Mock Test & 20% Coupon Code (LPUMZW722)",
+    default: "UniFeeWise: LPUNEST 2027 Fee Calculator & Coupon LPUMZW722",
     template: "%s | UniFeeWise",
   },
   description: SITE_DESCRIPTION,
@@ -49,14 +48,12 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://unifeewise.vercel.app",
     siteName: "UniFeeWise",
-    title:
-      "UniFeeWise — LPUNEST 2027 Fee Calculator, Free CBT Mock Test & 20% Coupon Code (LPUMZW722)",
+    title: "UniFeeWise: LPUNEST 2027 Fee Calculator & Coupon LPUMZW722",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "UniFeeWise — LPUNEST 2027 Fee Calculator, Free CBT Mock Test & 20% Coupon Code (LPUMZW722)",
+    title: "UniFeeWise: LPUNEST 2027 Fee Calculator & Coupon LPUMZW722",
     description: SITE_DESCRIPTION,
   },
   appleWebApp: {

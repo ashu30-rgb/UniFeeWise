@@ -5,9 +5,9 @@ import PreviousYearViewer from "@/components/previous-year/PreviousYearViewer";
 import StructuredData from "@/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: "LPUNEST Previous Year Question Paper with Solutions PDF (2024–2026)",
+  title: "LPUNEST Previous Year Papers & Solutions PDF",
   description:
-    "Download and practice solved memory-based LPUNEST previous year question papers with answer keys for Physics, Chemistry, Mathematics, Biology, English & Aptitude. Unlock 20% discount on LPUNEST form with code LPUMZW722.",
+    "Download solved LPUNEST previous year question papers with solutions for PCM, PCB & English. Practice real papers and save 20% on forms with code LPUMZW722.",
   keywords: [
     "lpunest previous year question paper with solutions pdf",
     "lpunest previous year papers",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: "https://unifeewise.vercel.app/lpunest-previous-year-papers",
   },
   openGraph: {
-    title: "LPUNEST Previous Year Question Paper with Solutions PDF | UniFeeWise",
+    title: "LPUNEST Previous Year Papers & Solutions PDF",
     description:
       "Practice 150+ authentic LPUNEST previous year questions across Physics, Chemistry, Math, Biology & English with step-by-step formula derivations.",
     url: "https://unifeewise.vercel.app/lpunest-previous-year-papers",

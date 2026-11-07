@@ -89,11 +89,11 @@ export async function generateMetadata({
   const program = programData[programKey];
 
   return {
-    title: `LPU ${program.shortName} Fees, Scholarships & ROI Calculator 2026`,
-    description: `Calculate exact semester fees, check your 2026 scholarship eligibility, and find out the return on investment for the LPU ${program.fullName} program.`,
+    title: `LPU ${program.shortName} Fees & Scholarships 2027`,
+    description: `Calculate exact semester fees, check your 2027 scholarship eligibility, and find out the return on investment for the LPU ${program.fullName} program.`,
     openGraph: {
-      title: `LPU ${program.shortName} Fees, Scholarships & ROI Calculator 2026`,
-      description: `Calculate exact semester fees, check your 2026 scholarship eligibility, and find out the return on investment for the LPU ${program.fullName} program.`,
+      title: `LPU ${program.shortName} Fees & Scholarships 2027`,
+      description: `Calculate exact semester fees, check your 2027 scholarship eligibility, and find out the return on investment for the LPU ${program.fullName} program.`,
       type: "website",
     },
   };

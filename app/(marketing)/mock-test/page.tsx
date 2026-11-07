@@ -6,9 +6,9 @@ import StructuredData from "@/components/StructuredData";
 import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export const metadata: Metadata = {
-  title: "Free LPUNEST 2027 Mock Test & Previous Year Sample Paper Simulator",
+  title: "Free LPUNEST 2027 Mock Test & CBT Exam Simulator",
   description:
-    "Attempt the free LPUNEST 2027 online CBT mock test for B.Tech (PCM/PCB), MBA, BCA & BBA. Practice 25+ solved previous year questions per subject, predict your Category 1 scholarship, and get 20% off your LPUNEST form with code LPUMZW722.",
+    "Take free LPUNEST 2027 CBT mock tests for B.Tech, MBA & BCA. Practice real questions, predict your scholarship tier, and save 20% on form with code LPUMZW722.",
   keywords: [
     "LPUNEST mock test 2027",
     "LPUNEST sample paper",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     canonical: "https://unifeewise.vercel.app/mock-test",
   },
   openGraph: {
-    title: "Free LPUNEST 2027 Mock Test & CBT Simulator | UniFeeWise",
+    title: "Free LPUNEST 2027 Mock Test & CBT Simulator",
     description:
       "Full-length 100-question CBT mock exam with sectional navigation, timer, NCERT-level MCQs, numericals, and instant scholarship tier prediction.",
     url: "https://unifeewise.vercel.app/mock-test",

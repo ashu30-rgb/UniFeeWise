@@ -12,9 +12,9 @@ import StructuredData from "@/components/StructuredData";
 import { LPUNEST_CONFIG } from "@/config/lpunest";
 
 export const metadata: Metadata = {
-  title: "LPUNEST Coupon Code 2027: Flat 20% Discount (Code: LPUMZW722)",
+  title: "LPUNEST Coupon Code 2027 (20% Off: LPUMZW722)",
   description:
-    "Use verified LPUNEST 2027 coupon code LPUMZW722 for a flat 20% discount on LPU application form. Boys pay ₹800 (instead of ₹1,000), Girls pay ₹400 (instead of ₹500). Active for all courses.",
+    "Get 20% off LPUNEST 2027 application form with code LPUMZW722. Boys pay ₹800 (was ₹1000), Girls pay ₹400 (was ₹500). Valid for B.Tech, MBA & all LPU courses.",
   keywords: [
     "lpunest coupon code 2027",
     "lpunest discount code",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     canonical: "https://unifeewise.vercel.app/lpunest-coupon-code",
   },
   openGraph: {
-    title: "LPUNEST Coupon Code 2027: Flat 20% Discount (LPUMZW722)",
+    title: "LPUNEST Coupon Code 2027 (20% Off: LPUMZW722)",
     description:
       "Save 20% instantly on official LPUNEST application forms with code LPUMZW722. Boys: ₹800 | Girls: ₹400. Step-by-step redemption guide.",
     url: "https://unifeewise.vercel.app/lpunest-coupon-code",
