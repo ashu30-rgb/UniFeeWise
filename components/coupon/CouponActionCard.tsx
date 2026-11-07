@@ -64,14 +64,14 @@ export default function CouponActionCard() {
       {/* Copy Code Interactive Box */}
       <div
         onClick={handleCopyCode}
-        className="group relative flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border-2 border-dashed border-orange-500/50 bg-slate-900/90 p-5 sm:p-6 transition hover:border-orange-500 hover:bg-slate-900 cursor-pointer"
+        className="group relative flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border-2 border-dashed border-orange-500/50 bg-slate-900/90 p-5 sm:p-6 transition-all duration-150 hover:border-orange-500 hover:bg-slate-900 active:scale-[0.99] cursor-pointer"
       >
         <div className="text-center sm:text-left space-y-1">
           <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
             Official LPU Promo Code
           </span>
           <div className="flex items-center gap-3 justify-center sm:justify-start">
-            <span className="font-mono text-3xl sm:text-4xl font-black tracking-widest text-white group-hover:text-orange-400 transition">
+            <span className="font-mono text-3xl sm:text-4xl font-black tracking-widest text-white group-hover:text-orange-400 transition-colors">
               {DISCOUNT_CODE}
             </span>
           </div>
@@ -82,7 +82,7 @@ export default function CouponActionCard() {
 
         <button
           type="button"
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3.5 text-xs font-extrabold text-white shadow-lg shadow-orange-600/30 group-hover:bg-orange-500 transition cursor-pointer"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3.5 text-xs font-extrabold text-white shadow-lg shadow-orange-600/30 group-hover:bg-orange-500 active:scale-95 transition-all duration-150 cursor-pointer"
         >
           {copied ? (
             <>
@@ -103,7 +103,7 @@ export default function CouponActionCard() {
         <button
           type="button"
           onClick={handleApplyPortal}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-4 text-xs font-black uppercase tracking-wider text-white shadow-md hover:from-orange-600 hover:to-amber-600 transition cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-6 py-4 text-xs font-black uppercase tracking-wider text-white shadow-md hover:from-orange-600 hover:to-amber-600 active:scale-[0.98] transition-all duration-150 cursor-pointer"
         >
           <span>Apply on Official LPU Portal (20% Off)</span>
           <ExternalLink className="h-4 w-4" />
@@ -112,7 +112,7 @@ export default function CouponActionCard() {
         <button
           type="button"
           onClick={handleWhatsApp}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-800 bg-emerald-950/80 px-6 py-4 text-xs font-bold text-emerald-300 hover:bg-emerald-900/90 transition cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-800 bg-emerald-950/80 px-6 py-4 text-xs font-bold text-emerald-300 hover:bg-emerald-900/90 active:scale-[0.98] transition-all duration-150 cursor-pointer"
         >
           <WhatsAppIcon className="h-4 w-4 fill-current text-emerald-400" />
           <span>Join WhatsApp Desk for Form Help</span>

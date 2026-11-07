@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-all">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-colors duration-200">
       {/* Top Subtle Announcement Bar */}
       <div className="border-b border-emerald-900/30 bg-emerald-950 px-4 py-1.5 text-center text-[11px] text-emerald-200">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 flex-wrap">
@@ -36,7 +36,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={handleWhatsAppClick}
-            className="inline-flex items-center gap-1 font-bold text-white hover:text-emerald-300 underline underline-offset-2 transition cursor-pointer"
+            className="inline-flex items-center gap-1 font-bold text-white hover:text-emerald-300 underline underline-offset-2 transition-colors cursor-pointer active:scale-[0.98]"
           >
             <span>Join LPUNEST 2027 WhatsApp Desk (Free Mock PDFs &amp; Slot Alerts)</span>
             <span aria-hidden="true">→</span>
@@ -49,7 +49,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/"
-            className="flex items-center gap-2 font-black tracking-tight text-slate-900 transition hover:opacity-90 whitespace-nowrap"
+            className="flex items-center gap-2 font-black tracking-tight text-slate-900 transition-opacity hover:opacity-90 active:scale-[0.98] whitespace-nowrap"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-600 text-white shadow-sm shadow-orange-500/30">
               <Calculator className="h-4 w-4" />
@@ -73,7 +73,7 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
-              className="inline-flex items-center gap-1 text-xs xl:text-sm font-semibold tracking-tight text-slate-600 transition hover:text-orange-600 whitespace-nowrap"
+              className="inline-flex items-center gap-1 text-xs xl:text-sm font-semibold tracking-tight text-slate-600 transition-colors duration-150 hover:text-orange-600 whitespace-nowrap"
             >
               <span>{link.label}</span>
               {link.badge && (
@@ -91,7 +91,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={handleWhatsAppClick}
-            className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 whitespace-nowrap xl:inline-flex cursor-pointer shadow-xs"
+            className="hidden items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition-all duration-150 hover:bg-emerald-100 active:scale-[0.97] whitespace-nowrap xl:inline-flex cursor-pointer shadow-xs"
             title="Join LPUNEST 2027 WhatsApp Prep & Cutoff Desk"
           >
             <WhatsAppIcon className="h-3.5 w-3.5 fill-current text-emerald-600" />
@@ -102,7 +102,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={handleWhatsAppClick}
-            className="hidden items-center justify-center h-8 w-8 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100 cursor-pointer shadow-xs lg:inline-flex xl:hidden"
+            className="hidden items-center justify-center h-8 w-8 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-700 transition-all duration-150 hover:bg-emerald-100 active:scale-95 cursor-pointer shadow-xs lg:inline-flex xl:hidden"
             title="Join LPUNEST 2027 WhatsApp Prep & Cutoff Desk"
             aria-label="Join WhatsApp Desk"
           >
@@ -112,7 +112,7 @@ export default function Navbar() {
           {/* Form Discount CTA */}
           <a
             href="/#calculator"
-            className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-orange-600 hover:shadow-orange-500/20 whitespace-nowrap sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition-all duration-150 hover:bg-orange-600 hover:shadow-orange-500/20 active:scale-[0.97] whitespace-nowrap sm:inline-flex"
           >
             <span>Get 20% Form Discount</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -121,7 +121,7 @@ export default function Navbar() {
           {/* Mobile CTA (Compact) */}
           <a
             href="/#calculator"
-            className="rounded-full bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-orange-700 whitespace-nowrap sm:hidden"
+            className="rounded-full bg-orange-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-all duration-150 hover:bg-orange-700 active:scale-95 whitespace-nowrap sm:hidden"
           >
             20% Off Code
           </a>
@@ -130,7 +130,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-lg p-1.5 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 lg:hidden"
+            className="rounded-lg p-1.5 text-slate-600 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-900 active:scale-90 lg:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -145,7 +145,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="border-b border-slate-200 bg-white px-4 py-4 shadow-lg lg:hidden">
+        <div className="border-b border-slate-200 bg-white px-4 py-4 shadow-lg lg:hidden animate-in fade-in-50 slide-in-from-top-1 duration-200 ease-out">
           <nav className="flex flex-col space-y-3">
             {/* Mobile WhatsApp Button */}
             <button

@@ -801,7 +801,7 @@ export default function CBTSimulator() {
           <div className="flex items-center gap-3">
             {/* Live Countdown Timer */}
             <div
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1 font-mono text-sm sm:text-base font-black ${
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1 font-mono text-sm sm:text-base font-black tabular-nums ${
                 secondsRemaining < 300
                   ? "border-rose-500/50 bg-rose-500/20 text-rose-300 animate-pulse"
                   : "border-slate-700 bg-slate-800 text-emerald-400"
@@ -823,7 +823,7 @@ export default function CBTSimulator() {
                   handleFinishExam();
                 }
               }}
-              className="rounded-xl bg-orange-600 hover:bg-orange-500 px-4 py-1.5 text-xs font-black text-white shadow-sm transition cursor-pointer"
+              className="rounded-xl bg-orange-600 hover:bg-orange-500 active:scale-[0.97] px-4 py-1.5 text-xs font-black text-white shadow-sm transition-all duration-150 cursor-pointer"
             >
               Submit Exam
             </button>
@@ -925,7 +925,7 @@ export default function CBTSimulator() {
                         key={idx}
                         type="button"
                         onClick={() => handleSelectOption(idx)}
-                        className={`w-full flex items-center gap-3.5 rounded-2xl border p-3.5 sm:p-4 text-left transition cursor-pointer ${
+                        className={`w-full flex items-center gap-3.5 rounded-2xl border p-3.5 sm:p-4 text-left cursor-pointer active:scale-[0.99] transition-all duration-150 ${
                           isSelected
                             ? "border-orange-500 bg-orange-50/70 shadow-sm ring-2 ring-orange-500/20"
                             : "border-slate-200 hover:border-slate-300 hover:bg-slate-50/50"
@@ -983,14 +983,14 @@ export default function CBTSimulator() {
                   type="button"
                   onClick={handleClearResponse}
                   disabled={!isAnswered && numericalInput === ""}
-                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 active:scale-[0.97] transition-all duration-150 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   Clear Response
                 </button>
                 <button
                   type="button"
                   onClick={handleMarkForReview}
-                  className={`rounded-xl border px-3 py-2 text-xs font-bold transition cursor-pointer ${
+                  className={`rounded-xl border px-3 py-2 text-xs font-bold active:scale-[0.97] transition-all duration-150 cursor-pointer ${
                     isMarked
                       ? "border-purple-500 bg-purple-600 text-white"
                       : "border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-100"
@@ -1009,7 +1009,7 @@ export default function CBTSimulator() {
                     }
                   }}
                   disabled={currentQuestionIndex === 0}
-                  className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.97] transition-all duration-150 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>Previous</span>
@@ -1018,7 +1018,7 @@ export default function CBTSimulator() {
                 <button
                   type="button"
                   onClick={handleSaveAndNext}
-                  className="inline-flex items-center gap-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition cursor-pointer"
+                  className="inline-flex items-center gap-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.97] px-4 py-2 text-xs font-bold text-white shadow-sm transition-all duration-150 cursor-pointer"
                 >
                   <span>Save &amp; Next</span>
                   <ChevronRight className="h-4 w-4" />
